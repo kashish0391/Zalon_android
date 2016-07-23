@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zalonstyles.app.zalon">
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <application
+
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".forgotPassword">
+            </activity>
+        <activity
+            android:name=".changePassword"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+        android:name=".Services_activity"
+            android:screenOrientation="landscape"
+        android:label="Services" >
+        </activity>
+        <activity android:name=".Popup_body"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".popup_nail"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".popup_hair"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".popup_massage"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".popup_face"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".popup_hr_removal"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".add_employee"
+            android:screenOrientation="landscape"
+            android:label="ADD EMPLOYEE"
+            android:theme="@style/AppTheme.CustomTheme1">
+
+
+        </activity>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#FAFAD2"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="120dp">
+
+
+
+
+        <EditText
+            android:id="@+id/editTextempname"
+            android:textSize="16dp"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:hint="Employee"
+            android:layout_marginLeft="46dp"
+            android:textColorHint="@color/colorhint"
+            android:textColor="@color/colortext"
+            android:maxLength="12"
+            android:background="#0000"
+            android:padding="6dp"
+            android:gravity="left"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:background="#dad8d8"/>
+
+        <EditText
+            android:id="@+id/editTextmobieno"
+            android:textSize="16dp"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:hint="Mobile No"
+            android:layout_marginLeft="46dp"
+            android:layout_marginRight="46dp"
+            android:textColorHint="@color/colorhint"
+            android:textColor="@color/colortext"
+            android:background="#0000"
+            android:padding="6dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="25dp"
+            android:background="#dad8d8"/>
+
+
+
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+        <Button
+
+            android:id="@+id/buttonsubmit"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="#2b73e1"
+            android:text="ADD"
+            android:textSize="14dp"
+            android:textColor="#fff"
+            android:onClick="userlogin"
+            android:gravity="center"
+            android:layout_marginLeft="90dp"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            />
+        <Button
+
+            android:id="@+id/buttoncontinue"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:background="#2b73e1"
+            android:text="Continue"
+            android:textSize="14dp"
+            android:textColor="#fff"
+            android:onClick="userlogin"
+            android:gravity="center"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="50dp"
+            android:padding="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            />
+          </LinearLayout>
+        <ListView
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:id="@+id/listviewemp">
+        </ListView>
+    </LinearLayout>
+
+
+</RelativeLayout>

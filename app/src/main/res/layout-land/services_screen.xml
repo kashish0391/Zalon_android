@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/Body"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="150dp"
+        android:background="#2b73e1"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="BODY"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/hair"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_toRightOf="@+id/Body"
+        android:background="#2b73e1"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="HAIR"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/Face"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_toRightOf="@+id/hair"
+        android:background="#2b73e1"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="Face"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/Nails"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Face"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="50dp"
+        android:layout_toRightOf="@+id/Massage"
+        android:layout_marginTop="70dp"
+        android:background="#2b73e1"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="NAILS"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/Massage"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Body"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="70dp"
+        android:background="#2b73e1"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="MASSAGE"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+    <Button
+        android:id="@+id/hair_removal"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Face"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="100dp"
+        android:layout_toRightOf="@+id/Nails"
+        android:layout_marginTop="70dp"
+        android:background="#2b73e1"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="HAIR REMOVAL"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+
+
+
+</RelativeLayout>

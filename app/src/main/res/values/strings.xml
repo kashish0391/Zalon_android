@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Zalon</string>
+    <string name="ADDEMP">ADD EMPLOYEE</string>
+    <string name="title_activity_change_password">changePassword</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="40dp">
+    <TextView
+        android:id="@+id/emptextview1"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/emptextview2"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="80dp"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:layout_alignBaseline="@+id/emptextview1"
+        android:layout_alignBottom="@+id/emptextview1"
+        android:layout_toRightOf="@+id/emptextview1"
+        android:text="TextView" />
+    <Button
+
+        android:id="@+id/buttonDelete"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:background="@drawable/close"
+        android:textSize="14dp"
+        android:textColor="#fff"
+        android:onClick="userlogin"
+        android:gravity="center"
+        android:padding="3dp"
+        android:layout_marginLeft="40dp"
+
+        />
+
+</LinearLayout>
