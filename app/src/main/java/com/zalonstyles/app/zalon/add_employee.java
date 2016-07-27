@@ -2,6 +2,7 @@ package com.zalonstyles.app.zalon;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -81,7 +82,23 @@ public class add_employee extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });}
+        });
+        check.setOnClickListener(new View.OnClickListener()
+        {
+
+
+            @Override
+            public void onClick(View view)
+            {
+
+                Intent intent = new Intent(add_employee.this,mainActivityScreen.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+    }
     private void Submit() throws JSONException {
         empname = EmployeeName.getText().toString().trim();
         empmobileno = EmolyeeNo.getText().toString().trim();
@@ -175,20 +192,7 @@ public class add_employee extends AppCompatActivity {
 
 
 
-        check.setOnClickListener(new View.OnClickListener()
-        {
 
-
-            @Override
-            public void onClick(View view)
-            {
-
-                //Intent intent = new Intent(add_employee.this,popup_hair.class);
-                //startActivity(intent);
-
-
-            }
-        });
 
 
 

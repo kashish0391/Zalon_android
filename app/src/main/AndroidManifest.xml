@@ -61,12 +61,16 @@
 
         </activity>
         <activity android:name=".add_employee"
+        android:screenOrientation="landscape"
+        android:label="ADD EMPLOYEE"
+        android:theme="@style/AppTheme.CustomTheme1">
+         </activity>
+        <activity
+            android:name=".mainActivityScreen"
             android:screenOrientation="landscape"
-            android:label="ADD EMPLOYEE"
-            android:theme="@style/AppTheme.CustomTheme1">
-
-
+            android:label="Zalon" >
         </activity>
+
 
     </application>
 
