@@ -66,9 +66,34 @@
         android:theme="@style/AppTheme.CustomTheme1">
          </activity>
         <activity
-            android:name=".mainActivityScreen"
+            android:name=".CalendarMain"
             android:screenOrientation="landscape"
-            android:label="Zalon" >
+            android:label="Calendar" >
+        </activity>
+        <activity
+            android:name=".BillingMain"
+            android:screenOrientation="landscape"
+            android:label="Billing" >
+        </activity>
+        <activity
+            android:name=".ReportMain"
+            android:screenOrientation="landscape"
+            android:label="Report" >
+        </activity>
+        <activity
+            android:name=".MarketingMain"
+            android:screenOrientation="landscape"
+            android:label="Marketing" >
+        </activity>
+        <activity
+            android:name=".ServicesMain"
+            android:screenOrientation="landscape"
+            android:label="Service" >
+        </activity>
+        <activity
+            android:name=".SettingsMain"
+            android:screenOrientation="landscape"
+            android:label="Settings" >
         </activity>
 
 
