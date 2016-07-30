@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.zalonstyles.app.zalon.Adapter.CustomAdapter;
+import com.zalonstyles.app.zalon.Adapter.CustomAdapter1;
+import com.zalonstyles.app.zalon.Adapter.CustomAdapter2;
 
 import java.util.ArrayList;
 
@@ -17,11 +19,19 @@ import java.util.ArrayList;
  */
 public class SettingsMain extends AppCompatActivity {
     ListView lv;
+    ListView lv1;
+    ListView lv2;
     Context context;
 
     ArrayList prgmName;
-    public static int [] prgmImages={R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon};
-    public static String [] prgmNameList={"Emoloyee Management","Inventory","Payment Method","Gift Voucher","Business Hours"};
+    public static int [] prgmImages={R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon};
+    public static String [] prgmNameList={"Emoloyee Management","Inventory","Sellable","Profile","Gift Voucher","Business Hours"};
+    ArrayList prgmName1;
+    public static int [] prgmImages1={R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,};
+    public static String [] prgmNameList1={"Print Receipt","Customer","Billings"};
+    ArrayList prgmName2;
+    public static int [] prgmImages2={R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon};
+    public static String [] prgmNameList2={"Change Password","Policy","About","Logout"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +41,11 @@ public class SettingsMain extends AppCompatActivity {
 
         lv=(ListView) findViewById(R.id.lvSettings);
         lv.setAdapter(new CustomAdapter(this, prgmNameList,prgmImages));
+        lv1=(ListView) findViewById(R.id.lvSettings1);
+        lv1.setAdapter(new CustomAdapter1(this,prgmNameList1,prgmImages1));
+        lv2=(ListView) findViewById(R.id.lvSettings2);
+        lv2.setAdapter(new CustomAdapter2(this,prgmNameList2,prgmImages2));
+
 
     }
 

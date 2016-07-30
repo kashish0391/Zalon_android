@@ -2,15 +2,20 @@ package com.zalonstyles.app.zalon.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.zalonstyles.app.zalon.EmployeeManagement;
+import com.zalonstyles.app.zalon.GiftVouchers;
+import com.zalonstyles.app.zalon.Inventory;
+import com.zalonstyles.app.zalon.Profile;
 import com.zalonstyles.app.zalon.R;
+import com.zalonstyles.app.zalon.SellableInventory;
 
 /**
  * Created by KASHISH on 28-07-2016.
@@ -55,7 +60,7 @@ public class CustomAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         Holder holder=new Holder();
-        View rowView;
+        final View rowView;
         rowView = inflater.inflate(R.layout.customlistsettings1, null);
         holder.tv=(TextView) rowView.findViewById(R.id.tv1);
         holder.img=(ImageView) rowView.findViewById(R.id.iv1);
@@ -65,7 +70,48 @@ public class CustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked "+result[position], Toast.LENGTH_LONG).show();
+               /* switch(position){
+
+                    case 0 :Intent intent = new Intent(v.getContext(), EmployeeManagement.class);
+                        Activ
+
+                        break;
+                    case 1 :Intent intent1 = new Intent(SettingsMain.this, Inventory.class);
+                        startActivity(intent1);
+                        break;
+                    case 2 :Intent intent2 = new Intent(SettingsMain.this, SellableInventory.class);
+                        startActivity(intent2);
+                        break;
+                    case 3:Intent intent3 = new Intent(SettingsMain.this,Profile.class);
+                        startActivity(intent3);
+                        break;
+                    case 4 : Intent intent4 = new Intent(SettingsMain.this,GiftVouchers.class);
+                        startActivity(intent4);
+                        break; */
+                if (position == 0) {
+                    v.getContext().startActivity(new Intent(context, EmployeeManagement.class));
+
+                }
+
+                if (position == 1) {
+                    v.getContext().startActivity(new Intent(context, Inventory.class));
+
+                }
+
+                if (position == 2) {
+                    v.getContext().startActivity(new Intent(context, SellableInventory.class));
+
+                }
+
+                if (position == 3) {
+                    v.getContext().startActivity(new Intent(context, Profile.class));
+                }
+
+                    if (position == 4) {
+                    v.getContext().startActivity(new Intent(context, GiftVouchers.class));
+
+                }
+
             }
         });
         return rowView;

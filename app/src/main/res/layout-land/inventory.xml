@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_weight="3"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/inventorytv"
+                android:layout_height="25dp"
+                android:padding="5dp"
+                android:text="Item Name"/>
+            <EditText
+                android:layout_width="100dp"
+                android:layout_toRightOf="@id/inventorytv"
+                android:padding="5dp"
+                android:id="@+id/inventoryed"
+                android:layout_marginLeft="40dp"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Price"
+                android:padding="5dp"
+                android:id="@+id/inventorytv1"
+                android:layout_below="@+id/inventorytv"/>
+            <EditText
+                android:layout_width="100dp"
+                android:layout_below="@+id/inventoryed"
+                android:id="@+id/inventoryed1"
+                android:padding="5dp"
+                android:layout_marginLeft="120dp"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Stock"
+                android:padding="5dp"
+                android:id="@+id/inventorytv2"
+                android:layout_below="@+id/inventorytv1"/>
+            <EditText
+                android:layout_width="100dp"
+                android:layout_below="@+id/inventoryed1"
+                android:padding="5dp"
+                android:id="@+id/inventoryed2"
+                android:layout_marginLeft="120dp"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Refill Reminder"
+                android:padding="5dp"
+                android:id="@+id/inventorytv3"
+                android:layout_below="@+id/inventorytv2"/>
+            <EditText
+                android:layout_width="100dp"
+                android:layout_below="@+id/inventoryed2"
+                android:padding="5dp"
+                android:layout_marginLeft="120dp"
+                android:layout_height="25dp" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#3F51B5"
+                android:text="ADD"
+                android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_weight="2"
+        android:background="#FF00FF"
+        android:layout_height="match_parent"></LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

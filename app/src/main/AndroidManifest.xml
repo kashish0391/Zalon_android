@@ -95,6 +95,37 @@
             android:screenOrientation="landscape"
             android:label="Settings" >
         </activity>
+        <activity
+            android:name=".AccountingMain"
+            android:screenOrientation="landscape"
+            android:label="Accounting" >
+        </activity>
+        <activity
+            android:name=".EmployeeManagement"
+            android:screenOrientation="landscape"
+            android:label="Employee Management" >
+        </activity>
+        <activity
+            android:name=".Inventory"
+            android:screenOrientation="landscape"
+            android:label="Inventory" >
+        </activity>
+        <activity
+            android:name=".SellableInventory"
+            android:screenOrientation="landscape"
+            android:label="Sellable Inventory" >
+        </activity>
+        <activity
+            android:name=".Profile"
+            android:screenOrientation="landscape"
+            android:label="Profile" >
+        </activity>
+        <activity
+            android:name=".GiftVouchers"
+            android:screenOrientation="landscape"
+            android:label="Gift Vouchers" >
+        </activity>
+
 
 
     </application>
