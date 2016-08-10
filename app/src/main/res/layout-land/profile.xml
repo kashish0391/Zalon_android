@@ -1,6 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:background= "#4242C2"
+
+        >
+
+    </FrameLayout>
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/imageview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/zalon"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:id="@+id/profileid1"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="220dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:padding="3dp"
+            android:textColor="#000"
+            android:text="INFORMATION"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000"
+
+                android:text="NAME"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_marginLeft="100dp"
+                android:id="@+id/profiletv1"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="315dp"
+                android:textColor="#000"
+                android:text="PHONE"/>
+            <TextView
+                android:layout_width="140dp"
+                android:layout_marginLeft="90dp"
+                android:id="@+id/profiletv2"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000"
+                android:text="ADDRESS"/>
+            <TextView
+                android:layout_width="600dp"
+                android:layout_marginLeft="100dp"
+                android:id="@+id/profiletv3"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000"
+                android:text="EMAIL"/>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_marginLeft="100dp"
+                android:id="@+id/profiletv6"
+                android:layout_height="wrap_content" />
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000"
+                android:text="WEBSITE"/>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_marginLeft="100dp"
+                android:id="@+id/profiletv4"
+                android:layout_height="wrap_content" />
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000"
+                android:text="PAYMENT METHOD"/>
+            <TextView
+                android:layout_width="300dp"
+                android:layout_marginLeft="50dp"
+                android:id="@+id/profiletv5"
+                android:layout_height="wrap_content" />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/profileid1"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="SALON TIMINGS"
+            android:textColor="#000"
+            android:layout_height="wrap_content" />
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/profilelv"
+            android:background="#fff"
+            android:layout_weight="1"
+            android:layout_height="520dp">
+
+        </ListView>
+
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

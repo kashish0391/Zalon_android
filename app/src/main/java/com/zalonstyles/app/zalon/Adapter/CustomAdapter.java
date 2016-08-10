@@ -70,24 +70,7 @@ public class CustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-               /* switch(position){
 
-                    case 0 :Intent intent = new Intent(v.getContext(), EmployeeManagement.class);
-                        Activ
-
-                        break;
-                    case 1 :Intent intent1 = new Intent(SettingsMain.this, Inventory.class);
-                        startActivity(intent1);
-                        break;
-                    case 2 :Intent intent2 = new Intent(SettingsMain.this, SellableInventory.class);
-                        startActivity(intent2);
-                        break;
-                    case 3:Intent intent3 = new Intent(SettingsMain.this,Profile.class);
-                        startActivity(intent3);
-                        break;
-                    case 4 : Intent intent4 = new Intent(SettingsMain.this,GiftVouchers.class);
-                        startActivity(intent4);
-                        break; */
                 if (position == 0) {
                     v.getContext().startActivity(new Intent(context, EmployeeManagement.class));
 

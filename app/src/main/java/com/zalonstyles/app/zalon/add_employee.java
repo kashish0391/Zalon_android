@@ -50,8 +50,8 @@ public class add_employee extends AppCompatActivity {
     private String empname;
     private String empmobileno;
     private ListView emplist;
-    private List<employee> employeeList = new ArrayList<>();
-    private ArrayAdapter<employee> listAdapter;
+    private List<emplyeeModel> employeeList = new ArrayList<>();
+    private ArrayAdapter<emplyeeModel> listAdapter;
 
 
     public static final String SUBMIT_URL = "http://52.41.72.46:8080/salon/add_staff";
@@ -104,7 +104,7 @@ public class add_employee extends AppCompatActivity {
         empmobileno = EmolyeeNo.getText().toString().trim();
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
-        employee empobj = new employee();
+        emplyeeModel empobj = new emplyeeModel();
         empobj.setName(empname);
         empobj.setNumber(empmobileno);
         employeeList.add(empobj);
@@ -166,7 +166,7 @@ public class add_employee extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        listAdapter = new employeeArrayAdapter(this,R.layout.customlist_body, employeeList);
+        listAdapter = new employeeArrayAdapter(this,R.layout.custom_employee, employeeList);
         emplist.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
 
@@ -178,7 +178,7 @@ public class add_employee extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View item,
                                             int position, long id)
                     {
-                        employee employee1 = listAdapter.getItem(position);
+                        emplyeeModel employee1 = listAdapter.getItem(position);
                         Log.e("CHECKADAPTOR", String.valueOf(employee1));
                         employee1.toggleClicked();
                         viewHolder1 viewHolder =(viewHolder1) item
@@ -198,14 +198,14 @@ public class add_employee extends AppCompatActivity {
 
     }
 
-    private static class employeeArrayAdapter extends ArrayAdapter<employee>
+    private static class employeeArrayAdapter extends ArrayAdapter<emplyeeModel>
     {
 
         private LayoutInflater inflater;
-        private List<employee> emplist;
+        private List<emplyeeModel> emplist;
         private Context context;
 
-        public employeeArrayAdapter(Context context, int resourceId, List<employee> emplist)
+        public employeeArrayAdapter(Context context, int resourceId, List<emplyeeModel> emplist)
         {
             super(context, R.layout.custom_employee, emplist);
             // Cache the LayoutInflate to avoid asking for a new one each time.
@@ -218,7 +218,7 @@ public class add_employee extends AppCompatActivity {
         public View getView(final int position, View convertView, ViewGroup parent)
         {
             // SERVICES to display
-            employee emp = (employee) this.getItem(position);
+            emplyeeModel emp = (emplyeeModel) this.getItem(position);
 
             // The child views in each row.
             TextView textView1;
@@ -264,7 +264,7 @@ public class add_employee extends AppCompatActivity {
                     public void onClick(View v)
                     {
                         Button cb = (Button) v;
-                        employee massage = (employee) cb.getTag();
+                        emplyeeModel massage = (emplyeeModel) cb.getTag();
                         massage.setClicked(cb.isSelected());
                     }
                 });
@@ -281,7 +281,7 @@ public class add_employee extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Button cb = (Button) v;
-                    employee massage = (employee) cb.getTag();
+                    emplyeeModel massage = (emplyeeModel) cb.getTag();
                     massage.setClicked(cb.isSelected());
 
 

@@ -125,6 +125,49 @@
             android:screenOrientation="landscape"
             android:label="Gift Vouchers" >
         </activity>
+        <activity
+            android:name=".PrintReceipts"
+            android:screenOrientation="landscape"
+            android:label="Print Receipts" >
+        </activity>
+        <activity
+            android:name=".Customers"
+            android:screenOrientation="landscape"
+            android:label="Customers" >
+        </activity>
+        <activity
+            android:name=".Billing"
+            android:screenOrientation="landscape"
+            android:label="Gift Vouchers" >
+        </activity>
+        <activity
+            android:name=".Change_Password"
+            android:screenOrientation="landscape"
+            android:label="Change Password" >
+        </activity>
+        <activity
+            android:name=".PolicyZalon"
+            android:screenOrientation="landscape"
+            android:label="Policy" >
+        </activity>
+        <activity
+            android:name=".About"
+            android:screenOrientation="landscape"
+            android:label="ABOUT" >
+        </activity>
+        <activity
+            android:name=".Logout"
+            android:screenOrientation="landscape"
+            android:label="Logout" >
+        </activity>
+        <activity
+            android:name=".EditProfile"
+            android:screenOrientation="landscape"
+            android:label="EditProfile" >
+        </activity>
+
+
+
 
 
 

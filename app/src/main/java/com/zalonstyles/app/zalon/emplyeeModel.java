@@ -1,27 +1,27 @@
 package com.zalonstyles.app.zalon;
 
 /**
- * Created by KASHISH on 21-07-2016.
+ * Created by KASHISH on 02-08-2016.
  */
-public class employee {
+public class emplyeeModel {
     private String name;
     private String number;
     private boolean clicked = false;
-    public employee(){
+    public emplyeeModel(){
 
     }
-    public employee(String name)
+    public emplyeeModel(String name)
     {
         this.name = name;
     }
 
-    public employee(String name, String number)
+    public emplyeeModel(String name, String number)
     {
         this.name = name;
         this.number = number;
 
     }
-    public employee(String name, String number,Boolean clicked)
+    public emplyeeModel(String name, String number, Boolean clicked)
     {
         this.name = name;
         this.number = number;

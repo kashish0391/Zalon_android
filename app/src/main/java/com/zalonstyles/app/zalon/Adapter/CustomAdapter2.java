@@ -2,14 +2,18 @@ package com.zalonstyles.app.zalon.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.zalonstyles.app.zalon.About;
+import com.zalonstyles.app.zalon.Change_Password;
+import com.zalonstyles.app.zalon.Logout;
+import com.zalonstyles.app.zalon.PolicyZalon;
 import com.zalonstyles.app.zalon.R;
 
 /**
@@ -65,7 +69,24 @@ public class CustomAdapter2 extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked "+result[position], Toast.LENGTH_LONG).show();
+                if (position == 0) {
+                    v.getContext().startActivity(new Intent(context, Change_Password.class));
+
+                }
+
+                if (position == 1) {
+                    v.getContext().startActivity(new Intent(context, PolicyZalon.class));
+
+                }
+
+                if (position == 2) {
+                    v.getContext().startActivity(new Intent(context, About.class));
+
+                }
+
+                if (position == 3) {
+                    v.getContext().startActivity(new Intent(context, Logout.class));
+                }
             }
         });
         return rowView;

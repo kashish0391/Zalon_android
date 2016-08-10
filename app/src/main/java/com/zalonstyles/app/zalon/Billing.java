@@ -5,12 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by KASHISH on 30-07-2016.
+ * Created by KASHISH on 02-08-2016.
  */
-public class policy extends AppCompatActivity {
+public class Billing extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.policy);
+        setContentView(R.layout.billing);
     }
 }
