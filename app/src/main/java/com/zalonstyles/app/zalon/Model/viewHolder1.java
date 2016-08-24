@@ -11,14 +11,22 @@ public class viewHolder1
     private TextView textview1;
     private TextView textView;
     private Button button;
+    private TextView textView3;
 
+    public TextView getTextView3() {
+        return textView3;
+    }
 
+    public void setTextView3(TextView textView3) {
+        this.textView3 = textView3;
+    }
 
-    public viewHolder1(TextView textView, TextView textview1,Button button)
+    public viewHolder1(TextView textView, TextView textview1, Button button,TextView textView3)
     {
         this.textview1 = textview1;
         this.textView = textView;
         this.button = button;
+        this.textView3 = textView3;
 
     }
 

@@ -165,6 +165,11 @@
             android:screenOrientation="landscape"
             android:label="EditProfile" >
         </activity>
+        <activity
+            android:name=".Edit_Service"
+            android:screenOrientation="landscape"
+            android:label="Edit Service" >
+        </activity>
 
 
 

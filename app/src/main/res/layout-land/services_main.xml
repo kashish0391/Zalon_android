@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="3"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/servicebody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#2b73e1"
+                android:text="Body" />
+
+            <Button
+                android:id="@+id/servicehair"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#2b73e1"
+                android:text="HAIR" />
+
+            <Button
+                android:id="@+id/serviceface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#2b73e1"
+
+                android:text="FACE" />
+
+            <Button
+                android:id="@+id/servicemassage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#2b73e1"
+                android:text="MASSAGE" />
+
+            <Button
+                android:id="@+id/servicenail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#2b73e1"
+                android:text="NAILS" />
+
+            <Button
+                android:id="@+id/servicehairremoval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#2b73e1"
+
+                android:text="HAIR REMOVAL" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="2"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/listviewservice"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0px">
+
+            </ListView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="#3F51B5"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/addservicebtn"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:background="#fff"
+                    android:text="ADD SERVICE" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

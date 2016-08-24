@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +51,17 @@ public class add_employee extends AppCompatActivity {
     private Button check;
     private String empname;
     private String empmobileno;
+    private EditText category;
     private ListView emplist;
+    Spinner SPINNER;
+    String GETTEXT;
+    private String spinnerValue;
+
+    List<String> stringlist;
+    ArrayAdapter<String> arrayadapter;
+
+    private Button addcategory;
+    String[] spinnerItems = new String[]{"Junior Stylist","Senior Stylist","Art Director"};
     private List<emplyeeModel> employeeList = new ArrayList<>();
     private ArrayAdapter<emplyeeModel> listAdapter;
 
@@ -62,17 +74,56 @@ public class add_employee extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_employee);
         check = (Button) findViewById(R.id.buttoncontinue);
-        SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+        category = (EditText) findViewById(R.id.editTextempcat);
         emplist = (ListView)findViewById(R.id.listviewemp);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int)(width*.75),(int)(height*.76));
+        getWindow().setLayout((int)(width*.85),(int)(height*.76));
         EmployeeName = (EditText) findViewById(R.id.editTextempname);
         EmolyeeNo = (EditText) findViewById(R.id.editTextmobieno);
+        addcategory = (Button) findViewById(R.id.buttonspinnercat);
         buttonSubmit = (Button)findViewById(R.id.buttonsubmit);
+        SPINNER = (Spinner) findViewById(R.id.spinneraddemp);
+        stringlist = new ArrayList<>(Arrays.asList(spinnerItems));
+
+        arrayadapter = new ArrayAdapter<String>(add_employee.this,R.layout.textaddempspinner,stringlist );
+
+        arrayadapter.setDropDownViewResource(R.layout.textaddempspinner);
+
+        SPINNER.setAdapter(arrayadapter);
+        SPINNER.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerValue = SPINNER.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spinnerValue ="Normal Category";
+
+            }
+        });
+        addcategory.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                GETTEXT = category.getText().toString();
+
+                stringlist.add(GETTEXT);
+                category.setText("");
+
+                arrayadapter.notifyDataSetChanged();
+
+
+                Toast.makeText(add_employee.this, "Item Added", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,12 +158,14 @@ public class add_employee extends AppCompatActivity {
         emplyeeModel empobj = new emplyeeModel();
         empobj.setName(empname);
         empobj.setNumber(empmobileno);
+        empobj.setCategory(spinnerValue);
         employeeList.add(empobj);
         final JSONObject params = new JSONObject();
         params.put("access_token", value);
         JSONObject param = null;
         param = new JSONObject();
         param.put("name", empname);
+        param.put("category",spinnerValue);
         param.put("mobile", empmobileno);
         params.put("staff_data", param);
 
@@ -223,6 +276,7 @@ public class add_employee extends AppCompatActivity {
             // The child views in each row.
             TextView textView1;
             TextView textView2;
+            TextView textView3;
             Button button;
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -236,12 +290,15 @@ public class add_employee extends AppCompatActivity {
                 textView1 = (TextView) convertView
                         .findViewById(R.id.emptextview1);
                 textView2 = (TextView) convertView.findViewById(R.id.emptextview2);
+                textView3 = (TextView) convertView.findViewById(R.id.emptextview3);
+
+
                 button = (Button) convertView.findViewById(R.id.buttonDelete);
 
                 // Optimization: Tag the row with it's child views, so we don't
                 // have to
                 // call findViewById() later when we reuse the row.
-                convertView.setTag(new viewHolder1(textView1, textView2,button));
+                convertView.setTag(new viewHolder1(textView1, textView2,button,textView3));
 
 
 
@@ -258,6 +315,7 @@ public class add_employee extends AppCompatActivity {
                         .getTag();
                textView1 = viewHolder.getTextView();
                textView2 = viewHolder.getTextview1();
+                textView3 = viewHolder.getTextView3();
                button = viewHolder.getButton();
                 button.setOnClickListener(new View.OnClickListener()
                 {
@@ -275,6 +333,7 @@ public class add_employee extends AppCompatActivity {
             // Display Service data
             textView1.setText(emp.getName());
             textView2.setText(emp.getNumber());
+            textView3.setText(emp.getCategory());
             button.setTag(emp);
             button.setSelected(emp.isClicked());
             button.setOnClickListener(new View.OnClickListener() {
@@ -287,6 +346,7 @@ public class add_employee extends AppCompatActivity {
 
                     String name = emplist.get(position).getName();
                     String number = emplist.get(position).getNumber();
+
                     emplist.remove(position);
                     SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getContext());
                     String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));

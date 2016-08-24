@@ -7,6 +7,16 @@ public class emplyeeModel {
     private String name;
     private String number;
     private boolean clicked = false;
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public emplyeeModel(){
 
     }

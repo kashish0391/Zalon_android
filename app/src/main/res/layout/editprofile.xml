@@ -248,16 +248,30 @@
                 <TextView
                     android:layout_width="60dp"
                     android:text="WALLET"
+                    android:layout_height="wrap_content"
                     android:textColor="#000"
-                    android:layout_marginLeft="20dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_marginLeft="20dp"/>
 
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/layoutbutton"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:text="EDIT TIMING"
+                    android:id="@+id/buttontiming"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_below="@+id/EDITprofileid1"
+            android:id="@+id/layouttiming"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:background="#fff"
