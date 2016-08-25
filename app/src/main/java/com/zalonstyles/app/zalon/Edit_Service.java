@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -52,6 +54,8 @@ import java.util.Map;
 public class Edit_Service extends AppCompatActivity {
     private RecyclerView horizontal_recycler_view;
     public static final String URL = "http://52.41.72.46:8080/service/get_category_detail";
+    public static final String URL1 = "http://52.41.72.46:8080/service/set_category_detail";
+
     private Switch switch1;
     private Switch switch2;
     private Switch switch3;
@@ -65,6 +69,10 @@ public class Edit_Service extends AppCompatActivity {
     private EditText femaleprice;
     private ListView lv1;
     private ListView lv2;
+    private NumberPicker np;
+    private NumberPicker np1;
+   private String idval;
+    private String sid ;
     private List<pricevariable> pricelist = new ArrayList<>();
     private List<pricevariable1> pricelist1 = new ArrayList<>();
     private Context context;
@@ -89,7 +97,8 @@ public class Edit_Service extends AppCompatActivity {
         switch3 = (Switch) findViewById(R.id.switch3);
         maleprice = (EditText) findViewById(R.id.editprice1);
         femaleprice = (EditText) findViewById(R.id.editprice2);
-        final NumberPicker np = (NumberPicker) findViewById(R.id.np);
+       np = (NumberPicker) findViewById(R.id.np);
+         np1 = (NumberPicker) findViewById(R.id.np1);
 
         lv1 = (ListView) findViewById(R.id.lv1);
         lv2 = (ListView) findViewById(R.id.lv2);
@@ -161,9 +170,9 @@ public class Edit_Service extends AppCompatActivity {
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
         Bundle Data = getIntent().getExtras();
-        String myVal = Data.getString("value");
-        String idval = Data.getString("valueid");
-        String sid = Data.getString("Serviceid");
+        final String myVal = Data.getString("value");
+         idval = Data.getString("valueid");
+          sid = Data.getString("Serviceid");
         Log.v("val", myVal);
         Log.v("valid", idval);
 
@@ -312,6 +321,8 @@ public class Edit_Service extends AppCompatActivity {
                                 maleprice.setText(info.getString("male_price"));
                                 femaleprice.setText(info.getString("female_price"));
                                 editDuration1.setText(info.getString("duration"));
+                                np1.setValue(Integer.parseInt(info.getString("duration")));
+
 
                             }
 
@@ -398,7 +409,7 @@ public class Edit_Service extends AppCompatActivity {
         horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
         horizontal_recycler_view.setAdapter(horizontalAdapter);
 
-        final String[] values = {"20", "25", "30", "35", "40", "45", "50", "55"};
+        final String[] values = {"20", "25", "30", "35", "40", "45", "50", "55","60","65","70","75","80","85","90"};
         np.setMinValue(0);
         //Specify the maximum value/number of NumberPicker
         np.setMaxValue(values.length - 1);
@@ -415,8 +426,439 @@ public class Edit_Service extends AppCompatActivity {
                 editDuration.setText(String.valueOf(values[newVal]));
             }
         });
+        final String[] values1 = {"20", "25", "30", "35", "40", "45", "50", "55","60","65","70","75","80","85","90"};
+        np1.setMinValue(0);
+        //Specify the maximum value/number of NumberPicker
+        np1.setMaxValue(values1.length - 1);
+        np1.setDisplayedValues(values1);
+        //Gets whether the selector wheel wraps when reaching the min/max value.
+        np1.setWrapSelectorWheel(true);
+
+
+        //Set a value change listener for NumberPicker
+        np1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                //Display the newly selected number from picker
+                editDuration1.setText(String.valueOf(values1[newVal]));
+            }
+        });
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu3, menu);
+        return true;
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.SAVEPROFILE1:
+                final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearlay1);
+                final LinearLayout linearLayout1 = (LinearLayout) findViewById(R.id.linearlay2);
+                final LinearLayout linearLayout2 = (LinearLayout) findViewById(R.id.linearlay3);
+                final LinearLayout linearLayout3 = (LinearLayout) findViewById(R.id.linearlay4);
+
+                try {
+                    if (linearLayout.getVisibility()==View.VISIBLE){
+                        sendingdata();
+                    }else if (linearLayout1.getVisibility()==View.VISIBLE){
+                        sendingdata1();
+                    }else if (linearLayout2.getVisibility()==View.VISIBLE){
+                        sendingdata2();
+                    }else if (linearLayout3.getVisibility()==View.VISIBLE){
+                        sendingdata3();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                return true;
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    private void sendingdata () throws JSONException {
+        String servicename = etsname.getText().toString().trim();
+        String servicecategory = tvscategory.getText().toString().trim();
+        String description = etdescription.getText().toString().trim();
+        String price = editPrice.getText().toString().trim();
+        String numberpick = String.valueOf(np.getValue());
+        String numberpicker = String.valueOf(np1.getValue());
+        String ab = editDuration.getText().toString().trim();
+        String genderbased ="off";
+        String staffbased ="off";
+        SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
+        final JSONObject params = new JSONObject();
+        JSONObject param = null;
+        param = new JSONObject();
+        param.put("access_token", value);
+        param.put("service_id",sid);
+        param.put("category_id",idval);
+        param.put("gender_based",genderbased);
+        param.put("staff_based",staffbased);
+        param.put("category_name",servicename);
+        param.put("description",description);
+        params.put("info",param);
+        JSONObject param1 = null;
+        param1 = new JSONObject();
+        param1.put("common_price",price);
+        param1.put("durations",ab);
+        params.put("price",param1);
+        JSONArray ja = new JSONArray();
+        for (int i = 0; i < horizontalList.size(); i++)
+        {
+            EditServiceModel face = horizontalList.get(i);
+            if (face.isChecked())
+            {
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("category_name", face.getName());
+                    jo.put("staff_id",face.getCategory_id());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }ja.put(jo);
+    }
+    }
+       params.put("staff",ja);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest SR = new StringRequest(Request.Method.POST, URL1,
+                new Response.Listener<String>(){
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.v("updateUPVolleyRes6",response);
+
+
+
+                    }
+
+                }
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("updateUPVolleyErr", error.toString());
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params2 = new HashMap<String, String>();
+
+                params2.put("payload", params.toString());
+
+                Log.v("updateUPVolleyParams2", params2.toString());
+
+                return params2;
+
+            }
+        };
+
+
+        requestQueue.add(SR);
+
+
+
+
+    }
+    private void sendingdata1 () throws JSONException {
+        String servicename = etsname.getText().toString().trim();
+        String servicecategory = tvscategory.getText().toString().trim();
+        String description = etdescription.getText().toString().trim();
+        String price = maleprice.getText().toString().trim();
+        String price1 = femaleprice.getText().toString().trim();
+        String ab = editDuration1.getText().toString().trim();
+        String genderbased ="on";
+        String staffbased ="off";
+        SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
+        final JSONObject params = new JSONObject();
+        JSONObject param = null;
+        param = new JSONObject();
+        param.put("access_token", value);
+        param.put("service_id",sid);
+        param.put("category_id",idval);
+        param.put("gender_based",genderbased);
+        param.put("staff_based",staffbased);
+        param.put("category_name",servicename);
+        param.put("description",description);
+        params.put("info",param);
+        JSONObject param1 = null;
+        param1 = new JSONObject();
+        param1.put("male_price",price);
+        param1.put("female_price",price1);
+        param1.put("durations",ab);
+        params.put("price",param1);
+        JSONArray ja = new JSONArray();
+        for (int i = 0; i < horizontalList.size(); i++)
+        {
+            EditServiceModel face = horizontalList.get(i);
+            if (face.isChecked())
+            {
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("category_name", face.getName());
+                    jo.put("staff_id",face.getCategory_id());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }ja.put(jo);
+            }
+        }
+        params.put("staff",ja);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest SR = new StringRequest(Request.Method.POST, URL1,
+                new Response.Listener<String>(){
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.v("updateUPVolleyRes6",response);
+
+
+
+                    }
+
+                }
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("updateUPVolleyErr", error.toString());
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params2 = new HashMap<String, String>();
+
+                params2.put("payload", params.toString());
+
+                Log.v("updateUPVolleyParams2", params2.toString());
+
+                return params2;
+
+            }
+        };
+
+
+        requestQueue.add(SR);
+
+
+
+
+    }
+    private void sendingdata2 () throws JSONException {
+        String servicename = etsname.getText().toString().trim();
+        String servicecategory = tvscategory.getText().toString().trim();
+        String description = etdescription.getText().toString().trim();
+        String price = maleprice.getText().toString().trim();
+        String price1 = femaleprice.getText().toString().trim();
+        String ab = editDuration1.getText().toString().trim();
+        String genderbased ="off";
+        String staffbased ="on";
+        SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
+        final JSONObject params = new JSONObject();
+        JSONObject param = null;
+        param = new JSONObject();
+        param.put("access_token", value);
+        param.put("service_id",sid);
+        param.put("category_id",idval);
+        param.put("gender_based",genderbased);
+        param.put("staff_based",staffbased);
+        param.put("category_name",servicename);
+        param.put("description",description);
+        params.put("info",param);
+        JSONObject param1 = null;
+        JSONArray ja1 = new JSONArray();
+        for (int i = 0; i < listAdapter.getCount(); i++)
+        {
+            pricevariable face = listAdapter.getItem(i);
+
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("category_name", face.getName());
+                    jo.put("common_price",face.getPrice());
+                    jo.put("duration",face.getDuration());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }ja1.put(jo);
+
+        }
+        params.put("price",ja1);
+
+        JSONArray ja = new JSONArray();
+        for (int i = 0; i < horizontalList.size(); i++)
+        {
+            EditServiceModel face = horizontalList.get(i);
+            if (face.isChecked())
+            {
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("category_name", face.getName());
+                    jo.put("staff_id",face.getCategory_id());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }ja.put(jo);
+            }
+        }
+        params.put("staff",ja);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest SR = new StringRequest(Request.Method.POST, URL1,
+                new Response.Listener<String>(){
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.v("updateUPVolleyRes6",response);
+
+
+
+                    }
+
+                }
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("updateUPVolleyErr", error.toString());
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params2 = new HashMap<String, String>();
+
+                params2.put("payload", params.toString());
+
+                Log.v("updateUPVolleyParams2", params2.toString());
+
+                return params2;
+
+            }
+        };
+
+
+        requestQueue.add(SR);
+
+
+
+
+    }
+
+    private void sendingdata3 () throws JSONException {
+        String servicename = etsname.getText().toString().trim();
+        String servicecategory = tvscategory.getText().toString().trim();
+        String description = etdescription.getText().toString().trim();
+        String price = maleprice.getText().toString().trim();
+        String price1 = femaleprice.getText().toString().trim();
+        String ab = editDuration1.getText().toString().trim();
+        String genderbased ="off";
+        String staffbased ="on";
+        SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
+        final JSONObject params = new JSONObject();
+        JSONObject param = null;
+        param = new JSONObject();
+        param.put("access_token", value);
+        param.put("service_id",sid);
+        param.put("category_id",idval);
+        param.put("gender_based",genderbased);
+        param.put("staff_based",staffbased);
+        param.put("category_name",servicename);
+        param.put("description",description);
+        params.put("info",param);
+        JSONObject param1 = null;
+        JSONArray ja1 = new JSONArray();
+        for (int i = 0; i < listAdapter1.getCount(); i++)
+        {
+            pricevariable1 face = listAdapter1.getItem(i);
+
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("category_name", face.getName());
+                jo.put("male_price",face.getMaleprice());
+                jo.put("female_price",face.getFemaleprice());
+                jo.put("duration",face.getDuration());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }ja1.put(jo);
+
+        }
+        params.put("price",ja1);
+
+        JSONArray ja = new JSONArray();
+        for (int i = 0; i < horizontalList.size(); i++)
+        {
+            EditServiceModel face = horizontalList.get(i);
+            if (face.isChecked())
+            {
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("category_name", face.getName());
+                    jo.put("staff_id",face.getCategory_id());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }ja.put(jo);
+            }
+        }
+        params.put("staff",ja);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest SR = new StringRequest(Request.Method.POST, URL1,
+                new Response.Listener<String>(){
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.v("updateUPVolleyRes6",response);
+
+
+
+                    }
+
+                }
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("updateUPVolleyErr", error.toString());
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params2 = new HashMap<String, String>();
+
+                params2.put("payload", params.toString());
+
+                Log.v("updateUPVolleyParams2", params2.toString());
+
+                return params2;
+
+            }
+        };
+
+
+        requestQueue.add(SR);
+
+
+
+
+    }
+
+
+
 
 
     public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.ViewHolder> {
