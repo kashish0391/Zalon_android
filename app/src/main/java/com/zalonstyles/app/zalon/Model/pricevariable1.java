@@ -5,24 +5,32 @@ package com.zalonstyles.app.zalon.Model;
  */
 public class pricevariable1 {
     private String name = null;
-    private int Maleprice;
-    private int duration;
-    private int Femaleprice;
+    private String Maleprice;
+    private String duration;
+    private String Femaleprice;
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
-    public int getFemaleprice() {
+    public String getFemaleprice() {
         return Femaleprice;
     }
 
-    public void setFemaleprice(int femaleprice) {
+    public void setFemaleprice(String femaleprice) {
         Femaleprice = femaleprice;
+    }
+
+    public String getMaleprice() {
+        return Maleprice;
+    }
+
+    public void setMaleprice(String maleprice) {
+        Maleprice = maleprice;
     }
 
     public String getName() {
@@ -31,14 +39,6 @@ public class pricevariable1 {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getMaleprice() {
-        return Maleprice;
-    }
-
-    public void setMaleprice(int maleprice) {
-        Maleprice = maleprice;
     }
 }
 

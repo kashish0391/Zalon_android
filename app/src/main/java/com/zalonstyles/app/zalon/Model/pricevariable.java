@@ -5,23 +5,23 @@ package com.zalonstyles.app.zalon.Model;
  */
 public class pricevariable {
     private String name = null;
-    private int price;
-    private int duration;
+    private String price;
+    private String duration;
 
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getName() {

@@ -322,11 +322,13 @@
 
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/lv1"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginLeft="10dp"></ListView>
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
         </LinearLayout>
 
         <LinearLayout
@@ -385,14 +387,13 @@
 
 
             </LinearLayout>
-            <ListView
-                android:id="@+id/lv2"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view1"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1">
-
-            </ListView>
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
         </LinearLayout>
 
         <LinearLayout

@@ -1,26 +1,26 @@
 package com.zalonstyles.app.zalon;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -34,8 +34,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.zalonstyles.app.zalon.Model.EditServiceModel;
-import com.zalonstyles.app.zalon.Model.Viewholder4;
-import com.zalonstyles.app.zalon.Model.Viewholder5;
 import com.zalonstyles.app.zalon.Model.pricevariable;
 import com.zalonstyles.app.zalon.Model.pricevariable1;
 
@@ -67,20 +65,23 @@ public class Edit_Service extends AppCompatActivity {
     private EditText editPrice;
     private EditText maleprice;
     private EditText femaleprice;
-    private ListView lv1;
-    private ListView lv2;
+
     private NumberPicker np;
     private NumberPicker np1;
    private String idval;
     private String sid ;
-    private List<pricevariable> pricelist = new ArrayList<>();
-    private List<pricevariable1> pricelist1 = new ArrayList<>();
+
     private Context context;
-    private ArrayAdapter<pricevariable> listAdapter;
-    private ArrayAdapter<pricevariable1> listAdapter1;
+
 
     private ArrayList<EditServiceModel> horizontalList;
     private HorizontalAdapter horizontalAdapter;
+    RecyclerView mRecyclerView;
+    TestAdapter mAdapter;
+    List<pricevariable> pricelist;
+    RecyclerView mRecyclerView1;
+    TestAdapter1 mAdapter1;
+    List<pricevariable1> pricelist1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,9 +100,24 @@ public class Edit_Service extends AppCompatActivity {
         femaleprice = (EditText) findViewById(R.id.editprice2);
        np = (NumberPicker) findViewById(R.id.np);
          np1 = (NumberPicker) findViewById(R.id.np1);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        pricelist = new ArrayList<>();
+        mAdapter = new TestAdapter(pricelist);
 
-        lv1 = (ListView) findViewById(R.id.lv1);
-        lv2 = (ListView) findViewById(R.id.lv2);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+
+
+        mRecyclerView1 = (RecyclerView) findViewById(R.id.recycler_view1);
+        pricelist1 = new ArrayList<>();
+        mAdapter1 = new TestAdapter1(pricelist1);
+
+        mRecyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView1.setAdapter(mAdapter1);
+        mRecyclerView1.setHasFixedSize(true);
 
         final LinearLayout linearLayout1 = (LinearLayout) findViewById(R.id.linearlay1);
         final LinearLayout linearLayout2 = (LinearLayout) findViewById(R.id.linearlay2);
@@ -219,9 +235,9 @@ public class Edit_Service extends AppCompatActivity {
                                         pricevariable1 service = new pricevariable1();
                                         service.setName(obj.getString("caption"));
 
-                                        service.setMaleprice(Integer.parseInt(obj.getString("male_price")));
-                                        service.setFemaleprice(Integer.parseInt(obj.getString("female_price")));
-                                        service.setDuration(Integer.parseInt(obj.getString("duration")));
+                                        service.setMaleprice((obj.getString("male_price")));
+                                        service.setFemaleprice((obj.getString("female_price")));
+                                        service.setDuration((obj.getString("duration")));
                                         pricelist1.add(service);
                                         Log.e("check2", String.valueOf(pricelist1.get(i)));
 
@@ -233,7 +249,7 @@ public class Edit_Service extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            listAdapter1.notifyDataSetChanged();
+
 
 
                             try {
@@ -246,8 +262,8 @@ public class Edit_Service extends AppCompatActivity {
                                         pricevariable service = new pricevariable();
                                         service.setName(obj.getString("caption"));
 
-                                        service.setPrice(Integer.parseInt(obj.getString("common_price")));
-                                        service.setDuration(Integer.parseInt(obj.getString("duration")));
+                                        service.setPrice((obj.getString("common_price")));
+                                        service.setDuration((obj.getString("duration")));
 
 
                                         pricelist.add(service);
@@ -261,7 +277,7 @@ public class Edit_Service extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            listAdapter.notifyDataSetChanged();
+                           // listAdapter.notifyDataSetChanged();
 
                             if (staffbased.equals("on")) {
                                 switch1.setChecked(true);
@@ -285,37 +301,7 @@ public class Edit_Service extends AppCompatActivity {
                                 np.setValue(Integer.parseInt(info.getString("duration")));
                             }
                             if (switch1.isChecked() && !switch2.isChecked()) {
-                                // pricelist.clear();
-                                //lv1.setAdapter(null);
-                                //listAdapter.notifyDataSetChanged();
 
-                               /* try {
-
-                                    JSONArray payload1 = jobject.getJSONArray("price");
-                                    Log.e("payloaddata1", String.valueOf(payload1));
-                                    for (int i = 0; i < payload1.length(); i++) {
-                                        try{
-                                            JSONObject obj = payload1.getJSONObject(i);
-                                            pricevariable service = new pricevariable();
-                                            service.setName(obj.getString("caption"));
-                                            service.setPrice(Integer.parseInt(obj.getString("common_price")));
-                                            service.setDuration(Integer.parseInt(obj.getString("duration")));
-                                            pricelist.add(service);
-                                            Log.e("check2", String.valueOf(pricelist.get(i)));
-
-
-
-
-
-
-                                        }catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }listAdapter.notifyDataSetChanged();
-                            */
                             }
                             if (!switch1.isChecked() && switch2.isChecked()) {
                                 maleprice.setText(info.getString("male_price"));
@@ -387,11 +373,11 @@ public class Edit_Service extends AppCompatActivity {
         }
 
 
-        listAdapter = new priceArrayAdapter(this, R.layout.customeditservice1, pricelist);
-        lv1.setAdapter(listAdapter);
+       // listAdapter = new priceArrayAdapter(this, R.layout.customeditservice1, pricelist);
+        //lv1.setAdapter(listAdapter);
 
-        listAdapter1 = new priceArrayAdapter1(this, R.layout.customeditservice2, pricelist1);
-        lv2.setAdapter(listAdapter1);
+        //listAdapter1 = new priceArrayAdapter1(this, R.layout.customeditservice2, pricelist1);
+       // lv2.setAdapter(listAdapter1);
 
 
         horizontal_recycler_view = (RecyclerView) findViewById(R.id.horizontal_recycler_view);
@@ -466,8 +452,10 @@ public class Edit_Service extends AppCompatActivity {
                     }else if (linearLayout1.getVisibility()==View.VISIBLE){
                         sendingdata1();
                     }else if (linearLayout2.getVisibility()==View.VISIBLE){
+                        //listAdapter.notifyDataSetChanged();
                         sendingdata2();
                     }else if (linearLayout3.getVisibility()==View.VISIBLE){
+
                         sendingdata3();
                     }
                 } catch (JSONException e) {
@@ -513,7 +501,7 @@ public class Edit_Service extends AppCompatActivity {
         JSONObject param1 = null;
         param1 = new JSONObject();
         param1.put("common_price",price);
-        param1.put("durations",ab);
+        param1.put("duration",ab);
         params.put("price",param1);
         JSONArray ja = new JSONArray();
         for (int i = 0; i < horizontalList.size(); i++)
@@ -599,7 +587,7 @@ public class Edit_Service extends AppCompatActivity {
         param1 = new JSONObject();
         param1.put("male_price",price);
         param1.put("female_price",price1);
-        param1.put("durations",ab);
+        param1.put("duration",ab);
         params.put("price",param1);
         JSONArray ja = new JSONArray();
         for (int i = 0; i < horizontalList.size(); i++)
@@ -669,6 +657,7 @@ public class Edit_Service extends AppCompatActivity {
         String staffbased ="on";
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+        //listAdapter.notifyDataSetChanged();
 
         final JSONObject params = new JSONObject();
         JSONObject param = null;
@@ -683,9 +672,10 @@ public class Edit_Service extends AppCompatActivity {
         params.put("info",param);
         JSONObject param1 = null;
         JSONArray ja1 = new JSONArray();
-        for (int i = 0; i < listAdapter.getCount(); i++)
+        //listAdapter.notifyDataSetChanged();
+        for (int i = 0; i < pricelist.size(); i++)
         {
-            pricevariable face = listAdapter.getItem(i);
+            pricevariable face = pricelist.get(i);
 
                 JSONObject jo = new JSONObject();
                 try {
@@ -764,10 +754,11 @@ public class Edit_Service extends AppCompatActivity {
         String price = maleprice.getText().toString().trim();
         String price1 = femaleprice.getText().toString().trim();
         String ab = editDuration1.getText().toString().trim();
-        String genderbased ="off";
+        String genderbased ="on";
         String staffbased ="on";
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
 
         final JSONObject params = new JSONObject();
         JSONObject param = null;
@@ -782,9 +773,9 @@ public class Edit_Service extends AppCompatActivity {
         params.put("info",param);
         JSONObject param1 = null;
         JSONArray ja1 = new JSONArray();
-        for (int i = 0; i < listAdapter1.getCount(); i++)
+        for (int i = 0; i < pricelist1.size(); i++)
         {
-            pricevariable1 face = listAdapter1.getItem(i);
+            pricevariable1 face = pricelist1.get(i);
 
             JSONObject jo = new JSONObject();
             try {
@@ -948,7 +939,7 @@ public class Edit_Service extends AppCompatActivity {
 
     }
 
-    private static class priceArrayAdapter extends ArrayAdapter<pricevariable> {
+   /* private static class priceArrayAdapter extends ArrayAdapter<pricevariable> {
 
         private LayoutInflater inflater;
         private List<pricevariable> pricelist;
@@ -1010,9 +1001,9 @@ public class Edit_Service extends AppCompatActivity {
             return convertView;
         }
 
-    }
+    }*/
 
-    private static class priceArrayAdapter1 extends ArrayAdapter<pricevariable1> {
+   /* private static class priceArrayAdapter1 extends ArrayAdapter<pricevariable1> {
 
         private LayoutInflater inflater;
         private List<pricevariable1> pricelist1;
@@ -1027,17 +1018,18 @@ public class Edit_Service extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             // SERVICES to display
-            pricevariable1 hair = (pricevariable1) this.getItem(position);
+            final pricevariable1 hair = (pricevariable1) this.getItem(position);
 
             // The child views in each row.
             TextView editText;
-            EditText editText1;
+            final EditText editText1;
             EditText editText2;
             EditText editText3;
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
 
             // Create a new row view
             if (convertView == null) {
@@ -1049,7 +1041,6 @@ public class Edit_Service extends AppCompatActivity {
                 editText1 = (EditText) convertView.findViewById(R.id.emptextview12);
                 editText2 = (EditText) convertView.findViewById(R.id.emptextview13);
                 editText3 = (EditText) convertView.findViewById(R.id.emptextview14);
-
 
                 convertView.setTag(new Viewholder5(editText, editText1, editText2, editText3));
 
@@ -1065,7 +1056,42 @@ public class Edit_Service extends AppCompatActivity {
                 editText1 = viewHolder.getEditText2();
                 editText2 = viewHolder.getEditText3();
                 editText3 = viewHolder.getEditText4();
+editText1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(!hasFocus){
+            String value = editText1.getText().toString();
+            hair.setMaleprice((value));
+            Log.v("valuess", String.valueOf(hair.getMaleprice()));
+            notifyDataSetChanged();
+    }else {
+        }
+    }
+});
+                editText1.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        hair.setMaleprice((s.toString()) );
+                        Log.v("valuesss", String.valueOf(hair.getMaleprice()));
+                        Log.v("ppp1", String.valueOf(s));
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        Log.v("ppp2", String.valueOf(s));
+                        hair.setMaleprice((s.toString()) );
+                        Log.v("valuessss", String.valueOf(hair.getMaleprice()));
+
+                        notifyDataSetChanged();
+                    }
+                });
             }
 
 
@@ -1079,6 +1105,191 @@ public class Edit_Service extends AppCompatActivity {
             return convertView;
         }
 
+    }*/
+    public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
+
+        private List<pricevariable> pricelist;
+
+
+        public  class ViewHolder extends RecyclerView.ViewHolder {
+            // each data item is just a string in this case
+            public EditText editText1;
+            public EditText editText2;
+            public TextView editText;
+
+
+            public ViewHolder(View v) {
+                super(v);
+                editText = (TextView) v.
+                        findViewById(R.id.emptextview1);
+                editText1 = (EditText) v.findViewById(R.id.emptextview2);
+                editText2 = (EditText) v.findViewById(R.id.emptextview3);
+            }
+        }
+
+        public TestAdapter(List<pricevariable> pricelist2) {
+            pricelist = pricelist2;
+        }
+
+        @Override
+        public TestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                         int viewType) {
+
+            Log.v("test-recyclerview", "onCreateViewHolder");
+
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.customeditservice1, parent, false);
+            ViewHolder vh = new ViewHolder(v);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
+            holder.editText.setText(pricelist.get(position).getName());
+            holder.editText1.setText(String.valueOf(pricelist.get(position).getPrice()));
+            holder.editText2.setText(String.valueOf(pricelist.get(position).getDuration()));
+            holder.editText1.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                      pricelist.get(position).setPrice((String.valueOf(s))) ;
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            holder.editText2.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    pricelist.get(position).setDuration((String.valueOf(s))); ;
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return pricelist.size();
+        }
+    }
+    public class TestAdapter1 extends RecyclerView.Adapter<TestAdapter1.ViewHolder> {
+
+        private List<pricevariable1> pricelist1;
+
+
+        public  class ViewHolder extends RecyclerView.ViewHolder {
+            // each data item is just a string in this case
+            public EditText editText1;
+            public EditText editText2;
+            public TextView editText;
+            public EditText editText3;
+
+
+            public ViewHolder(View v) {
+                super(v);
+                editText = (TextView) v.
+                        findViewById(R.id.emptextview11);
+                editText1 = (EditText) v.findViewById(R.id.emptextview12);
+                editText2 = (EditText) v.findViewById(R.id.emptextview13);
+                editText3 = (EditText) v.findViewById(R.id.emptextview14);
+            }
+        }
+
+        public TestAdapter1(List<pricevariable1> pricelist2) {
+            pricelist1 = pricelist2;
+        }
+
+        @Override
+        public TestAdapter1.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                         int viewType) {
+
+            Log.v("test-recyclerview", "onCreateViewHolder");
+
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.customeditservice2, parent, false);
+            ViewHolder vh = new ViewHolder(v);
+            return vh;
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
+            holder.editText.setText(pricelist1.get(position).getName());
+            holder.editText1.setText(String.valueOf(pricelist1.get(position).getMaleprice()));
+            holder.editText2.setText(String.valueOf(pricelist1.get(position).getFemaleprice()));
+            holder.editText3.setText(String.valueOf(pricelist1.get(position).getDuration()));
+            holder.editText1.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    pricelist1.get(position).setMaleprice((String.valueOf(s))); ;
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            holder.editText2.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    pricelist1.get(position).setFemaleprice((String.valueOf(s))); ;
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            holder.editText3.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    pricelist1.get(position).setDuration((String.valueOf(s))); ;
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return pricelist1.size();
+        }
     }
 
 
