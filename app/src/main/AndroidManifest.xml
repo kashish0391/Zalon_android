@@ -101,7 +101,7 @@
             android:label="Accounting" >
         </activity>
         <activity
-            android:name=".EmployeeManagement"
+            android:name=".Emp_Management"
             android:screenOrientation="landscape"
             android:label="Employee Management" >
         </activity>
@@ -170,7 +170,11 @@
             android:screenOrientation="landscape"
             android:label="Edit Service" >
         </activity>
-
+        <activity
+            android:name=".New_Service"
+            android:screenOrientation="landscape"
+            android:label="New Service" >
+        </activity>
 
 
 

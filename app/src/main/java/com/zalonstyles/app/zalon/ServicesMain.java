@@ -51,6 +51,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
     private  Button nail;
     private Button addservice;
     private ListView listView;
+    private int service_id=1;
     private List<ServicesMainmodel> servicelist = new ArrayList<>();
     private Context context;
     private ArrayAdapter<ServicesMainmodel> listAdapter;
@@ -80,7 +81,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
     public  void servicenetworking(int serviceid,String URL){
         listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
         final int haslineup = 1;
-
+        service_id = serviceid;
         servicelist.clear();
          listView.setAdapter(null);
         listAdapter.notifyDataSetChanged();
@@ -166,15 +167,15 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
 
        listView.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ServicesMainmodel service = listAdapter.getItem(position);
+                Intent intent= new Intent(ServicesMain.this,Edit_Service.class);
                 String value=  service.getName().toString();
                 String Valueid = String.valueOf(service.getCategotry_id());
                 String sid = service.getService_id();
-                Intent intent= new Intent(ServicesMain.this,Edit_Service.class);
-                intent.putExtra("value", value);
                 intent.putExtra("valueid", Valueid);
                 intent.putExtra("Serviceid",sid);
                 startActivity(intent);
@@ -240,10 +241,11 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
             case R.id.servicehair:
                 //listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
 
-
+                service_id=2;
                 servicenetworking(2,"http://52.41.72.46:8080/service/get_service_lineup");
                 break;
             case R.id.servicebody:
+                service_id=1;
                // listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
 
                // servicelist.clear();
@@ -252,6 +254,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 servicenetworking(1,"http://52.41.72.46:8080/service/get_service_lineup");
                 break;
             case R.id.servicenail:
+                service_id=3;
                 //listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
                 //servicelist.clear();
                // listView.setAdapter(null);
@@ -260,6 +263,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.servicemassage:
+                service_id=6;
                 //listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
                 //servicelist.clear();
                // listView.setAdapter(null);
@@ -267,6 +271,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 servicenetworking(6,"http://52.41.72.46:8080/service/get_service_lineup");
                 break;
             case R.id.servicehairremoval:
+                service_id=5;
                 //listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
 
                 //servicelist.clear();
@@ -275,6 +280,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 servicenetworking(5,"http://52.41.72.46:8080/service/get_service_lineup");
                 break;
             case R.id.serviceface:
+                service_id=4;
                 //listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
 
                 //servicelist.clear();
@@ -283,7 +289,8 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 servicenetworking(4,"http://52.41.72.46:8080/service/get_service_lineup");
                 break;
             case R.id.addservicebtn:
-                Intent intent = new Intent(ServicesMain.this,Edit_Service.class);
+                Intent intent = new Intent(ServicesMain.this,New_Service.class);
+                     intent.putExtra("service_id",service_id);
                 startActivity(intent);
 
 

@@ -50,18 +50,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by KASHISH on 16-08-2016.
+ * Created by KASHISH on 29-08-2016.
  */
-public class Edit_Service extends AppCompatActivity {
+public class New_Service extends AppCompatActivity {
     private RecyclerView horizontal_recycler_view;
     public static final String URL = "http://52.41.72.46:8080/service/get_category_detail";
     public static final String URL1 = "http://52.41.72.46:8080/service/set_category_detail";
-
+    String[] spinnerItems = new String[]{"Body", "Hair", "Face", "Massage", "Nails", "Hair Removal"};
+    String[] spinnerItems1;
     private Switch switch1;
     private Switch switch2;
     private Switch switch3;
     private EditText etsname;
-    private TextView tvscategory;
+    private Spinner spinnercategory;
+    private Spinner spinnercategory1;
+    private String spinnerValue;
+    private String spinnerValue1;
+
+
     private EditText etdescription;
     private EditText editDuration;
     private EditText editDuration1;
@@ -71,9 +77,8 @@ public class Edit_Service extends AppCompatActivity {
 
     private NumberPicker np;
     private NumberPicker np1;
-   private String idval="";
-    private String sid ="";
-    private String is_add = "0";
+    private String is_add = "1";
+    private int sid=1;
 
     private Context context;
 
@@ -90,23 +95,76 @@ public class Edit_Service extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.servicesedit);
-        etsname = (EditText) findViewById(R.id.editsname);
-        tvscategory = (TextView) findViewById(R.id.editscategory);
-        etdescription = (EditText) findViewById(R.id.sdescription);
+        setContentView(R.layout.newservice);
+        etsname = (EditText) findViewById(R.id.editsname1);
+        spinnercategory = (Spinner) findViewById(R.id.editscategory11);
+        spinnercategory1 = (Spinner) findViewById(R.id.editscategory1);
+        etdescription = (EditText) findViewById(R.id.sdescription1);
         editDuration = (EditText) findViewById(R.id.editDur);
         editDuration1 = (EditText) findViewById(R.id.editduration1);
-        editPrice = (EditText) findViewById(R.id.editprice);
-        switch1 = (Switch) findViewById(R.id.switch1);
-        switch2 = (Switch) findViewById(R.id.switch2);
-        switch3 = (Switch) findViewById(R.id.switch3);
-        maleprice = (EditText) findViewById(R.id.editprice1);
-        femaleprice = (EditText) findViewById(R.id.editprice2);
-       np = (NumberPicker) findViewById(R.id.np);
-         np1 = (NumberPicker) findViewById(R.id.np1);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        editPrice = (EditText) findViewById(R.id.editprice0);
+        switch1 = (Switch) findViewById(R.id.switch11);
+        switch2 = (Switch) findViewById(R.id.switch21);
+        switch3 = (Switch) findViewById(R.id.switch31);
+        maleprice = (EditText) findViewById(R.id.editprice01);
+        femaleprice = (EditText) findViewById(R.id.editprice02);
+        np = (NumberPicker) findViewById(R.id.np0);
+        np1 = (NumberPicker) findViewById(R.id.np01);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view0);
         pricelist = new ArrayList<>();
         mAdapter = new TestAdapter(pricelist);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, spinnerItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnercategory.setAdapter(adapter);
+        spinnercategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerValue = spinnercategory.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spinnerValue = "empty";
+
+            }
+        });
+        Bundle Data = getIntent().getExtras();
+
+        sid = Data.getInt("service_id");
+       // Log.v("llll",sid);
+        if (sid == 1) {
+            spinnerItems1 = new String[]{"Body Exfoliation Treatments", "Henna Designs and Tattoos", "Piercing", "Tattooing" + "Body Hair Bleaching", "Mud Treatments", "Stream and Sauna Therapy", "Tanning", "Body Wraps", "Cellulite Treatments", "Weight Loss & Lipo Treatments", "Backcials", "Ultrasound Therapy", "Infrred Therapy", "Hydro Therapy","Heat Treatments", "Photorejuvenation Treatments", "Electro Therapy", "Acoustic Wave Therapy", "Thalasso Therapy", "Floatation", "VelaShape", "Multi Polar Radio Frequency Treatment", "Cryotherapy", "Hyperhidrosis Treatment", "Endermotherapy", "Sclerotherapy", "Gua Sha", "Vinotherapy"};
+        }if(sid==2) {
+            spinnerItems1 = new String[]{"Haircut" , "Hair Colouring and Heighlights Treatments" , "Balayage" , "Ombre" , "Afro Hairdressing" , "Blow Dry" , "Hair Conditioning and Scalp Treatments" , "Hair Styling and Updos" , "Hair Extensions" , "Beard Trimming" , "Permanent Waves" , "Straighteners" , "Chemical Relaxing" , "Japanese Straightening" , "Brocatos Smoothing System" , "Wedding Hair" , "Brazilian Blow Dry Keratin Treatment", "Braids" , "Hair Transplants" , "Locs" , "Pastel Hair" , "Granny Hair" , "Hair Loss Treatment - Non Surgical"};
+        }if(sid==3) {
+            spinnerItems1 = new String[]{"Nail Art", "Nail Extensions & Overlays" , "Gel Nails" , "Nail or Gel Polish Removal" , "Nail Refill" , "Minx Nails" , "Nail Repair" , "Swarovski Crystal Pedicure/Manicure" , "Manicure" , "Two Week Manicure" , "Fish Manicure" , "Paraffin Wax Treatments" , "Pedicure" , "Two Week Pedicure" , "Foot Scrub" , "Callus Peel" , "Fish Pedicure"};
+        }
+        if(sid==4) {
+            spinnerItems1 = new String[]{" Facials" , "Eyebrow and Eyelash Treatments" , "Eyelash Extensions" , "Eyebrow and Eyelash Tinting" , "Eyebrow Threading" , "Microdermabrasion" , "Makeup Eyelash Treatment" , "Chemical Skin Peel" , "Mens Facial" , "Gold facial Acne Treatments" , "Face Lift - Nonsurgical"};
+        }
+        if(sid==5) {
+            spinnerItems1 = new String[]{"Waxing" , "Brazilian Waxing" , "Threading Male Waxing" , "Laser Hair Removal" , "Shaving" , "Ear Hair Trimming" , "Nasal Hair Trimming "};
+        }
+        if(sid==6) {
+            spinnerItems1 = new String[]{"Deep Tissue Massage" , "Swedish Massage" , "Therapeutic Massage" , "Thai Massage" , "Aromatherapy Massage" , "Head Massage" , "Stone Massage Therapy" , "Shoulder massage" , "Foot Massage" , "Body massage" , "Couples Massage" , "Neck massage" , "Face Massage" , "Hand Massage" , "Ayurvedic Massage" , "Acupuncture" , "Abdominal massage" , "Acupressure" , "Kerela massage" , "Childrens massage" , "Massage therapy "};
+    }
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, spinnerItems1);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnercategory1.setAdapter(adapter1);
+        spinnercategory1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerValue1 = spinnercategory1.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spinnerValue1 = "empty";
+
+            }
+        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -114,7 +172,7 @@ public class Edit_Service extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
 
-        mRecyclerView1 = (RecyclerView) findViewById(R.id.recycler_view1);
+        mRecyclerView1 = (RecyclerView) findViewById(R.id.recycler_view01);
         pricelist1 = new ArrayList<>();
         mAdapter1 = new TestAdapter1(pricelist1);
 
@@ -189,25 +247,17 @@ public class Edit_Service extends AppCompatActivity {
 
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
-        Bundle Data = getIntent().getExtras();
-
-
-         idval = Data.getString("valueid");
-          sid = Data.getString("Serviceid");
-
-        Log.v("valid", idval);
-
-
+        // Bundle Data = getIntent().getExtras();
+        //final String myVal = Data.getString("value");
+        //idval = Data.getString("valueid");
+        // sid = Data.getString("Service_id");
+        /// Log.v("val", myVal);
+        // Log.v("valid", idval);
         final JSONObject params = new JSONObject();
-        try {
-            params.put("service_id", sid);
-            params.put("category_id", idval);
-        } catch (JSONException e) {
 
-        }
         try {
-            params.put("is_add",is_add);
             params.put("access_token", value);
+            params.put("is_add", is_add);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -225,9 +275,6 @@ public class Edit_Service extends AppCompatActivity {
                             JSONArray payload = jobject.getJSONArray("staff");
                             Log.e("payloaddata", String.valueOf(payload));
                             JSONObject info = jobject.getJSONObject("info");
-                            etsname.setText(info.getString("service_name"));
-                            tvscategory.setText(info.getString("category_name"));
-                            etdescription.setText(info.getString("description"));
                             String staffbased = String.valueOf(info.getString("staff_based"));
                             String Genderbased = String.valueOf(info.getString("gender_based"));
 
@@ -257,7 +304,6 @@ public class Edit_Service extends AppCompatActivity {
                             }
 
 
-
                             try {
 
                                 JSONArray payload1 = jobject.getJSONArray("price");
@@ -283,7 +329,7 @@ public class Edit_Service extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                           // listAdapter.notifyDataSetChanged();
+                            // listAdapter.notifyDataSetChanged();
 
                             if (staffbased.equals("on")) {
                                 switch1.setChecked(true);
@@ -304,16 +350,14 @@ public class Edit_Service extends AppCompatActivity {
                             if (!switch1.isChecked() && !switch2.isChecked()) {
                                 editPrice.setText(info.getString("common_price"));
                                 editDuration.setText(info.getString("duration"));
-                                np.setValue(Integer.parseInt(info.getString("duration")));
                             }
                             if (switch1.isChecked() && !switch2.isChecked()) {
 
                             }
                             if (!switch1.isChecked() && switch2.isChecked()) {
-                                maleprice.setText(info.getString("male_price"));
-                                femaleprice.setText(info.getString("female_price"));
+                                //  maleprice.setText(info.getString("male_price"));
+                                // femaleprice.setText(info.getString("female_price"));
                                 editDuration1.setText(info.getString("duration"));
-                                np1.setValue(Integer.parseInt(info.getString("duration")));
 
 
                             }
@@ -364,6 +408,7 @@ public class Edit_Service extends AppCompatActivity {
 
         requestQueue.add(stringRequest);
 
+
         if (switch1.isChecked() && switch2.isChecked()) {
             linearLayout4.setVisibility(View.VISIBLE);
         }
@@ -379,14 +424,7 @@ public class Edit_Service extends AppCompatActivity {
         }
 
 
-       // listAdapter = new priceArrayAdapter(this, R.layout.customeditservice1, pricelist);
-        //lv1.setAdapter(listAdapter);
-
-        //listAdapter1 = new priceArrayAdapter1(this, R.layout.customeditservice2, pricelist1);
-       // lv2.setAdapter(listAdapter1);
-
-
-        horizontal_recycler_view = (RecyclerView) findViewById(R.id.horizontal_recycler_view);
+        horizontal_recycler_view = (RecyclerView) findViewById(R.id.horizontal_recycler_view0);
 
         horizontalList = new ArrayList<>();
 
@@ -397,11 +435,11 @@ public class Edit_Service extends AppCompatActivity {
 //        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 //        vertical_recycler_view.setLayoutManager(mLayoutManager);
         LinearLayoutManager horizontalLayoutManagaer
-                = new LinearLayoutManager(Edit_Service.this, LinearLayoutManager.HORIZONTAL, false);
+                = new LinearLayoutManager(New_Service.this, LinearLayoutManager.HORIZONTAL, false);
         horizontal_recycler_view.setLayoutManager(horizontalLayoutManagaer);
         horizontal_recycler_view.setAdapter(horizontalAdapter);
 
-        final String[] values = {"20", "25", "30", "35", "40", "45", "50", "55","60","65","70","75","80","85","90"};
+        final String[] values = {"20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90"};
         np.setMinValue(0);
         //Specify the maximum value/number of NumberPicker
         np.setMaxValue(values.length - 1);
@@ -418,7 +456,7 @@ public class Edit_Service extends AppCompatActivity {
                 editDuration.setText(String.valueOf(values[newVal]));
             }
         });
-        final String[] values1 = {"20", "25", "30", "35", "40", "45", "50", "55","60","65","70","75","80","85","90"};
+        final String[] values1 = {"20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90"};
         np1.setMinValue(0);
         //Specify the maximum value/number of NumberPicker
         np1.setMaxValue(values1.length - 1);
@@ -437,12 +475,14 @@ public class Edit_Service extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu3, menu);
         return true;
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -453,14 +493,14 @@ public class Edit_Service extends AppCompatActivity {
                 final LinearLayout linearLayout3 = (LinearLayout) findViewById(R.id.linearlay4);
 
                 try {
-                    if (linearLayout.getVisibility()==View.VISIBLE){
+                    if (linearLayout.getVisibility() == View.VISIBLE) {
                         sendingdata();
-                    }else if (linearLayout1.getVisibility()==View.VISIBLE){
+                    } else if (linearLayout1.getVisibility() == View.VISIBLE) {
                         sendingdata1();
-                    }else if (linearLayout2.getVisibility()==View.VISIBLE){
+                    } else if (linearLayout2.getVisibility() == View.VISIBLE) {
                         //listAdapter.notifyDataSetChanged();
                         sendingdata2();
-                    }else if (linearLayout3.getVisibility()==View.VISIBLE){
+                    } else if (linearLayout3.getVisibility() == View.VISIBLE) {
 
                         sendingdata3();
                     }
@@ -480,16 +520,16 @@ public class Edit_Service extends AppCompatActivity {
         }
     }
 
-    private void sendingdata () throws JSONException {
+    private void sendingdata() throws JSONException {
+        String description ="  ";
         String servicename = etsname.getText().toString().trim();
-        String servicecategory = tvscategory.getText().toString().trim();
-        String description = etdescription.getText().toString().trim();
+         description = etdescription.getText().toString().trim();
         String price = editPrice.getText().toString().trim();
         String numberpick = String.valueOf(np.getValue());
         String numberpicker = String.valueOf(np1.getValue());
         String ab = editDuration.getText().toString().trim();
-        String genderbased ="off";
-        String staffbased ="off";
+        String genderbased = "off";
+        String staffbased = "off";
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
 
@@ -497,129 +537,42 @@ public class Edit_Service extends AppCompatActivity {
         JSONObject param = null;
         param = new JSONObject();
         param.put("access_token", value);
-        param.put("service_id",sid);
-        param.put("category_id",idval);
-        param.put("gender_based",genderbased);
-        param.put("staff_based",staffbased);
-        param.put("category_name",servicename);
-        param.put("description",description);
-        params.put("info",param);
+        param.put("service_id", sid);
+param.put("service_category",spinnerValue1);
+        param.put("gender_based", genderbased);
+        param.put("staff_based", staffbased);
+        param.put("category_name", servicename);
+        param.put("description", description);
+        param.put("duration",numberpick);
+        params.put("info", param);
         JSONObject param1 = null;
         param1 = new JSONObject();
-        param1.put("common_price",price);
-        param1.put("duration",ab);
-        params.put("price",param1);
+        param1.put("common_price", price);
+        param1.put("duration", ab);
+        params.put("price", param1);
         JSONArray ja = new JSONArray();
-        for (int i = 0; i < horizontalList.size(); i++)
-        {
+        for (int i = 0; i < horizontalList.size(); i++) {
             EditServiceModel face = horizontalList.get(i);
-            if (face.isChecked())
-            {
+            if (face.isChecked()) {
                 JSONObject jo = new JSONObject();
                 try {
                     jo.put("category_name", face.getName());
-                    jo.put("staff_id",face.getCategory_id());
+                    jo.put("staff_id", face.getCategory_id());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }ja.put(jo);
-    }
-    }
-       params.put("staff",ja);
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest SR = new StringRequest(Request.Method.POST, URL1,
-                new Response.Listener<String>(){
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.v("updateUPVolleyRes6",response);
-
-
-
-                    }
-
                 }
-                , new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.v("updateUPVolleyErr", error.toString());
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params2 = new HashMap<String, String>();
-
-                params2.put("payload", params.toString());
-
-                Log.v("updateUPVolleyParams2", params2.toString());
-
-                return params2;
-
-            }
-        };
-
-
-        requestQueue.add(SR);
-
-
-
-
-    }
-    private void sendingdata1 () throws JSONException {
-        String servicename = etsname.getText().toString().trim();
-        String servicecategory = tvscategory.getText().toString().trim();
-        String description = etdescription.getText().toString().trim();
-        String price = maleprice.getText().toString().trim();
-        String price1 = femaleprice.getText().toString().trim();
-        String ab = editDuration1.getText().toString().trim();
-        String genderbased ="on";
-        String staffbased ="off";
-        SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
-
-        final JSONObject params = new JSONObject();
-        JSONObject param = null;
-        param = new JSONObject();
-        param.put("access_token", value);
-        param.put("service_id",sid);
-        param.put("category_id",idval);
-        param.put("gender_based",genderbased);
-        param.put("staff_based",staffbased);
-        param.put("category_name",servicename);
-        param.put("description",description);
-        params.put("info",param);
-        JSONObject param1 = null;
-        param1 = new JSONObject();
-        param1.put("male_price",price);
-        param1.put("female_price",price1);
-        param1.put("duration",ab);
-        params.put("price",param1);
-        JSONArray ja = new JSONArray();
-        for (int i = 0; i < horizontalList.size(); i++)
-        {
-            EditServiceModel face = horizontalList.get(i);
-            if (face.isChecked())
-            {
-                JSONObject jo = new JSONObject();
-                try {
-                    jo.put("category_name", face.getName());
-                    jo.put("staff_id",face.getCategory_id());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }ja.put(jo);
+                ja.put(jo);
             }
         }
-        params.put("staff",ja);
+        params.put("staff", ja);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest SR = new StringRequest(Request.Method.POST, URL1,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
 
-                        Log.v("updateUPVolleyRes6",response);
-
+                        Log.v("updateUPVolleyRes6", response);
 
 
                     }
@@ -631,7 +584,7 @@ public class Edit_Service extends AppCompatActivity {
                 Log.v("updateUPVolleyErr", error.toString());
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params2 = new HashMap<String, String>();
@@ -649,18 +602,102 @@ public class Edit_Service extends AppCompatActivity {
         requestQueue.add(SR);
 
 
+    }
+
+    private void sendingdata1() throws JSONException {
+        String servicename = etsname.getText().toString().trim();
+        String description = etdescription.getText().toString().trim();
+        String price = maleprice.getText().toString().trim();
+        String price1 = femaleprice.getText().toString().trim();
+
+        String ab = editDuration1.getText().toString().trim();
+        String genderbased = "on";
+        String staffbased = "off";
+        SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
+        final JSONObject params = new JSONObject();
+        JSONObject param = null;
+        param = new JSONObject();
+        param.put("access_token", value);
+        param.put("service_id", sid);
+        param.put("service_category",spinnerValue1);
+
+        param.put("gender_based", genderbased);
+        param.put("staff_based", staffbased);
+        param.put("category_name", servicename);
+        param.put("description", description);
+        params.put("info", param);
+        JSONObject param1 = null;
+        param1 = new JSONObject();
+        param1.put("male_price", price);
+        param1.put("female_price", price1);
+        param1.put("duration", ab);
+        params.put("price", param1);
+        JSONArray ja = new JSONArray();
+        for (int i = 0; i < horizontalList.size(); i++) {
+            EditServiceModel face = horizontalList.get(i);
+            if (face.isChecked()) {
+                JSONObject jo = new JSONObject();
+                try {
+                    jo.put("category_name", face.getName());
+                    jo.put("staff_id", face.getCategory_id());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ja.put(jo);
+            }
+        }
+        params.put("staff", ja);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest SR = new StringRequest(Request.Method.POST, URL1,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.v("updateUPVolleyRes6", response);
+
+
+                    }
+
+                }
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("updateUPVolleyErr", error.toString());
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params2 = new HashMap<String, String>();
+
+                params2.put("payload", params.toString());
+
+                Log.v("updateUPVolleyParams2", params2.toString());
+
+                return params2;
+
+            }
+        };
+
+
+        requestQueue.add(SR);
 
 
     }
-    private void sendingdata2 () throws JSONException {
+
+    private void sendingdata2() throws JSONException {
         String servicename = etsname.getText().toString().trim();
-        String servicecategory = tvscategory.getText().toString().trim();
         String description = etdescription.getText().toString().trim();
         String price = maleprice.getText().toString().trim();
         String price1 = femaleprice.getText().toString().trim();
         String ab = editDuration1.getText().toString().trim();
-        String genderbased ="off";
-        String staffbased ="on";
+        String numberpicker = String.valueOf(np1.getValue());
+
+        String genderbased = "off";
+        String staffbased = "on";
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
         //listAdapter.notifyDataSetChanged();
@@ -669,57 +706,56 @@ public class Edit_Service extends AppCompatActivity {
         JSONObject param = null;
         param = new JSONObject();
         param.put("access_token", value);
-        param.put("service_id",sid);
-        param.put("category_id",idval);
-        param.put("gender_based",genderbased);
-        param.put("staff_based",staffbased);
-        param.put("category_name",servicename);
-        param.put("description",description);
-        params.put("info",param);
+        param.put("service_id", sid);
+        param.put("service_category",spinnerValue1);
+param.put("duration",numberpicker);
+        param.put(",gender_based", genderbased);
+        param.put("staff_based", staffbased);
+        param.put("category_name", servicename);
+        param.put("description", description);
+        params.put("info", param);
         JSONObject param1 = null;
         JSONArray ja1 = new JSONArray();
         //listAdapter.notifyDataSetChanged();
-        for (int i = 0; i < pricelist.size(); i++)
-        {
+        for (int i = 0; i < pricelist.size(); i++) {
             pricevariable face = pricelist.get(i);
 
-                JSONObject jo = new JSONObject();
-                try {
-                    jo.put("category_name", face.getName());
-                    jo.put("common_price",face.getPrice());
-                    jo.put("duration",face.getDuration());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }ja1.put(jo);
+            JSONObject jo = new JSONObject();
+            try {
+                jo.put("category_name", face.getName());
+                jo.put("common_price", face.getPrice());
+                jo.put("duration", face.getDuration());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ja1.put(jo);
 
         }
-        params.put("price",ja1);
+        params.put("price", ja1);
 
         JSONArray ja = new JSONArray();
-        for (int i = 0; i < horizontalList.size(); i++)
-        {
+        for (int i = 0; i < horizontalList.size(); i++) {
             EditServiceModel face = horizontalList.get(i);
-            if (face.isChecked())
-            {
+            if (face.isChecked()) {
                 JSONObject jo = new JSONObject();
                 try {
                     jo.put("category_name", face.getName());
-                    jo.put("staff_id",face.getCategory_id());
+                    jo.put("staff_id", face.getCategory_id());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }ja.put(jo);
+                }
+                ja.put(jo);
             }
         }
-        params.put("staff",ja);
+        params.put("staff", ja);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest SR = new StringRequest(Request.Method.POST, URL1,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
 
-                        Log.v("updateUPVolleyRes6",response);
-
+                        Log.v("updateUPVolleyRes6", response);
 
 
                     }
@@ -731,7 +767,7 @@ public class Edit_Service extends AppCompatActivity {
                 Log.v("updateUPVolleyErr", error.toString());
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params2 = new HashMap<String, String>();
@@ -749,19 +785,16 @@ public class Edit_Service extends AppCompatActivity {
         requestQueue.add(SR);
 
 
-
-
     }
 
-    private void sendingdata3 () throws JSONException {
+    private void sendingdata3() throws JSONException {
         String servicename = etsname.getText().toString().trim();
-        String servicecategory = tvscategory.getText().toString().trim();
         String description = etdescription.getText().toString().trim();
         String price = maleprice.getText().toString().trim();
         String price1 = femaleprice.getText().toString().trim();
         String ab = editDuration1.getText().toString().trim();
-        String genderbased ="on";
-        String staffbased ="on";
+        String genderbased = "on";
+        String staffbased = "on";
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
 
@@ -770,57 +803,56 @@ public class Edit_Service extends AppCompatActivity {
         JSONObject param = null;
         param = new JSONObject();
         param.put("access_token", value);
-        param.put("service_id",sid);
-        param.put("category_id",idval);
-        param.put("gender_based",genderbased);
-        param.put("staff_based",staffbased);
-        param.put("category_name",servicename);
-        param.put("description",description);
-        params.put("info",param);
+        param.put("service_id", sid);
+        param.put("service_category",spinnerValue1);
+
+        param.put("gender_based", genderbased);
+        param.put("staff_based", staffbased);
+        param.put("category_name", servicename);
+        param.put("description", description);
+        params.put("info", param);
         JSONObject param1 = null;
         JSONArray ja1 = new JSONArray();
-        for (int i = 0; i < pricelist1.size(); i++)
-        {
+        for (int i = 0; i < pricelist1.size(); i++) {
             pricevariable1 face = pricelist1.get(i);
 
             JSONObject jo = new JSONObject();
             try {
                 jo.put("category_name", face.getName());
-                jo.put("male_price",face.getMaleprice());
-                jo.put("female_price",face.getFemaleprice());
-                jo.put("duration",face.getDuration());
+                jo.put("male_price", face.getMaleprice());
+                jo.put("female_price", face.getFemaleprice());
+                jo.put("duration", face.getDuration());
             } catch (JSONException e) {
                 e.printStackTrace();
-            }ja1.put(jo);
+            }
+            ja1.put(jo);
 
         }
-        params.put("price",ja1);
+        params.put("price", ja1);
 
         JSONArray ja = new JSONArray();
-        for (int i = 0; i < horizontalList.size(); i++)
-        {
+        for (int i = 0; i < horizontalList.size(); i++) {
             EditServiceModel face = horizontalList.get(i);
-            if (face.isChecked())
-            {
+            if (face.isChecked()) {
                 JSONObject jo = new JSONObject();
                 try {
                     jo.put("category_name", face.getName());
-                    jo.put("staff_id",face.getCategory_id());
+                    jo.put("staff_id", face.getCategory_id());
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }ja.put(jo);
+                }
+                ja.put(jo);
             }
         }
-        params.put("staff",ja);
+        params.put("staff", ja);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest SR = new StringRequest(Request.Method.POST, URL1,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
 
-                        Log.v("updateUPVolleyRes6",response);
-
+                        Log.v("updateUPVolleyRes6", response);
 
 
                     }
@@ -832,7 +864,7 @@ public class Edit_Service extends AppCompatActivity {
                 Log.v("updateUPVolleyErr", error.toString());
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params2 = new HashMap<String, String>();
@@ -850,12 +882,7 @@ public class Edit_Service extends AppCompatActivity {
         requestQueue.add(SR);
 
 
-
-
     }
-
-
-
 
 
     public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.ViewHolder> {
@@ -945,186 +972,19 @@ public class Edit_Service extends AppCompatActivity {
 
     }
 
-   /* private static class priceArrayAdapter extends ArrayAdapter<pricevariable> {
 
-        private LayoutInflater inflater;
-        private List<pricevariable> pricelist;
-        private Context context;
-
-        public priceArrayAdapter(Context context, int resourceId, List<pricevariable> pricelist) {
-            super(context, R.layout.customeditservice1, pricelist);
-            // Cache the LayoutInflate to avoid asking for a new one each time.
-            inflater = LayoutInflater.from((Context) context);
-            this.pricelist = pricelist;
-            this.context = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // SERVICES to display
-            pricevariable hair = (pricevariable) this.getItem(position);
-
-            // The child views in each row.
-            TextView editText;
-            EditText editText1;
-            EditText editText2;
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-            // Create a new row view
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.customeditservice1, null);
-
-                // Find the child views.
-                editText = (TextView) convertView
-                        .findViewById(R.id.emptextview1);
-                editText1 = (EditText) convertView.findViewById(R.id.emptextview2);
-                editText2 = (EditText) convertView.findViewById(R.id.emptextview3);
-
-
-                convertView.setTag(new Viewholder4(editText, editText1, editText2));
-
-
-            }
-            // Reuse existing row view
-            else {
-                // Because we use a ViewHolder, we avoid having to call
-                // findViewById().
-                Viewholder4 viewHolder = (Viewholder4) convertView
-                        .getTag();
-                editText = viewHolder.getEditText1();
-                editText1 = viewHolder.getEditText2();
-                editText2 = viewHolder.getEditText3();
-            }
-
-
-            // Display Service data
-            editText.setText(hair.getName());
-            editText1.setText(String.valueOf(hair.getPrice()));
-            editText2.setText(String.valueOf(hair.getDuration()));
-
-
-            return convertView;
-        }
-
-    }*/
-
-   /* private static class priceArrayAdapter1 extends ArrayAdapter<pricevariable1> {
-
-        private LayoutInflater inflater;
-        private List<pricevariable1> pricelist1;
-        private Context context;
-
-        public priceArrayAdapter1(Context context, int resourceId, List<pricevariable1> pricelist1) {
-            super(context, R.layout.customeditservice2, pricelist1);
-            // Cache the LayoutInflate to avoid asking for a new one each time.
-            inflater = LayoutInflater.from((Context) context);
-            this.pricelist1 = pricelist1;
-            this.context = context;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            // SERVICES to display
-            final pricevariable1 hair = (pricevariable1) this.getItem(position);
-
-            // The child views in each row.
-            TextView editText;
-            final EditText editText1;
-            EditText editText2;
-            EditText editText3;
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-
-            // Create a new row view
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.customeditservice2, null);
-
-                // Find the child views.
-                editText = (TextView) convertView
-                        .findViewById(R.id.emptextview11);
-                editText1 = (EditText) convertView.findViewById(R.id.emptextview12);
-                editText2 = (EditText) convertView.findViewById(R.id.emptextview13);
-                editText3 = (EditText) convertView.findViewById(R.id.emptextview14);
-
-                convertView.setTag(new Viewholder5(editText, editText1, editText2, editText3));
-
-
-            }
-            // Reuse existing row view
-            else {
-                // Because we use a ViewHolder, we avoid having to call
-                // findViewById().
-                Viewholder5 viewHolder = (Viewholder5) convertView
-                        .getTag();
-                editText = viewHolder.getEditText1();
-                editText1 = viewHolder.getEditText2();
-                editText2 = viewHolder.getEditText3();
-                editText3 = viewHolder.getEditText4();
-editText1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if(!hasFocus){
-            String value = editText1.getText().toString();
-            hair.setMaleprice((value));
-            Log.v("valuess", String.valueOf(hair.getMaleprice()));
-            notifyDataSetChanged();
-    }else {
-        }
-    }
-});
-                editText1.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                        hair.setMaleprice((s.toString()) );
-                        Log.v("valuesss", String.valueOf(hair.getMaleprice()));
-                        Log.v("ppp1", String.valueOf(s));
-                        notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        Log.v("ppp2", String.valueOf(s));
-                        hair.setMaleprice((s.toString()) );
-                        Log.v("valuessss", String.valueOf(hair.getMaleprice()));
-
-                        notifyDataSetChanged();
-                    }
-                });
-            }
-
-
-            // Display Service data
-            editText.setText(hair.getName());
-            editText1.setText(String.valueOf(hair.getMaleprice()));
-            editText2.setText(String.valueOf(hair.getFemaleprice()));
-            editText3.setText(String.valueOf(hair.getDuration()));
-
-
-            return convertView;
-        }
-
-    }*/
     public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> {
 
         private List<pricevariable> pricelist;
-       private String spinnerValue1;
+        private String spinnerValue1;
 
 
-        public  class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public EditText editText1;
             public Spinner editText2;
             public TextView editText;
-            String[] spinnerItems1 = new String[]{"15","20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70","75","80","85","90","0"};
-
+            String[] spinnerItems1 = new String[]{"15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "0"};
 
 
             public ViewHolder(View v) {
@@ -1137,7 +997,6 @@ editText1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         R.layout.spinnerlayout, spinnerItems1);
                 adapter1.setDropDownViewResource(R.layout.spinnerlayout);
                 editText2.setAdapter(adapter1);
-
 
 
             }
@@ -1165,24 +1024,22 @@ editText1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             holder.editText.setText(pricelist.get(position).getName());
             holder.editText1.setText(String.valueOf(pricelist.get(position).getPrice()));
             holder.editText2.setSelection(getIndex(holder.editText2, pricelist.get(position).getDuration()));
-final int pos = position;
-           
+            final int pos = position;
 
 
-           holder.editText2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            holder.editText2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                  String  spinnerValue = holder.editText2.getSelectedItem().toString();
-                    Log.v("spinnerValue",spinnerValue);
+                    String spinnerValue = holder.editText2.getSelectedItem().toString();
+                    Log.v("spinnerValue", spinnerValue);
                     pricelist.get(pos).setDuration((String.valueOf(spinnerValue)));
-
 
 
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    spinnerValue1 ="empty";
+                    spinnerValue1 = "empty";
 
                 }
             });
@@ -1194,7 +1051,7 @@ final int pos = position;
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                      pricelist.get(position).setPrice((String.valueOf(s))) ;
+                    pricelist.get(position).setPrice((String.valueOf(s)));
                 }
 
                 @Override
@@ -1202,21 +1059,20 @@ final int pos = position;
 
                 }
             });
-        
+
 
         }
 
-       
 
-       @Override
+        @Override
         public int getItemCount() {
             return pricelist.size();
         }
     }
 
     private int getIndex(Spinner spinner, String myString) {
-        for (int i=0;i<spinner.getCount();i++){
-            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)) {
                 return i;
             }
         }
@@ -1229,13 +1085,13 @@ final int pos = position;
         private List<pricevariable1> pricelist1;
 
 
-        public  class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public EditText editText1;
             public EditText editText2;
             public TextView editText;
             public Spinner editText3;
-            String[] spinnerItems1 = new String[]{"15","20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70","75","80","85","90","0"};
+            String[] spinnerItems1 = new String[]{"15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "0"};
 
 
             public ViewHolder(View v) {
@@ -1258,7 +1114,7 @@ final int pos = position;
 
         @Override
         public TestAdapter1.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                         int viewType) {
+                                                          int viewType) {
 
             Log.v("test-recyclerview", "onCreateViewHolder");
 
@@ -1278,14 +1134,12 @@ final int pos = position;
             final int pos = position;
 
 
-
             holder.editText3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String  spinnerValue = holder.editText3.getSelectedItem().toString();
-                    Log.v("spinnerValue",spinnerValue);
+                    String spinnerValue = holder.editText3.getSelectedItem().toString();
+                    Log.v("spinnerValue", spinnerValue);
                     pricelist.get(pos).setDuration((String.valueOf(spinnerValue)));
-
 
 
                 }
@@ -1298,7 +1152,6 @@ final int pos = position;
             });
 
 
-
             holder.editText1.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -1307,7 +1160,8 @@ final int pos = position;
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    pricelist1.get(position).setMaleprice((String.valueOf(s))); ;
+                    pricelist1.get(position).setMaleprice((String.valueOf(s)));
+                    ;
                 }
 
                 @Override
@@ -1323,7 +1177,8 @@ final int pos = position;
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    pricelist1.get(position).setFemaleprice((String.valueOf(s))); ;
+                    pricelist1.get(position).setFemaleprice((String.valueOf(s)));
+                    ;
 
                 }
 
@@ -1344,4 +1199,3 @@ final int pos = position;
 
 
 }
-

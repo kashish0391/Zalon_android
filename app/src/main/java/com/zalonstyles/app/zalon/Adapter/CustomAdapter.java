@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zalonstyles.app.zalon.EmployeeManagement;
+import com.zalonstyles.app.zalon.Emp_Management;
 import com.zalonstyles.app.zalon.GiftVouchers;
 import com.zalonstyles.app.zalon.Inventory;
 import com.zalonstyles.app.zalon.Profile;
@@ -72,7 +72,7 @@ public class CustomAdapter extends BaseAdapter {
                 // TODO Auto-generated method stub
 
                 if (position == 0) {
-                    v.getContext().startActivity(new Intent(context, EmployeeManagement.class));
+                    v.getContext().startActivity(new Intent(context, Emp_Management.class));
 
                 }
 
