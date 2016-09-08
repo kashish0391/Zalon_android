@@ -1,6 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+
+                android:text="Bill No"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/billno"
+                android:layout_width="85dp"
+                android:textColor="#000"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp" />
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="500dp"
+
+                android:text="Date"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/billdate"
+                android:layout_width="80dp"
+                android:textColor="#000"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:id="@+id/billname"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:hint="Customer Name" />
+
+            <EditText
+                android:id="@+id/billmob"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="330dp"
+                android:hint="Customer Mobile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Category"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billcategory"
+                android:layout_marginLeft="30dp" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="190dp"
+                android:text="Service"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="200dp"
+                android:id="@+id/billservice"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Items"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billitem"
+                android:layout_marginLeft="30dp" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="190dp"
+                android:text="Stylist"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="200dp"
+                android:id="@+id/billstylist"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Promo code"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billpromo"
+                android:layout_marginLeft="25dp" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="190dp"
+                android:text="Discount"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billdiscounts"
+                android:layout_marginLeft="50dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Quantity"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billquantity"
+                android:layout_marginLeft="25dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="1dp"
+                android:layout_marginLeft="190dp"
+                android:textColor="#000000"
+                android:text="Gender" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:text="Male"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/billradiobtn0"
+                android:checked="true"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:text="Female"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/billradiobtn01"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="200dp"
+                android:text="ADD"
+                android:id="@+id/billaddbtn"
+                android:background="#2b73e1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="S.No"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Description"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Qty"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Rate"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Amount"
+                android:textColor="#000" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:id="@+id/billlv"
+                android:layout_height="wrap_content">
+
+            </ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:hint="Grand Total"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="200dp"
+                android:id="@+id/billtotal"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="380dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -8,6 +8,16 @@ public class empmodel {
     private String category;
     private String id;
 
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    private int image;
+
     public String getId() {
         return id;
     }

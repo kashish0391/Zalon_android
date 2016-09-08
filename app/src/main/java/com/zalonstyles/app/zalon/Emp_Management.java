@@ -2,6 +2,7 @@ package com.zalonstyles.app.zalon;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,9 +10,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -86,6 +91,7 @@ public class Emp_Management extends AppCompatActivity {
                                     service.setName(obj.getString("name"));
                                     service.setCategory(obj.getString("category"));
                                     service.setId(obj.getString("staff_id"));
+                                    service.setImage(R.drawable.male);
                                     emplist.add(service);
                                     Log.e("check2", String.valueOf(emplist.get(i).getName()));
                                 }catch (JSONException e) {
@@ -124,6 +130,44 @@ public class Emp_Management extends AppCompatActivity {
         listAdapter = new empArrayAdapter(this,R.layout.customemp_mangement, emplist);
 
         lv.setAdapter(listAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                empmodel service = listAdapter.getItem(position);
+                Intent intent= new Intent(Emp_Management.this,Edit_Employee.class);
+                String value=  service.getName().toString();
+                String Valueid = String.valueOf(service.getId());
+                intent.putExtra("id", Valueid);
+                intent.putExtra("value",value);
+                startActivity(intent);
+
+            }
+        });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu5, menu);
+        return true;
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.NEWEMP:
+                Intent intent = new Intent(Emp_Management.this,New_employee.class);
+                startActivity(intent);
+                return true;
+
+
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+
     }
 
     private static class empArrayAdapter extends ArrayAdapter<empmodel>
@@ -150,6 +194,7 @@ public class Emp_Management extends AppCompatActivity {
             // The child views in each row.
             TextView textView;
             TextView textView1;
+            ImageView img;
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -160,11 +205,13 @@ public class Emp_Management extends AppCompatActivity {
                 // Find the child views.
                 textView = (TextView) convertView
                         .findViewById(R.id.customemptv);
+                img= (ImageView) convertView.findViewById(R.id.spacecraftImg);
+
                 textView1 = (TextView) convertView
                         .findViewById(R.id.customemptv1);
 
 
-                convertView.setTag(new viewholderemp(textView,textView1));
+                convertView.setTag(new viewholderemp(textView,textView1,img));
             }else {
 
 
@@ -175,11 +222,13 @@ public class Emp_Management extends AppCompatActivity {
                         .getTag();
                 textView = viewHolder.getTextView();
                 textView1 = viewHolder.getTextView1();
+                img = viewHolder.getImageView();
 
             }
 
             textView.setText(face.getName());
             textView1.setText(face.getCategory());
+            img.setImageResource(face.getImage());
 
             return convertView;
         }

@@ -1,5 +1,6 @@
 package com.zalonstyles.app.zalon.Model;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -8,9 +9,20 @@ import android.widget.TextView;
 public class viewholderemp {
     private TextView textView;
     private TextView textView1;
-   public viewholderemp(TextView textView,TextView textView1){
+    private ImageView imageView;
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    public viewholderemp(TextView textView, TextView textView1,ImageView imageView){
         this.textView=textView;
         this.textView1=textView1;
+        this.imageView = imageView;
     }
 
     public TextView getTextView1() {

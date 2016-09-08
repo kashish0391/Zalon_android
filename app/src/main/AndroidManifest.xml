@@ -175,6 +175,15 @@
             android:screenOrientation="landscape"
             android:label="New Service" >
         </activity>
+        <activity
+            android:name=".Edit_Employee"
+            android:screenOrientation="landscape"
+            android:label="Edit Employee" >
+        </activity> <activity
+        android:name=".New_employee"
+        android:screenOrientation="landscape"
+        android:label="New Employee" >
+    </activity>
 
 
 
