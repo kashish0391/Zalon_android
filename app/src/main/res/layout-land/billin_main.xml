@@ -223,12 +223,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+
+
+
                 android:text="S.No"
                 android:textColor="#000" />
 
@@ -238,6 +245,12 @@
                 android:layout_margin="10dp"
                 android:text="Description"
                 android:textColor="#000" />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_margin="10dp"
+                android:text="Stylist"
+                android:textColor="#000"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="50dp"
@@ -270,29 +283,120 @@
             <ListView
                 android:layout_width="match_parent"
                 android:id="@+id/billlv"
-                android:layout_height="wrap_content">
+                android:layout_height="250dp">
 
             </ListView>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:gravity="center"
 
-            <TextView
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:hint="Grand Total"
-                android:textColor="#000" />
+            android:layout_height="wrap_content">
 
-            <EditText
+            <Button
                 android:layout_width="200dp"
-                android:id="@+id/billtotal"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="380dp" />
+                android:text="Generate Bill"
+                android:id="@+id/billgenerate"
+                android:layout_height="wrap_content" />
+
+
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="120dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:text="Sub Total"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+
+                    android:text="Discount"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+
+                    android:text="Service Tax"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:text="Vat"
+                    android:textColor="#000"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:text="Total"
+                    android:textColor="#000"
+
+                    android:layout_height="35dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="120dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:layout_height="35dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+        </LinearLayout>
+
+
 
 
     </LinearLayout>

@@ -1,15 +1,21 @@
 package com.zalonstyles.app.zalon;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.zalonstyles.app.zalon.Model.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,10 +72,16 @@ public class BillingMain extends AppCompatActivity {
     private   ArrayAdapter<String> arrayadapter3;
     private   ArrayAdapter<String> arrayadapter4;
     private   ArrayAdapter<String> arrayadapter5;
+    private   ArrayAdapter<String> arrayadapter6;
+    List<String> stringlist01;
+
+
     private Button addbill;
+    private Button genbill;
 
     private ListView billlv;
     String[] spinnerItems1 = new String[]{"1","2","3","4","5","6","7","8","9","10"};
+    String[] spinnerItems01 = new String[]{"No Discount","5%","10%","15%","20%","25%","30%","35%","40%","45%","50%"};
     String[] spinnerItems = new String[]{"Select Category","Body","Hair","Nail","Face","Hair Removal","Massage","Product"};
 
     List<String> stringlist;
@@ -78,7 +91,11 @@ public class BillingMain extends AppCompatActivity {
     private ArrayList<String> servicespin;
     private ArrayList<String> servicespin1;
     private ArrayList<String> servicespin2;
+
     private static String url="http://52.41.72.46:8080/billing/get_bill_info";
+    private List<com.zalonstyles.app.zalon.Model.billlist> billList = new ArrayList<>();
+    private ArrayAdapter<billlist> listAdapter;
+
 
 
 
@@ -207,16 +224,114 @@ public class BillingMain extends AppCompatActivity {
         promocode = (Spinner)findViewById(R.id.billpromo);
         Discounts = (Spinner)findViewById(R.id.billdiscounts);
         quantity = (Spinner) findViewById(R.id.billquantity);
-        total = (EditText) findViewById(R.id.billtotal);
         billlv = (ListView)findViewById(R.id.billlv);
         Category = (Spinner) findViewById(R.id.billcategory);
         stringlist = new ArrayList<>(Arrays.asList(spinnerItems1));
+        stringlist01 = new ArrayList<>(Arrays.asList(spinnerItems01));
+        genbill = (Button)findViewById(R.id.billgenerate);
+    int counter = 1;
+
         stringlist1 = new ArrayList<>(Arrays.asList(spinnerItems));
         servicespin = new ArrayList<String>();
         servicespin1 = new ArrayList<String>();
         servicespin2 = new ArrayList<String>();
+        genbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listAdapter = new billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
+                billlv.setAdapter(listAdapter);
+
+                String name = customerName.getText().toString();
+                String mob = customerMob.getText().toString();
+                String invoice = Billno.getText().toString();
+
+                JSONArray ja = new JSONArray();
+                for (int i = 0; i < listAdapter.getCount(); i++)
+                {
+                    billlist massage = listAdapter.getItem(i);
+
+                        JSONObject jo = new JSONObject();
+                        try {
+                            jo.put("description", massage.getDescription());
+                            jo.put("stylist",massage.getStylist());
+                            jo.put("quantity",massage.getQty());
+                            jo.put("rate",massage.getRate());
+                            jo.put("amount",massage.getAmount());
+                            jo.put("discounts",massage.getDiscounts());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+                        ja.put(jo);
+                    SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
+                    final JSONObject params = new JSONObject();
+
+                    try {
+                        params.put("access_token", value);
+                        params.put("customer_name",name);
+                        params.put("invoice",invoice);
+                        params.put("info",ja);
+                        params.put("mobile", mob);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+
+
+
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/billing/calculate_bill",
+                            new Response.Listener<String>() {
+
+                                @Override
+                                public void onResponse(String response) {
+
+
+
+
+
+
+                                }
+
+                            }
+                            , new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.v("updateUPVolleyErr", error.toString());
+
+                        }
+                    }) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params1 = new HashMap<String, String>();
+
+                            params1.put("payload", params.toString());
+
+                            Log.v("sellableParams", params1.toString());
+
+                            return params1;
+
+                        }
+                    };
+
+                    RequestQueue requestQueue = Volley.newRequestQueue(BillingMain.this);
+                    requestQueue.add(stringRequest);
+
+
+
+
+                }
+
+            }
+        });
         r1 = (RadioButton) findViewById(R.id.billradiobtn0);
         r2 = (RadioButton) findViewById(R.id.billradiobtn01);
+        addbill = (Button) findViewById(R.id.billaddbtn);
         addbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,15 +349,16 @@ public class BillingMain extends AppCompatActivity {
                     params.put("Service",Spinnerservice);
                     params.put("item",Spinneritems);
                     params.put("stylist",Spinnerstylist);
-                    params.put("Discounts",Spinnerdiscounts);
+                    params.put("discounts",Spinnerdiscounts);
                     params.put("promocode",Spinnerpromocode);
                     params.put("quantity",Spinnerquantity);
-                    String gender;
+                    String gender = null;
                     if(r1.isChecked()){
                         gender = "male";
                     }else if (r2.isChecked()){
                         gender="female";
                     }
+                    params.put("gender",gender);
 
 
 
@@ -250,12 +366,43 @@ public class BillingMain extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/billing/calculate_bill",
                         new Response.Listener<String>(){
 
                             @Override
                             public void onResponse(String response) {
+                                Log.v("RESPONSE",response);
 
+                                try {
+                                    JSONObject jobject = new JSONObject(response);
+                                    JSONObject obj = jobject.getJSONObject("list");
+
+
+                                            com.zalonstyles.app.zalon.Model.billlist service = new com.zalonstyles.app.zalon.Model.billlist();
+
+
+//                                           service.setSno(String.valueOf(counter));
+                                            service.setDescription(obj.getString("description"));
+                                            service.setStylist(obj.getString("stylist"));
+                                            service.setQty(obj.getString("quantity"));
+                                            service.setRate(obj.getString("rate"));
+                                            service.setAmount(obj.getString("amount"));
+                                            service.setDiscounts(obj.getString("discounts"));
+
+                                            billList.add(service);
+                                            Log.v("respo", String.valueOf(billList.get(0)));
+
+
+
+
+
+
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }listAdapter.notifyDataSetChanged();
 
 
 
@@ -282,6 +429,9 @@ public class BillingMain extends AppCompatActivity {
                     }
                 };
                 requestQueue.add(stringRequest);
+                listAdapter = new billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
+                billlv.setAdapter(listAdapter);
+
 
             }
         });
@@ -544,6 +694,23 @@ public class BillingMain extends AppCompatActivity {
 
             }
         });
+        arrayadapter6 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,stringlist01 );
+
+        arrayadapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Discounts.setAdapter(arrayadapter6);
+        Discounts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinnerdiscounts = Discounts.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Spinnerdiscounts ="5%";
+
+            }
+        });
     }
 
     @Override
@@ -593,5 +760,145 @@ public class BillingMain extends AppCompatActivity {
 
         }
     }
+    private static class billArrayAdapter extends ArrayAdapter<com.zalonstyles.app.zalon.Model.billlist>
+    {
+
+        private LayoutInflater inflater;
+        private List<com.zalonstyles.app.zalon.Model.billlist> billlist;
+        private Context context;
+
+        public billArrayAdapter(Context context, int resourceId, List<com.zalonstyles.app.zalon.Model.billlist> billlist)
+        {
+            super(context, R.layout.custombilling, billlist);
+            // Cache the LayoutInflate to avoid asking for a new one each time.
+            inflater = LayoutInflater.from((Context) context);
+            this.billlist = billlist;
+            this.context = context;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent)
+        {
+            // SERVICES to display
+            final com.zalonstyles.app.zalon.Model.billlist sinventory = (com.zalonstyles.app.zalon.Model.billlist) this.getItem(position);
+
+            // The child views in each row.
+            TextView textView1;
+            TextView textView2;
+            TextView textView3;
+            TextView textView4;
+            TextView textView5;
+            TextView textView6;
+            Button button;
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+
+            // Create a new row view
+            if (convertView == null)
+            {
+                convertView = inflater.inflate(R.layout.custombilling,null );
+
+                // Find the child views.
+                textView1 = (TextView) convertView
+                        .findViewById(R.id.custombilltv);
+                textView2 = (TextView) convertView.findViewById(R.id.custombilltv1);
+                textView3 = (TextView) convertView.findViewById(R.id.custombilltv2);
+                textView4 = (TextView) convertView.findViewById(R.id.custombilltv3);
+                textView5 = (TextView)convertView.findViewById(R.id.custombilltv4);
+                textView6 = (TextView)convertView.findViewById(R.id.custombilltv5);
+                button = (Button) convertView.findViewById(R.id.custombillbtn);
+
+                // Optimization: Tag the row with it's child views, so we don't
+                // have to
+                // call findViewById() later when we reuse the row.
+                convertView.setTag(new viewholderbill(textView1, textView2,textView3,textView4,textView5,textView6,button));
+
+
+
+
+                // If CheckBox is toggled, update the planet it is tagged with.
+
+            }
+            // Reuse existing row view
+            else
+            {
+                // Because we use a ViewHolder, we avoid having to call
+                // findViewById().
+                viewholderbill viewHolder = (viewholderbill) convertView
+                        .getTag();
+                textView1 = viewHolder.getTextView();
+                textView2 = viewHolder.getTextview1();
+                textView3 = viewHolder.getTextview2();
+                textView4 = viewHolder.getTextView3();
+                textView5 = viewHolder.getTextView4();
+                textView6 = viewHolder.getTextView5();
+
+                button = viewHolder.getButton();
+                button.setOnClickListener(new View.OnClickListener()
+                {
+                    public void onClick(View v)
+                    {
+                        Button cb = (Button) v;
+                        com.zalonstyles.app.zalon.Model.billlist sinventory = (com.zalonstyles.app.zalon.Model.billlist) cb.getTag();
+                        sinventory.setClicked(cb.isSelected());
+                    }
+                });
+            }
+
+
+
+            // Display Service data
+            textView1.setText(String.valueOf(position));
+            textView2.setText(sinventory.getDescription());
+            textView3.setText(sinventory.getStylist());
+            textView4.setText(sinventory.getQty());
+            textView5.setText(sinventory.getRate());
+            textView6.setText(sinventory.getAmount());
+            button.setTag(sinventory);
+            button.setSelected(sinventory.isClicked());
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    Button cb = (Button) v;
+                                    com.zalonstyles.app.zalon.Model.billlist inventory = (com.zalonstyles.app.zalon.Model.billlist) cb.getTag();
+                                    inventory.setClicked(cb.isSelected());
+
+
+
+
+                                    billlist.remove(position);
+                                    notifyDataSetChanged();
+
+
+
+                                    break;
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    // No button clicked //
+                                    // do nothing
+                                    break; } } };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Are you sure?") .setPositiveButton("Yes", dialogClickListener) .setNegativeButton("No", dialogClickListener).show();
+
+
+
+
+
+
+                }
+
+            });
+
+            return convertView;
+        }
+
+    }
+
 }
 
