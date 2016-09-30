@@ -123,7 +123,7 @@
         <activity
             android:name=".GiftVouchers"
             android:screenOrientation="landscape"
-            android:label="Gift Vouchers" >
+            android:label= "">
         </activity>
         <activity
             android:name=".PrintReceipts"
@@ -184,6 +184,16 @@
         android:screenOrientation="landscape"
         android:label="New Employee" >
     </activity>
+        <activity android:name=".Select_services"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+        <activity android:name=".Search"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
 
 
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/mscategory"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/msname"
+        android:layout_marginTop="3dp"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/msstock"
+        android:layout_marginTop="3dp"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:text="TextView" />
+
+
+    <Button
+
+        android:id="@+id/mbuttonDelete1"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="80dp"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:background="@drawable/close"
+        android:textSize="14dp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:padding="3dp"
+
+        />
+
+</LinearLayout>

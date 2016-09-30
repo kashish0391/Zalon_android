@@ -1,6 +1,329 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Campaign Name"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:id="@+id/campname"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Services"
+                android:textColor="#000" />
+
+            <Button
+                android:id="@+id/btnservice"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="290dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="Add Rule"
+
+                    android:textColor="#000" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinny4"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="60dp"></Spinner>
+
+                <EditText
+                    android:layout_width="150dp"
+                    android:layout_marginLeft="60dp"
+                    android:hint="value"
+                    android:id="@+id/maredit"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:id="@+id/rad1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:text="All Apply" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rad2"
+
+                    android:layout_marginLeft="100dp"
+                    android:text="One Apply" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinny1"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"></Spinner>
+
+                <Spinner
+                    android:id="@+id/spinny2"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"></Spinner>
+
+                <Spinner
+                    android:id="@+id/spinny3"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="60dp"></Spinner>
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/marketadd"
+                    android:layout_marginLeft="60dp"
+                    android:text="Add" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ListView
+                    android:id="@+id/listViewmarketing"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                </ListView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Additional Rules"
+                    android:textColor="#000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/spinny6"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="60dp"
+
+                        android:layout_marginTop="10dp">
+
+                    </Spinner>
+                    <Button
+                        android:id="@+id/btnmarketingstrt"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:text="Start Date"
+                        android:layout_marginLeft="60dp"
+                        android:onClick="setDate">
+
+                    </Button>
+                    <TextView
+                        android:layout_width="90dp"
+                        android:text="Starts at"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/marketingstrt"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/btnmarketing"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:text="End Date"
+                        android:layout_marginLeft="60dp"
+                        android:onClick="setDate1">
+
+                    </Button>
+                    <TextView
+                        android:layout_width="90dp"
+                        android:text="Ends at"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/marketingvalidity"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:layout_width="120dp"
+                        android:id="@+id/minBillValue"
+                        android:hint="Min Bill value"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Applicable days"
+                        android:textColor="#000" />
+
+                    <CheckBox
+                        android:id="@+id/editchkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="M" />
+
+                    <CheckBox
+                        android:id="@+id/editchkbox1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="T" />
+
+                    <CheckBox
+                        android:id="@+id/editchkbox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="W" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:id="@+id/editchkbox3"
+
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="T" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editchkbox4"
+
+                        android:layout_marginLeft="20dp"
+                        android:text="F" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:id="@+id/editchkbox5"
+
+                        android:text="S" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editchkbox6"
+
+                        android:layout_marginLeft="20dp"
+                        android:text="S" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Your Message"
+                        android:textColor="#000"
+                        android:layout_height="wrap_content" />
+                    <EditText
+                        android:layout_width="400dp"
+                        android:id="@+id/msg"
+                        android:layout_marginLeft="100dp"
+
+                        android:layout_height="100dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="150dp"
+                        android:layout_marginRight="100dp"
+                        android:id="@+id/marbtnsv"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

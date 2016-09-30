@@ -68,6 +68,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="330dp"
                 android:hint="Customer Mobile" />
+            <Button
+                android:layout_width="30dp"
+                android:id="@+id/btnsrch"
+                android:layout_height="35dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,19 +142,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
-
             <TextView
                 android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="Promo code"
+                android:text="Quantity"
                 android:textColor="#000" />
 
             <Spinner
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/billpromo"
+                android:id="@+id/billquantity"
                 android:layout_marginLeft="25dp" />
+
+
 
             <TextView
                 android:layout_width="100dp"
@@ -170,29 +175,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
-            <TextView
-                android:layout_width="65dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="Quantity"
-                android:textColor="#000" />
 
-            <Spinner
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/billquantity"
-                android:layout_marginLeft="25dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
-                android:layout_marginLeft="190dp"
+                android:layout_marginLeft="30dp"
                 android:textColor="#000000"
                 android:text="Gender" />
             <RadioButton
                 android:layout_width="wrap_content"
                 android:text="Male"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="40dp"
                 android:id="@+id/billradiobtn0"
                 android:checked="true"
                 android:layout_height="wrap_content" />
@@ -283,21 +277,34 @@
             <ListView
                 android:layout_width="match_parent"
                 android:id="@+id/billlv"
-                android:layout_height="250dp">
+                android:layout_height="wrap_content">
 
             </ListView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:gravity="center"
 
             android:layout_height="wrap_content">
 
             <Button
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:text="Generate Bill"
                 android:id="@+id/billgenerate"
+                android:layout_marginLeft="150dp"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:text="Promo code"
+                android:textColor="#000" />
+
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billpromo"
+                android:layout_marginLeft="25dp" />
 
 
         </LinearLayout>
@@ -359,6 +366,7 @@
                     android:layout_width="80dp"
                     android:layout_marginLeft="120dp"
                     android:gravity="center"
+                    android:id="@+id/tax"
                     android:textColor="#000"
                     android:layout_height="35dp" />
                 <TextView
@@ -366,12 +374,7 @@
                     android:layout_marginLeft="60dp"
                     android:gravity="center"
                     android:textColor="#000"
-                    android:layout_height="35dp" />
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_marginLeft="60dp"
-                    android:gravity="center"
-                    android:textColor="#000"
+                    android:id="@+id/tax1"
 
                     android:layout_height="35dp" />
                 <TextView
@@ -379,12 +382,24 @@
                     android:layout_marginLeft="60dp"
                     android:gravity="center"
                     android:textColor="#000"
+                    android:id="@+id/tax2"
+
                     android:layout_height="35dp" />
                 <TextView
                     android:layout_width="80dp"
                     android:layout_marginLeft="60dp"
                     android:gravity="center"
                     android:textColor="#000"
+                    android:id="@+id/tax3"
+
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:id="@+id/tax4"
+
                     android:layout_height="35dp" />
 
             </LinearLayout>

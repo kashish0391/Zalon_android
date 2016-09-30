@@ -32,7 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.zalonstyles.app.zalon.Model.*;
+import com.zalonstyles.app.zalon.Model.billlist;
+import com.zalonstyles.app.zalon.Model.viewholderbill;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +63,7 @@ public class BillingMain extends AppCompatActivity {
     private RadioButton r1;
     private RadioButton r2;
     private EditText total;
+    private Button btnsrch;
     private String Spinnerservice;
     private String Spinnerstylist;
     private String Spinneritems;
@@ -228,6 +230,23 @@ public class BillingMain extends AppCompatActivity {
         Category = (Spinner) findViewById(R.id.billcategory);
         stringlist = new ArrayList<>(Arrays.asList(spinnerItems1));
         stringlist01 = new ArrayList<>(Arrays.asList(spinnerItems01));
+        final TextView subtotal=(TextView)findViewById(R.id.tax);
+        final TextView disco=(TextView)findViewById(R.id.tax1);
+        final TextView stax=(TextView)findViewById(R.id.tax2);
+        final TextView vat=(TextView)findViewById(R.id.tax3);
+        final TextView total=(TextView)findViewById(R.id.tax4);
+        btnsrch = (Button) findViewById(R.id.btnsrch);
+        btnsrch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BillingMain.this,Search.class);
+                startActivityForResult(intent, 2);
+            }
+        });
+
+
+
+
         genbill = (Button)findViewById(R.id.billgenerate);
     int counter = 1;
 
@@ -235,6 +254,8 @@ public class BillingMain extends AppCompatActivity {
         servicespin = new ArrayList<String>();
         servicespin1 = new ArrayList<String>();
         servicespin2 = new ArrayList<String>();
+
+
         genbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -246,25 +267,24 @@ public class BillingMain extends AppCompatActivity {
                 String invoice = Billno.getText().toString();
 
                 JSONArray ja = new JSONArray();
-                for (int i = 0; i < listAdapter.getCount(); i++)
-                {
+                for (int i = 0; i < listAdapter.getCount(); i++) {
                     billlist massage = listAdapter.getItem(i);
 
-                        JSONObject jo = new JSONObject();
-                        try {
-                            jo.put("description", massage.getDescription());
-                            jo.put("stylist",massage.getStylist());
-                            jo.put("quantity",massage.getQty());
-                            jo.put("rate",massage.getRate());
-                            jo.put("amount",massage.getAmount());
-                            jo.put("discounts",massage.getDiscounts());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    JSONObject jo = new JSONObject();
+                    try {
+                        jo.put("description", massage.getDescription());
+                        jo.put("stylist", massage.getStylist());
+                        jo.put("quantity", massage.getQty());
+                        jo.put("rate", massage.getRate());
+                        jo.put("amount", massage.getAmount());
+                        jo.put("discounts", massage.getDiscounts());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    ja.put(jo);
+                }
 
 
-
-                        ja.put(jo);
                     SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                     final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
 
@@ -285,18 +305,41 @@ public class BillingMain extends AppCompatActivity {
 
 
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/billing/calculate_bill",
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/billing/generate_bill",
                             new Response.Listener<String>() {
 
                                 @Override
                                 public void onResponse(String response) {
+                                    Log.v("respodata", response);
 
+                                    JSONObject jobject = null;
+                                    try {
+                                        jobject = new JSONObject(response);
 
+                                        JSONArray payload = jobject.getJSONArray("services");
+                                        for (int i = 0; i < payload.length(); i++) {
+                                            try {
+                                                JSONObject obj = payload.getJSONObject(i);
+                                                subtotal.setText(obj.getString("sub_total"));
+                                                disco.setText(obj.getString("discount"));
+                                                stax.setText(obj.getString("service_tax"));
+                                                vat.setText(obj.getString("vat"));
+                                                total.setText(obj.getString("total"));
 
+//                                    Log.v("logdata",servicespin.get(i));
 
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
 
                                 }
+
 
                             }
                             , new Response.ErrorListener() {
@@ -327,7 +370,7 @@ public class BillingMain extends AppCompatActivity {
 
                 }
 
-            }
+
         });
         r1 = (RadioButton) findViewById(R.id.billradiobtn0);
         r2 = (RadioButton) findViewById(R.id.billradiobtn01);
@@ -335,6 +378,8 @@ public class BillingMain extends AppCompatActivity {
         addbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MarketingMain.Helper.setListViewHeightBasedOnItems(billlv);
+
 
 
                 SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -371,7 +416,7 @@ public class BillingMain extends AppCompatActivity {
 
                             @Override
                             public void onResponse(String response) {
-                                Log.v("RESPONSE",response);
+                                Log.v("RESPONSE#",response);
 
                                 try {
                                     JSONObject jobject = new JSONObject(response);
@@ -390,7 +435,7 @@ public class BillingMain extends AppCompatActivity {
                                             service.setDiscounts(obj.getString("discounts"));
 
                                             billList.add(service);
-                                            Log.v("respo", String.valueOf(billList.get(0)));
+                                            Log.v("respo111", String.valueOf(billList.get(0)));
 
 
 
@@ -431,6 +476,7 @@ public class BillingMain extends AppCompatActivity {
                 requestQueue.add(stringRequest);
                 listAdapter = new billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
                 billlv.setAdapter(listAdapter);
+                MarketingMain.Helper.setListViewHeightBasedOnItems(billlv);
 
 
             }
@@ -712,6 +758,29 @@ public class BillingMain extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if(requestCode==2)
+        {
+            String name=data.getStringExtra("name");
+            String mob = data.getStringExtra("mob");
+            String gender = data.getStringExtra("gender");
+            customerName.setText(name);
+            customerMob.setText(mob);
+            if(gender.equals("male")){
+                r1.setChecked(true);
+                r2.setChecked(false);
+            }else {
+                r1.setChecked(false);
+                r2.setChecked(true);
+            }
+
+
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -821,7 +890,7 @@ public class BillingMain extends AppCompatActivity {
             }
             // Reuse existing row view
             else
-            {
+            {notifyDataSetChanged();
                 // Because we use a ViewHolder, we avoid having to call
                 // findViewById().
                 viewholderbill viewHolder = (viewholderbill) convertView
@@ -846,9 +915,8 @@ public class BillingMain extends AppCompatActivity {
             }
 
 
-
             // Display Service data
-            textView1.setText(String.valueOf(position));
+            textView1.setText(String.valueOf(position+1));
             textView2.setText(sinventory.getDescription());
             textView3.setText(sinventory.getStylist());
             textView4.setText(sinventory.getQty());

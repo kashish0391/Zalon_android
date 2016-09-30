@@ -8,6 +8,33 @@ public class Services
     private String name = null;
     private boolean checked = false;
     private int categotry_id;
+    private String status= null;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getCategotry_id() {
+        return categotry_id;
+    }
+
+    public void setCategotry_id(int categotry_id) {
+        this.categotry_id = categotry_id;
+    }
+
+    public String getCatname() {
+        return catname;
+    }
+
+    public void setCatname(String catname) {
+        this.catname = catname;
+    }
+
+    private String catname=null;
 
     public Services()
     {
@@ -18,11 +45,12 @@ public class Services
         this.name = name;
     }
 
-    public Services(String name, boolean checked, int categotry_id)
+    public Services(String name, boolean checked, int categotry_id,String catname)
 {
     this.name = name;
     this.categotry_id = categotry_id;
     this.checked = checked;
+    this.catname = catname;
 }
     public Services(String name, int categotry_id)
     {
