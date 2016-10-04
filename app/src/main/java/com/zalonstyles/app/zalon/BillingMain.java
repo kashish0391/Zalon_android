@@ -80,6 +80,7 @@ public class BillingMain extends AppCompatActivity {
 
     private Button addbill;
     private Button genbill;
+    private TextView txtloyal;
 
     private ListView billlv;
     String[] spinnerItems1 = new String[]{"1","2","3","4","5","6","7","8","9","10"};
@@ -94,7 +95,7 @@ public class BillingMain extends AppCompatActivity {
     private ArrayList<String> servicespin1;
     private ArrayList<String> servicespin2;
 
-    private static String url="http://52.41.72.46:8080/billing/get_bill_info";
+    private static String url="http://zalonstyle.in:8080/billing/get_bill_info";
     private List<com.zalonstyles.app.zalon.Model.billlist> billList = new ArrayList<>();
     private ArrayAdapter<billlist> listAdapter;
 
@@ -236,6 +237,7 @@ public class BillingMain extends AppCompatActivity {
         final TextView vat=(TextView)findViewById(R.id.tax3);
         final TextView total=(TextView)findViewById(R.id.tax4);
         btnsrch = (Button) findViewById(R.id.btnsrch);
+        txtloyal=(TextView) findViewById(R.id.txtloyalty);
         btnsrch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -305,7 +307,7 @@ public class BillingMain extends AppCompatActivity {
 
 
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/billing/generate_bill",
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/generate_bill",
                             new Response.Listener<String>() {
 
                                 @Override
@@ -325,6 +327,7 @@ public class BillingMain extends AppCompatActivity {
                                                 stax.setText(obj.getString("service_tax"));
                                                 vat.setText(obj.getString("vat"));
                                                 total.setText(obj.getString("total"));
+//                                                txtloyal.setText(obj.getString("points"));
 
 //                                    Log.v("logdata",servicespin.get(i));
 
@@ -411,7 +414,7 @@ public class BillingMain extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/billing/calculate_bill",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/calculate_bill",
                         new Response.Listener<String>(){
 
                             @Override
@@ -590,29 +593,29 @@ public class BillingMain extends AppCompatActivity {
 
 
 
-                    servicenetworking1(1,"http://52.41.72.46:8080/billing/get_services");
+                    servicenetworking1(1,"http://zalonstyle.in:8080/billing/get_services");
                 }if(Spinnercategory.equals("Hair")){
 
-                    servicenetworking1(2,"http://52.41.72.46:8080/billing/get_services");
+                    servicenetworking1(2,"http://zalonstyle.in:8080/billing/get_services");
 
                 }if(Spinnercategory.equals("Nail")){
 
 
-                    servicenetworking1(3,"http://52.41.72.46:8080/billing/get_services");
+                    servicenetworking1(3,"http://zalonstyle.in:8080/billing/get_services");
 
                 }if(Spinnercategory.equals("Face")){
 
-                    servicenetworking1(4,"http://52.41.72.46:8080/billing/get_services");
+                    servicenetworking1(4,"http://zalonstyle.in:8080/billing/get_services");
 
                 }if(Spinnercategory.equals("Hair Removal")){
 
 
-                    servicenetworking1(5,"http://52.41.72.46:8080/billing/get_services");
+                    servicenetworking1(5,"http://zalonstyle.in:8080/billing/get_services");
 
                 }if(Spinnercategory.equals("Massage")){
 
 
-                    servicenetworking1(6,"http://52.41.72.46:8080/billing/get_services");
+                    servicenetworking1(6,"http://zalonstyle.in:8080/billing/get_services");
 
                 }if(Spinnercategory.equals("Product")){
 
@@ -765,18 +768,26 @@ public class BillingMain extends AppCompatActivity {
         // check if the request code is same as what is passed  here it is 2
         if(requestCode==2)
         {
-            String name=data.getStringExtra("name");
-            String mob = data.getStringExtra("mob");
-            String gender = data.getStringExtra("gender");
-            customerName.setText(name);
-            customerMob.setText(mob);
-            if(gender.equals("male")){
-                r1.setChecked(true);
-                r2.setChecked(false);
-            }else {
-                r1.setChecked(false);
-                r2.setChecked(true);
+            if (data != null)
+            {
+                String name=data.getStringExtra("name");
+                String mob = data.getStringExtra("mob");
+                String gender = data.getStringExtra("gender");
+                String points = data.getStringExtra("points");
+                txtloyal.setText(points);
+                customerName.setText(name);
+                customerMob.setText(mob);
+                if(gender.equals("male")){
+                    r1.setChecked(true);
+                    r2.setChecked(false);
+                }else {
+                    r1.setChecked(false);
+                    r2.setChecked(true);
+                }
             }
+
+
+
 
 
         }

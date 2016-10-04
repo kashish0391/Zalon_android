@@ -64,8 +64,8 @@ public class New_employee extends AppCompatActivity {
     private String spinnerValue;
 
 
-    private static String url="http://52.41.72.46:8080/get_salon_categories";
-    private static String URL="http://52.41.72.46:8080/add_new_staff";
+    private static String url="http://zalonstyle.in:8080/get_salon_categories";
+    private static String URL="http://zalonstyle.in:8080/add_new_staff";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -73,9 +73,9 @@ public class SellableInventory extends AppCompatActivity {
     private String spinnerValue;
     private String spinnerValue1;
     private ListView Selleblelist;
-    public static final String SUBMIT_URL =" http://52.41.72.46:8080/salon/add_inventory";
-    public static final String URL = "http://52.41.72.46:8080/salon/get_inventory";
-    public static final String URL1 = "http://52.41.72.46:8080/salon/delete_inventory";
+    public static final String SUBMIT_URL =" http://zalonstyle.in:8080/salon/add_inventory";
+    public static final String URL = "http://zalonstyle.in:8080/salon/get_inventory";
+    public static final String URL1 = "http://zalonstyle.in:8080/salon/delete_inventory";
     private List<Sinventory> SinventoryList = new ArrayList<>();
     private ArrayAdapter<Sinventory> listAdapter;
 

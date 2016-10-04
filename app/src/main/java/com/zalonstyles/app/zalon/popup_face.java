@@ -43,8 +43,8 @@ import java.util.List;
 import java.util.Map;
 
 public  class popup_face extends AppCompatActivity {
-    public static final String URL =  "http://52.41.72.46:8080/service/get_category";
-    public static final String URL1 = " http://52.41.72.46:8080/service/create_service_lineup";
+    public static final String URL =  "http://zalonstyle.in:8080/service/get_category";
+    public static final String URL1 = " http://zalonstyle.in:8080/service/create_service_lineup";
     public final String serviceid = "4";
     private ListView mainListView;
     private Button check;

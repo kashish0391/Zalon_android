@@ -92,6 +92,7 @@ public class MarketingMain extends AppCompatActivity {
     private RadioButton r2;
     private Date maxDate;
     private Date minDate;
+    private String dateInString;
 
 
     private ListView listView;
@@ -170,6 +171,8 @@ public class MarketingMain extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         listAdapter = new marketArrayAdapter(this, R.layout.customsinventory, marketList);
         listView.setAdapter(listAdapter);
+        dateView1.setText(new StringBuilder().append(year).append("-")
+                .append(month+1).append("-").append(day));
         Helper.setListViewHeightBasedOnItems(listView);
         showDate(year, month + 1, day);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -209,7 +212,7 @@ public class MarketingMain extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/campaign/getCampaignData",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/campaign/getCampaignData",
                         new Response.Listener<String>() {
 
                             @Override
@@ -381,7 +384,7 @@ public class MarketingMain extends AppCompatActivity {
             e.printStackTrace();
         }
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/campaign/getCampaignData",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/campaign/getCampaignData",
                 new Response.Listener<String>() {
 
                     @Override
@@ -538,7 +541,7 @@ public class MarketingMain extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/campaign/setCampaignData",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/campaign/setCampaignData",
                         new Response.Listener<String>() {
 
                             @Override
@@ -575,6 +578,16 @@ public class MarketingMain extends AppCompatActivity {
 
             }
         });
+
+         dateInString = dateView1.getText().toString().trim();
+        Log.v("date1111", dateInString);
+
+
+    }
+
+    private void showDate(int year, int month, int day) {
+
+
     }
 
     @SuppressWarnings("deprecation")
@@ -660,6 +673,7 @@ public class MarketingMain extends AppCompatActivity {
 //        }
 //        return null;
     }
+
     public void setMaxDate(Date date){
         maxDate = date;
     }
@@ -675,7 +689,7 @@ public class MarketingMain extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
             myear = arg1;
-            mmonth = arg2;
+            mmonth = arg2+1;
             mday = arg3;
 
             // set selected date into textview
@@ -721,13 +735,25 @@ public class MarketingMain extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
             myear = arg1;
-            mmonth = arg2;
+            mmonth = arg2+1;
             mday = arg3;
 
             // set selected date into textview
-            dateView.setText(new StringBuilder().append(myear).append("-")
-                    .append(mmonth).append("-").append(mday));
+
             arg0.setMinDate(System.currentTimeMillis() - 1000);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+
+            try {
+
+                Date date1 = sdf.parse(dateInString);
+                Log.v("date11", String.valueOf(date1));
+                dateView.setText(new StringBuilder().append(myear).append("-")
+                        .append(mmonth).append("-").append(mday));
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
 //            Calendar cal = Calendar.getInstance();
 //            Calendar c = Calendar.getInstance();
 //            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -761,11 +787,7 @@ public class MarketingMain extends AppCompatActivity {
         }
     };
 
-    private void showDate(int year, int month, int day) {
-        dateView1.setText(new StringBuilder().append(year).append("-")
-                .append(month).append("-").append(day));
 
-    }
 
 
 

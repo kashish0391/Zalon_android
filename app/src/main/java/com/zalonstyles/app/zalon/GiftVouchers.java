@@ -76,7 +76,7 @@ public class GiftVouchers extends AppCompatActivity {
             e.printStackTrace();
         }
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/campaign/getLoyaltyPoints",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/campaign/getLoyaltyPoints",
                 new Response.Listener<String>(){
 
                     @Override
@@ -156,7 +156,7 @@ public class GiftVouchers extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/campaign/setLoyaltyPoints",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/campaign/setLoyaltyPoints",
                         new Response.Listener<String>() {
 
                             @Override

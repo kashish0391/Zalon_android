@@ -7,14 +7,46 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.util.ArrayList;
+
 /**
  * Created by KASHISH on 27-07-2016.
  */
 public class ReportMain extends AppCompatActivity {
+    private BarChart barChart;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_main);
+        barChart =(BarChart) findViewById(R.id.barchart);
+        ArrayList<BarEntry> barEntries = new ArrayList<BarEntry>();
+        barEntries.add(new BarEntry(44f,0));
+        barEntries.add(new BarEntry(54f,1));
+        barEntries.add(new BarEntry(64f,2));
+        barEntries.add(new BarEntry(74f,3));
+        barEntries.add(new BarEntry(84f,4));
+        BarDataSet barDataSet = new BarDataSet(barEntries,"Months");
+
+        ArrayList<String> theDates = new ArrayList<>();
+        theDates.add("may");
+        theDates.add("june");
+        theDates.add("july");
+        theDates.add("august");
+        theDates.add("september");
+        BarData theData =  new BarData(theDates,barDataSet);
+        barChart.setData(theData);
+        //barChart.setTouchEnabled(true);
+     // barChart.setScaleEnabled(true);
+       // barChart.setDragEnabled(true);
+        barChart.animateXY(2000,2000);
+        barChart.invalidate();
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

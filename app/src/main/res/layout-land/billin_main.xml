@@ -196,6 +196,19 @@
                 android:layout_marginLeft="30dp"
                 android:id="@+id/billradiobtn01"
                 android:layout_height="wrap_content" />
+            <TextView
+            android:layout_width="100dp"
+            android:layout_marginLeft="220dp"
+            android:text="Loyalty Points"
+            android:textColor="#000000"
+            android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_marginLeft="120dp"
+                android:text=""
+                android:id="@+id/txtloyalty"
+                android:textColor="#000000"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
         <LinearLayout
@@ -351,9 +364,15 @@
                     android:layout_width="80dp"
                     android:layout_marginLeft="60dp"
                     android:gravity="center"
+                    android:text="Loyalty Disc"
+                    android:textColor="#000"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
                     android:text="Total"
                     android:textColor="#000"
-
                     android:layout_height="35dp" />
 
             </LinearLayout>
@@ -391,6 +410,14 @@
                     android:gravity="center"
                     android:textColor="#000"
                     android:id="@+id/tax3"
+
+                    android:layout_height="35dp" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_marginLeft="60dp"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:id="@+id/tax5"
 
                     android:layout_height="35dp" />
                 <TextView

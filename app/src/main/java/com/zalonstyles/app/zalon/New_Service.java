@@ -54,8 +54,8 @@ import java.util.Map;
  */
 public class New_Service extends AppCompatActivity {
     private RecyclerView horizontal_recycler_view;
-    public static final String URL = "http://52.41.72.46:8080/service/get_category_detail";
-    public static final String URL1 = "http://52.41.72.46:8080/service/set_category_detail";
+    public static final String URL = "http://zalonstyle.in:8080/service/get_category_detail";
+    public static final String URL1 = "http://zalonstyle.in:8080/service/set_category_detail";
     String[] spinnerItems = new String[]{"Body", "Hair", "Face", "Massage", "Nails", "Hair Removal"};
     String[] spinnerItems1;
     private Switch switch1;

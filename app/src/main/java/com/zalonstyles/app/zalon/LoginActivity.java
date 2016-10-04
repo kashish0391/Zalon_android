@@ -30,7 +30,7 @@ import static com.android.volley.Request.Method;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     TextView create;
-    public static final String LOGIN_URL = "http://52.41.72.46:8080/salon/login";
+    public static final String LOGIN_URL = "http://zalonstyle.in:8080/salon/login";
 
 
     private EditText editTextUsername;

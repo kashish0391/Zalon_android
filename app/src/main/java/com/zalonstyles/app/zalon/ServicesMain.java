@@ -74,7 +74,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
         nail.setOnClickListener(this);
         hair_removal.setOnClickListener(this);
         addservice.setOnClickListener(this);
-        servicenetworking(1,"http://52.41.72.46:8080/service/get_service_lineup");
+        servicenetworking(1,"http://zalonstyle.in:8080/service/get_service_lineup");
 
     }
 
@@ -242,7 +242,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 //listAdapter = new serviceArrayAdapter(this,R.layout.customservice_main, servicelist);
 
                 service_id=2;
-                servicenetworking(2,"http://52.41.72.46:8080/service/get_service_lineup");
+                servicenetworking(2,"http://zalonstyle.in:8080/service/get_service_lineup");
                 break;
             case R.id.servicebody:
                 service_id=1;
@@ -251,7 +251,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                // servicelist.clear();
                // listView.setAdapter(null);
                // listAdapter.notifyDataSetChanged();
-                servicenetworking(1,"http://52.41.72.46:8080/service/get_service_lineup");
+                servicenetworking(1,"http://zalonstyle.in:8080/service/get_service_lineup");
                 break;
             case R.id.servicenail:
                 service_id=3;
@@ -259,7 +259,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 //servicelist.clear();
                // listView.setAdapter(null);
                 //listAdapter.notifyDataSetChanged();
-                servicenetworking(3,"http://52.41.72.46:8080/service/get_service_lineup");
+                servicenetworking(3,"http://zalonstyle.in:8080/service/get_service_lineup");
 
                 break;
             case R.id.servicemassage:
@@ -268,7 +268,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 //servicelist.clear();
                // listView.setAdapter(null);
                // listAdapter.notifyDataSetChanged();
-                servicenetworking(6,"http://52.41.72.46:8080/service/get_service_lineup");
+                servicenetworking(6,"http://zalonstyle.in6:8080/service/get_service_lineup");
                 break;
             case R.id.servicehairremoval:
                 service_id=5;
@@ -277,7 +277,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 //servicelist.clear();
                // listView.setAdapter(null);
                // listAdapter.notifyDataSetChanged();
-                servicenetworking(5,"http://52.41.72.46:8080/service/get_service_lineup");
+                servicenetworking(5,"http://zalonstyle.in:8080/service/get_service_lineup");
                 break;
             case R.id.serviceface:
                 service_id=4;
@@ -286,7 +286,7 @@ public class ServicesMain extends AppCompatActivity implements View.OnClickListe
                 //servicelist.clear();
                 //listView.setAdapter(null);
                // listAdapter.notifyDataSetChanged();
-                servicenetworking(4,"http://52.41.72.46:8080/service/get_service_lineup");
+                servicenetworking(4,"http://zalonstyle.in:8080/service/get_service_lineup");
                 break;
             case R.id.addservicebtn:
                 Intent intent = new Intent(ServicesMain.this,New_Service.class);

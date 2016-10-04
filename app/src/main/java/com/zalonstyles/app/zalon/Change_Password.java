@@ -31,7 +31,7 @@ import java.util.Map;
  * Created by KASHISH on 30-07-2016.
  */
 public class Change_Password  extends AppCompatActivity {
-    public static final String LOGIN_URL = "http://52.41.72.46:8080/salon/change_pwd";
+    public static final String LOGIN_URL = "http://zalonstyle.in:8080/salon/change_pwd";
     private EditText oldpass;
     private EditText newpass;
     private EditText confirmpass;

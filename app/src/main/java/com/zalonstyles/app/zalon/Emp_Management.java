@@ -48,7 +48,7 @@ public class Emp_Management extends AppCompatActivity {
     private List<empmodel> emplist = new ArrayList<>();
     private Context context;
     private ArrayAdapter<empmodel> listAdapter;
-    public static final String URL =  "http://52.41.72.46:8080/get_all_staff";
+    public static final String URL =  "http://zalonstyle.in:8080/get_all_staff";
 
 
 

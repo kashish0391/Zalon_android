@@ -105,7 +105,7 @@ public class Select_services extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/campaign/services",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/campaign/services",
                 new Response.Listener<String>(){
 
                     @Override
@@ -230,7 +230,7 @@ public class Select_services extends AppCompatActivity implements View.OnClickLi
                 }
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest SR = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/campaign/createTempData",
+                StringRequest SR = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/campaign/createTempData",
                         new Response.Listener<String>(){
 
                             @Override

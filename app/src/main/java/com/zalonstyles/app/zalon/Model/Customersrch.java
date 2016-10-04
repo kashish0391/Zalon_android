@@ -7,10 +7,21 @@ public class Customersrch {
     private String name;
     private String mob;
     private String gender;
-    public Customersrch(String name, String mob, String gender) {
+    private String loyalty;
+
+    public String getLoyalty() {
+        return loyalty;
+    }
+
+    public void setLoyalty(String loyalty) {
+        this.loyalty = loyalty;
+    }
+
+    public Customersrch(String name, String mob, String gender,String loyalty) {
         this.name = name;
         this.mob = mob;
         this.gender = gender;
+        this.loyalty=loyalty;
     }
     public Customersrch(){}
 

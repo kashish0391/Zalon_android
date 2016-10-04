@@ -75,7 +75,7 @@ public class Search extends Activity {
             e.printStackTrace();
         }
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/customer/getSalonCustomers",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/customer/getSalonCustomers",
                 new Response.Listener<String>(){
 
                     @Override
@@ -94,6 +94,7 @@ public class Search extends Activity {
                                     service.setMob(obj.getString("mobile"));
                                     service.setName(obj.getString("name"));
                                     service.setGender(obj.getString("gender"));
+                                    service.setLoyalty(obj.getString("points"));
                                     arraylist.add(service);
                                     Log.e("check2", String.valueOf(arraylist.get(i)));
 
@@ -283,6 +284,9 @@ public class Search extends Activity {
                     intent.putExtra("mob",(customerlist.get(position).getMob()));
                     // Pass all data population
                     intent.putExtra("gender",(customerlist.get(position).getGender()));
+                   intent.putExtra("points",(customerlist.get(position).getLoyalty()));
+
+
                     // Pass all data flag
                     // Start SingleItemView Class
                     setResult(2,intent);
@@ -315,7 +319,7 @@ public class Search extends Activity {
                         }
                     }
                 }
-                else {	//如果搜索框为空，就恢复原始数据
+                else {
                     filterData = copyData ;
                 }
                 FilterResults results = new FilterResults() ;

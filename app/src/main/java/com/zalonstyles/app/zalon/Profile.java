@@ -56,7 +56,7 @@ public class Profile extends AppCompatActivity {
     private ListView profilelist;
     private List<ProfileModel1> profileList = new ArrayList<>();
     private ArrayAdapter<ProfileModel1> listAdapter;
-    public static final String URL =  "http://52.41.72.46:8080/salon/get_profile";
+    public static final String URL =  "http://zalonstyle.in:8080/salon/get_profile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

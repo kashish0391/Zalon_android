@@ -66,8 +66,8 @@ public class add_employee extends AppCompatActivity {
     private ArrayAdapter<emplyeeModel> listAdapter;
 
 
-    public static final String SUBMIT_URL = "http://52.41.72.46:8080/salon/add_staff";
-  public static final String URL1 = " http://52.41.72.46:8080/salon/delete_staff";
+    public static final String SUBMIT_URL = "http://zalonstyle.in:8080/salon/add_staff";
+  public static final String URL1 = " http://zalonstyle.in:8080/salon/delete_staff";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class changePassword extends AppCompatActivity implements View.OnClickListener {
-    public static final String LOGIN_URL = "http://52.41.72.46:8080/salon/reset_pwd/";
+    public static final String LOGIN_URL = "http://zalonstyle.in:8080/salon/reset_pwd/";
     private EditText pass;
     private EditText newpass;
     private EditText confirmpass;

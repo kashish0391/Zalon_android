@@ -31,7 +31,7 @@ import java.util.Map;
 public class forgotPassword extends AppCompatActivity implements View.OnClickListener {
 private EditText username;
     public  static final String DEFAULT = "N/A";
-    public static final String LOGIN_URL = "http://52.41.72.46:8080/salon/forgot_pwd/";
+    public static final String LOGIN_URL = "http://zalonstyle.in:8080/salon/forgot_pwd/";
 
     private Button btn;
     @Override

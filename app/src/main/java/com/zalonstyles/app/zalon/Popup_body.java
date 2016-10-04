@@ -42,8 +42,8 @@ import java.util.Map;
  * Created by KASHISH on 12-07-2016.
  */
 public  class Popup_body extends AppCompatActivity {
-    public static final String URL =  "http://52.41.72.46:8080/service/get_category";
-    public static final String URL1 = " http://52.41.72.46:8080/service/create_service_lineup";
+    public static final String URL =  "http://zalonstyle.in:8080/service/get_category";
+    public static final String URL1 = " http://zalonstyle.in:8080/service/create_service_lineup";
     public final String serviceid = "1";
     private ListView mainListView;
     private Button check;
