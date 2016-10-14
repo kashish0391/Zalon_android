@@ -642,13 +642,13 @@ public class BillingMain extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://52.41.72.46:8080/billing/get_services",
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/get_services",
                             new Response.Listener<String>(){
 
                                 @Override
                                 public void onResponse(String response) {
 
-                                    Log.v("updateUPVolleyRes1",response);
+                                    Log.v("updat011",response);
                                     JSONObject jobject = null;
                                     try {
                                         jobject = new JSONObject(response);

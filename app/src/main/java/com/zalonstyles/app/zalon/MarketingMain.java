@@ -689,7 +689,7 @@ public class MarketingMain extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
             myear = arg1;
-            mmonth = arg2+1;
+            mmonth = arg2;
             mday = arg3;
 
             // set selected date into textview
