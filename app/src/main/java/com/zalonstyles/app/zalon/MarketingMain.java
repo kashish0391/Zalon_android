@@ -51,15 +51,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.zalonstyles.app.zalon.R.id.service;
+
 /**
  * Created by KASHISH on 27-07-2016.
  */
 public class MarketingMain extends AppCompatActivity {
-    private Button servicebtn;
     String[] spinnerItems = new String[]{"Last Visited", "First Visited", "Monthly Spending", "Gender", "Monthly Visits", "New Customer", "No Visits", "Birthday", "Spending Reduced", "Service Consumed"};
     String[] spinnerItems1 = new String[]{"% Disc", "cash Disc", "Loyality", "Bogo", "Btgo"};
     String[] spinnerItems2 = new String[]{"usage", "1", "2", "3", "4", "Multiple"};
-
+    private Button servicebtn;
     private Spinner rules;
     private Spinner factor;
     private Spinner value1;
@@ -110,7 +111,110 @@ public class MarketingMain extends AppCompatActivity {
     private int myear;
     private int mmonth;
     private int mday;
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
 
+//
+
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            myear = arg1;
+            mmonth = arg2;
+            mday = arg3;
+
+            // set selected date into textview
+            dateView1.setText(new StringBuilder().append(myear).append("-")
+                    .append(mmonth).append("-").append(mday));
+            arg0.setMinDate(System.currentTimeMillis() - 1000);
+//            Calendar cal = Calendar.getInstance();
+//            Calendar c = Calendar.getInstance();
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//            //get current date time with Date()
+//            Date date = new Date();
+//            System.out.println(dateFormat.format(date));
+//          cal.set(arg1, arg2+1, arg3);
+//            Date currentDate = cal.getTime();
+////
+////            final Calendar resetCal = cal;
+////            if(!minDate.before(currentDate) ){
+////                cal.setTime(minDate);
+////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
+////
+////            }else if(maxDate.before(currentDate)){
+////                cal.setTime(maxDate);
+////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
+////            }
+//
+//            // TODO Auto-generated method stub
+//            // arg1 = year
+//            // arg2 = month
+//            // arg3 = day
+//
+//            if (currentDate.after(date)||currentDate.equals(date)){
+//                showDate(arg1,arg2+1,arg3);
+//            }else {
+//                arg0.updateDate(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+//            }
+
+        }
+    };
+    private DatePickerDialog.OnDateSetListener myDateListener1 = new DatePickerDialog.OnDateSetListener() {
+
+//
+
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            myear = arg1;
+            mmonth = arg2 + 1;
+            mday = arg3;
+
+            // set selected date into textview
+
+            arg0.setMinDate(System.currentTimeMillis() - 1000);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
+
+            try {
+
+                Date date1 = sdf.parse(dateInString);
+                Log.v("date11", String.valueOf(date1));
+                dateView.setText(new StringBuilder().append(myear).append("-")
+                        .append(mmonth).append("-").append(mday));
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+//            Calendar cal = Calendar.getInstance();
+//            Calendar c = Calendar.getInstance();
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//            //get current date time with Date()
+//            Date date = new Date();
+//            System.out.println(dateFormat.format(date));
+//          cal.set(arg1, arg2+1, arg3);
+//            Date currentDate = cal.getTime();
+////
+////            final Calendar resetCal = cal;
+////            if(!minDate.before(currentDate) ){
+////                cal.setTime(minDate);
+////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
+////
+////            }else if(maxDate.before(currentDate)){
+////                cal.setTime(maxDate);
+////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
+////            }
+//
+//            // TODO Auto-generated method stub
+//            // arg1 = year
+//            // arg2 = month
+//            // arg3 = day
+//
+//            if (currentDate.after(date)||currentDate.equals(date)){
+//                showDate(arg1,arg2+1,arg3);
+//            }else {
+//                arg0.updateDate(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+//            }
+
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -172,7 +276,7 @@ public class MarketingMain extends AppCompatActivity {
         listAdapter = new marketArrayAdapter(this, R.layout.customsinventory, marketList);
         listView.setAdapter(listAdapter);
         dateView1.setText(new StringBuilder().append(year).append("-")
-                .append(month+1).append("-").append(day));
+                .append(month + 1).append("-").append(day));
         Helper.setListViewHeightBasedOnItems(listView);
         showDate(year, month + 1, day);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -546,7 +650,21 @@ public class MarketingMain extends AppCompatActivity {
 
                             @Override
                             public void onResponse(String response) {
-                                Log.v("logresponse", response.toString());
+
+                                JSONObject jobject = null;
+                                try {
+                                    jobject = new JSONObject(response);
+                                    Log.e("Response1111111..", jobject.toString());
+                                    Log.v("updateUPVolleyRes",response);
+                                    String camp_id = jobject.getString("campaign_id");
+                                    Intent intent= new Intent(MarketingMain.this,Marketingnxt.class);
+                                    intent.putExtra("valueid", camp_id);
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                }
+
 
 
                             }
@@ -574,12 +692,15 @@ public class MarketingMain extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
+                Intent intent = new Intent(MarketingMain.this,Marketingnxt.class);
+                startActivity(intent);
+
 
 
             }
         });
 
-         dateInString = dateView1.getText().toString().trim();
+        dateInString = dateView1.getText().toString().trim();
         Log.v("date1111", dateInString);
 
 
@@ -595,74 +716,77 @@ public class MarketingMain extends AppCompatActivity {
         showDialog(999);
 
     }
+
     @SuppressWarnings("deprecation")
     public void setDate1(View view) {
         showDialog(9999);
 
     }
+
     @SuppressWarnings("deprecation")
 
     @Override
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
 
-           if (id==999){
-                // set date picker as current date
-                DatePickerDialog _date =   new DatePickerDialog(this, myDateListener, myear,mmonth,
-                        mday)
+        if (id == 999) {
+            // set date picker as current date
+            DatePickerDialog _date = new DatePickerDialog(this, myDateListener, myear, mmonth,
+                    mday)
 
-                {
-
-
-                    @Override
-                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-                    {
-                        if (year < myear)
-                            view.updateDate(myear, mmonth, mday);
-
-                        if (monthOfYear < mmonth && year == myear)
-                            view.updateDate(myear, mmonth, mday);
-
-                        if (dayOfMonth < mday && year == myear && monthOfYear == mmonth)
-                            view.updateDate(myear, mmonth, mday);
+            {
 
 
-                        view.setMinDate(System.currentTimeMillis() - 1000);
+                @Override
+                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    if (year < myear)
+                        view.updateDate(myear, mmonth, mday);
 
+                    if (monthOfYear < mmonth && year == myear)
+                        view.updateDate(myear, mmonth, mday);
+
+                    if (dayOfMonth < mday && year == myear && monthOfYear == mmonth)
+                        view.updateDate(myear, mmonth, mday);
+
+
+                    view.setMinDate(System.currentTimeMillis() - 1000);
+
+                }
+            };
+            _date.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
+            return _date;
+
+
+        } else if (id == 9999) {
+            DatePickerDialog _date = new DatePickerDialog(this, myDateListener1, myear, mmonth,
+                    mday)
+
+            {
+
+
+                @Override
+                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    if (year < myear) {
+                        view.updateDate(myear, mmonth, mday);
                     }
-                };
-                _date.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
-                return _date;
+                    if (monthOfYear < mmonth && year == myear) {
+                        view.updateDate(myear, mmonth, mday);
+                    }
 
-
-        }else if(id==9999){
-               DatePickerDialog _date =   new DatePickerDialog(this, myDateListener1, myear,mmonth,
-                       mday)
-
-               {
+                    if (dayOfMonth < mday && year == myear && monthOfYear == mmonth) {
+                        view.updateDate(myear, mmonth, mday);
+                    }
 
 
-                   @Override
-                   public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-                   {
-                       if (year < myear){
-                           view.updateDate(myear, mmonth, mday);}
+                    view.setMinDate(System.currentTimeMillis() - 1000);
 
-                       if (monthOfYear < mmonth && year == myear){
-                           view.updateDate(myear, mmonth, mday);}
+                }
+            };
+            _date.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
-                       if (dayOfMonth < mday && year == myear && monthOfYear == mmonth){
-                           view.updateDate(myear, mmonth, mday);}
-
-
-                       view.setMinDate(System.currentTimeMillis() - 1000);
-
-                   }
-               };
-               _date.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-               return _date;
+            return _date;
         }
         return null;
 
@@ -674,122 +798,13 @@ public class MarketingMain extends AppCompatActivity {
 //        return null;
     }
 
-    public void setMaxDate(Date date){
+    public void setMaxDate(Date date) {
         maxDate = date;
     }
 
-    public void setMinDate(Date date){
+    public void setMinDate(Date date) {
         minDate = date;
     }
-
-    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
-
-//
-
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            myear = arg1;
-            mmonth = arg2;
-            mday = arg3;
-
-            // set selected date into textview
-            dateView1.setText(new StringBuilder().append(myear).append("-")
-                    .append(mmonth).append("-").append(mday));
-          arg0.setMinDate(System.currentTimeMillis() - 1000);
-//            Calendar cal = Calendar.getInstance();
-//            Calendar c = Calendar.getInstance();
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-//            //get current date time with Date()
-//            Date date = new Date();
-//            System.out.println(dateFormat.format(date));
-//          cal.set(arg1, arg2+1, arg3);
-//            Date currentDate = cal.getTime();
-////
-////            final Calendar resetCal = cal;
-////            if(!minDate.before(currentDate) ){
-////                cal.setTime(minDate);
-////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
-////
-////            }else if(maxDate.before(currentDate)){
-////                cal.setTime(maxDate);
-////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
-////            }
-//
-//            // TODO Auto-generated method stub
-//            // arg1 = year
-//            // arg2 = month
-//            // arg3 = day
-//
-//            if (currentDate.after(date)||currentDate.equals(date)){
-//                showDate(arg1,arg2+1,arg3);
-//            }else {
-//                arg0.updateDate(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
-//            }
-
-        }
-    };
-    private DatePickerDialog.OnDateSetListener myDateListener1 = new DatePickerDialog.OnDateSetListener() {
-
-//
-
-        @Override
-        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            myear = arg1;
-            mmonth = arg2+1;
-            mday = arg3;
-
-            // set selected date into textview
-
-            arg0.setMinDate(System.currentTimeMillis() - 1000);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
-
-            try {
-
-                Date date1 = sdf.parse(dateInString);
-                Log.v("date11", String.valueOf(date1));
-                dateView.setText(new StringBuilder().append(myear).append("-")
-                        .append(mmonth).append("-").append(mday));
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-//            Calendar cal = Calendar.getInstance();
-//            Calendar c = Calendar.getInstance();
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-//            //get current date time with Date()
-//            Date date = new Date();
-//            System.out.println(dateFormat.format(date));
-//          cal.set(arg1, arg2+1, arg3);
-//            Date currentDate = cal.getTime();
-////
-////            final Calendar resetCal = cal;
-////            if(!minDate.before(currentDate) ){
-////                cal.setTime(minDate);
-////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
-////
-////            }else if(maxDate.before(currentDate)){
-////                cal.setTime(maxDate);
-////                arg0.updateDate(resetCal.get(Calendar.YEAR), resetCal.get(Calendar.MONTH), resetCal.get(Calendar.DAY_OF_MONTH));
-////            }
-//
-//            // TODO Auto-generated method stub
-//            // arg1 = year
-//            // arg2 = month
-//            // arg3 = day
-//
-//            if (currentDate.after(date)||currentDate.equals(date)){
-//                showDate(arg1,arg2+1,arg3);
-//            }else {
-//                arg0.updateDate(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
-//            }
-
-        }
-    };
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -800,7 +815,7 @@ public class MarketingMain extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.service:
+            case service:
                 Intent intent = new Intent(MarketingMain.this, ServicesMain.class);
                 startActivity(intent);
 
@@ -1015,15 +1030,15 @@ public class MarketingMain extends AppCompatActivity {
 
                 // Get total height of all items.
                 int totalItemsHeight = 0;
-                for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
+                for (int itemPos = 0; itemPos <numberOfItems; itemPos++) {
                     View item = listAdapter.getView(itemPos, null, listView);
-                    item.measure(0, 0);
+                    item.measure(0,0);
                     totalItemsHeight += item.getMeasuredHeight();
                 }
 
                 // Get total height of all item dividers.
                 int totalDividersHeight = listView.getDividerHeight() *
-                        (numberOfItems - 1);
+                        (numberOfItems -1);
 
                 // Set list height.
                 ViewGroup.LayoutParams params = listView.getLayoutParams();

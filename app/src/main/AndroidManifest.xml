@@ -194,6 +194,11 @@
             android:theme="@style/AppTheme.CustomTheme">
 
         </activity>
+        <activity
+            android:name=".Marketingnxt"
+            android:screenOrientation="landscape"
+            android:label="Set Campaign" >
+        </activity>
 
 
 

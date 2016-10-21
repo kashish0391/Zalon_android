@@ -209,6 +209,12 @@
                 android:id="@+id/txtloyalty"
                 android:textColor="#000000"
                 android:layout_height="wrap_content" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/chkbill"
+                android:layout_height="wrap_content" />
+
 
         </LinearLayout>
         <LinearLayout
@@ -305,18 +311,17 @@
                 android:id="@+id/billgenerate"
                 android:layout_marginLeft="150dp"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:layout_width="95dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
-                android:text="Promo code"
-                android:textColor="#000" />
+
 
             <Spinner
                 android:layout_width="150dp"
-                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/billpromo"
+                android:layout_marginLeft="25dp" />
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billpayment"
                 android:layout_marginLeft="25dp" />
 
 

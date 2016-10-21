@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -58,6 +59,7 @@ public class BillingMain extends AppCompatActivity {
     private Spinner stylist;
     private Spinner items;
     private Spinner promocode;
+    private Spinner paymentmthd;
     private Spinner Discounts;
     private Spinner quantity;
     private RadioButton r1;
@@ -68,9 +70,12 @@ public class BillingMain extends AppCompatActivity {
     private String Spinnerstylist;
     private String Spinneritems;
     private String Spinnerpromocode;
+    private String Spinnerpayment;
+
     private String Spinnerdiscounts;
     private String Spinnerquantity;
     private String Spinnercategory;
+    private CheckBox chk;
     private   ArrayAdapter<String> arrayadapter3;
     private   ArrayAdapter<String> arrayadapter4;
     private   ArrayAdapter<String> arrayadapter5;
@@ -90,10 +95,18 @@ public class BillingMain extends AppCompatActivity {
     List<String> stringlist;
     ArrayAdapter<String> arrayadapter;
     List<String> stringlist1;
+    List<String> stringlist2;
     ArrayAdapter<String> arrayadapter1;
+    ArrayAdapter<String> arrayadapter11;
+    ArrayAdapter<String> arrayadapter12;
+
     private ArrayList<String> servicespin;
     private ArrayList<String> servicespin1;
     private ArrayList<String> servicespin2;
+    private ArrayList<String> servicespin3;
+    private ArrayList<String> servicespin4;
+
+
 
     private static String url="http://zalonstyle.in:8080/billing/get_bill_info";
     private List<com.zalonstyles.app.zalon.Model.billlist> billList = new ArrayList<>();
@@ -217,6 +230,7 @@ public class BillingMain extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.billin_main);
+        chk =(CheckBox)findViewById(R.id.chkbill);
         Billno =(TextView) findViewById(R.id.billno);
         Date = (TextView) findViewById(R.id.billdate);
         customerName = (EditText)findViewById(R.id.billname);
@@ -225,6 +239,7 @@ public class BillingMain extends AppCompatActivity {
         stylist = (Spinner)findViewById(R.id.billstylist);
         items = (Spinner)findViewById(R.id.billitem);
         promocode = (Spinner)findViewById(R.id.billpromo);
+        paymentmthd =(Spinner)findViewById(R.id.billpayment) ;
         Discounts = (Spinner)findViewById(R.id.billdiscounts);
         quantity = (Spinner) findViewById(R.id.billquantity);
         billlv = (ListView)findViewById(R.id.billlv);
@@ -236,8 +251,12 @@ public class BillingMain extends AppCompatActivity {
         final TextView stax=(TextView)findViewById(R.id.tax2);
         final TextView vat=(TextView)findViewById(R.id.tax3);
         final TextView total=(TextView)findViewById(R.id.tax4);
+        final TextView lpoints=(TextView)findViewById(R.id.tax5);
+
+
         btnsrch = (Button) findViewById(R.id.btnsrch);
         txtloyal=(TextView) findViewById(R.id.txtloyalty);
+
         btnsrch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,6 +275,9 @@ public class BillingMain extends AppCompatActivity {
         servicespin = new ArrayList<String>();
         servicespin1 = new ArrayList<String>();
         servicespin2 = new ArrayList<String>();
+        servicespin3 = new ArrayList<String>();
+        servicespin4 = new ArrayList<String>();
+
 
 
         genbill.setOnClickListener(new View.OnClickListener() {
@@ -263,6 +285,12 @@ public class BillingMain extends AppCompatActivity {
             public void onClick(View v) {
                 listAdapter = new billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
                 billlv.setAdapter(listAdapter);
+                String redem;
+                if (chk.isChecked()){
+                    redem = "true";
+                }else {
+                    redem = "false";
+                }
 
                 String name = customerName.getText().toString();
                 String mob = customerMob.getText().toString();
@@ -298,6 +326,7 @@ public class BillingMain extends AppCompatActivity {
                         params.put("invoice",invoice);
                         params.put("info",ja);
                         params.put("mobile", mob);
+                        params.put("redem",redem);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -314,9 +343,42 @@ public class BillingMain extends AppCompatActivity {
                                 public void onResponse(String response) {
                                     Log.v("respodata", response);
 
+
                                     JSONObject jobject = null;
+
                                     try {
                                         jobject = new JSONObject(response);
+                                               total.setText(jobject.getString("total"));
+                                        JSONArray payload2 = jobject.getJSONArray("payment_methods");
+                                        for (int i = 0; i < payload2.length(); i++) {
+                                            try {
+                                                JSONObject obj = payload2.getJSONObject(i);
+                                                servicespin4.add(obj.getString("payment_method"));
+
+
+
+//                                                Log.v("spinnydata",servicespin3.get(i));
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }arrayadapter12.notifyDataSetChanged();
+
+                                        }
+                                        JSONArray payload1 = jobject.getJSONArray("campaign");
+                                        for (int i = 0; i < payload1.length(); i++) {
+                                            try {
+                                                JSONObject obj = payload1.getJSONObject(i);
+                                                servicespin3.add(obj.getString("campaign_name"));
+
+
+
+                                    Log.v("spinnydata",servicespin3.get(i));
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }arrayadapter11.notifyDataSetChanged();
+
+                                        }
 
                                         JSONArray payload = jobject.getJSONArray("services");
                                         for (int i = 0; i < payload.length(); i++) {
@@ -326,14 +388,15 @@ public class BillingMain extends AppCompatActivity {
                                                 disco.setText(obj.getString("discount"));
                                                 stax.setText(obj.getString("service_tax"));
                                                 vat.setText(obj.getString("vat"));
-                                                total.setText(obj.getString("total"));
-//                                                txtloyal.setText(obj.getString("points"));
+                                                lpoints.setText(obj.getString("points"));
+
 
 //                                    Log.v("logdata",servicespin.get(i));
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
+
                                         }
 
                                     } catch (JSONException e) {
@@ -760,6 +823,41 @@ public class BillingMain extends AppCompatActivity {
 
             }
         });
+        arrayadapter11 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,servicespin3 );
+
+        arrayadapter11.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        promocode.setAdapter(arrayadapter11);
+        promocode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinnerpromocode = promocode.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Spinnerpromocode ="";
+
+            }
+        });
+        arrayadapter12 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,servicespin4 );
+
+        arrayadapter12.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        paymentmthd.setAdapter(arrayadapter12);
+        paymentmthd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinnerpayment = paymentmthd.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Spinnerpayment ="";
+
+            }
+        });
+//
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
