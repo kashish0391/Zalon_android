@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <Button
+           android:layout_width="100dp"
+           android:layout_marginLeft="20dp"
+           android:text="General"
+           android:id="@+id/accgeneral"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="100dp"
+           android:layout_marginLeft="20dp"
+           android:text="Supplier"
+           android:id="@+id/accsupp"
+           android:layout_height="wrap_content" />
+       <Button
+       android:layout_width="100dp"
+       android:layout_marginLeft="20dp"
+           android:text="EMPLOYEE"
+           android:id="@+id/accemployee"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="100dp"
+           android:layout_marginLeft="20dp"
+           android:id="@+id/accbank"
+           android:text="BANK"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="100dp"
+           android:layout_marginLeft="20dp"
+           android:text="OTHER"
+           android:id="@+id/accothers"
+           android:layout_height="wrap_content" />
+
+   </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_margin="30dp"
+        android:layout_height="match_parent"></ListView>
+</LinearLayout>

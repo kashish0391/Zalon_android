@@ -1,20 +1,54 @@
 package com.zalonstyles.app.zalon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 
 /**
  * Created by KASHISH on 27-07-2016.
  */
 public class CalendarMain extends AppCompatActivity {
+    private WebView webView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_main);
+        SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+        webView = (WebView) findViewById(R.id.webview);
+        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new WebChromeClient());
+//        webView.getSettings().setLoadsImagesAutomatically(true);
+        webView.clearCache(true);
+        webView.loadUrl("http://zalonstyle.in/calendar-new/index.html"+"?access_token="+value);
+      Log.v("testweb","http://zalonstyle.in/calendar-new/index.html"+"?access_token="+value);
+
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        // Save the state of the WebView
+        webView.saveState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Restore the state of the WebView
+        webView.restoreState(savedInstanceState);
     }
 
     @Override
@@ -63,4 +97,5 @@ public boolean onCreateOptionsMenu(Menu menu) {
 
         }
     }
+
 }

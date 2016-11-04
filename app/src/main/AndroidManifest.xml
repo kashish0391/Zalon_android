@@ -199,6 +199,12 @@
             android:screenOrientation="landscape"
             android:label="Set Campaign" >
         </activity>
+        <activity
+            android:name=".Campaign_status"
+            android:screenOrientation="landscape"
+            android:label="Active Campaigns"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
 
 
 

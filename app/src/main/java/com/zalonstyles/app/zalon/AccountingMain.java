@@ -6,15 +6,34 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * Created by KASHISH on 28-07-2016.
  */
 public class AccountingMain extends AppCompatActivity {
+    private Button accType;
+    private Button credited;
+    private Button debited;
+    private EditText amt;
+    private EditText narration;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.accountingmain);
+        accType =(Button) findViewById(R.id.acctype);
+        credited =(Button) findViewById(R.id.acccredited);
+        debited =(Button) findViewById(R.id.accdebited);
+        amt = (EditText)findViewById(R.id.accamt);
+        narration = (EditText)findViewById(R.id.accnaration);
+        accType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -62,6 +81,8 @@ public class AccountingMain extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+
     }
+
 }
 

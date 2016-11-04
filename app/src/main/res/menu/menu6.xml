@@ -2,8 +2,50 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/EDITPROFILE"
-        android:title=" edit    "
+        android:id="@+id/cal"
+        android:icon="@drawable/cal"
+        android:title="Calendar"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/bill"
+        android:icon="@drawable/billing"
+        android:title="Billing"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/service"
+        android:icon="@drawable/services"
+        android:title="Service"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/rep"
+        android:icon="@drawable/report"
+        android:title="Report"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/mar"
+        android:icon="@drawable/marketing"
+        android:title="Marketing"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/acccounting"
+        android:icon="@drawable/accounting"
+        android:title="Accounting"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/set"
+        android:icon="@drawable/settings"
+        android:title="Settings"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/SAVECAMP"
+        android:title=" Active Campaign "
+        app:showAsAction="always"/>
+
+
+
+
+
 
 </menu>

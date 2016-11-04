@@ -808,7 +808,7 @@ public class MarketingMain extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu6, menu);
         return true;
     }
 
@@ -845,6 +845,11 @@ public class MarketingMain extends AppCompatActivity {
                 Intent intent6 = new Intent(MarketingMain.this, AccountingMain.class);
                 startActivity(intent6);
                 return true;
+            case R.id.SAVECAMP:
+                Intent intent7 = new Intent(MarketingMain.this, Campaign_status.class);
+                startActivity(intent7);
+                return true;
+
 
 
             default:
