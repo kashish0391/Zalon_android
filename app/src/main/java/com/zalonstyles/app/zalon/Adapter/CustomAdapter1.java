@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.zalonstyles.app.zalon.BillingMain;
 import com.zalonstyles.app.zalon.Customers;
-import com.zalonstyles.app.zalon.PrintReceipts;
 import com.zalonstyles.app.zalon.R;
 
 /**
@@ -68,17 +67,14 @@ public class CustomAdapter1 extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+
+
                 if (position == 0) {
-                    v.getContext().startActivity(new Intent(context, PrintReceipts.class));
-
-                }
-
-                if (position == 1) {
                     v.getContext().startActivity(new Intent(context, Customers.class));
 
                 }
 
-                if (position == 2) {
+                if (position == 1) {
                     v.getContext().startActivity(new Intent(context, BillingMain.class));
 
                 }

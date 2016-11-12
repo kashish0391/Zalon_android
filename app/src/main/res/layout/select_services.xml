@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+
+
+        <LinearLayout
+            android:layout_width="620dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/selctlistviewservice"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0px">
+
+            </ListView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="#3F51B5"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/selctallservicebtn"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="5dp"
+                    android:background="#fff"
+                    android:text="Select all" />
+
+                <Button
+                    android:id="@+id/selctaddservicebtn"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:background="#fff"
+                    android:text="SAVE" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

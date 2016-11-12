@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Acc Type"
+        android:id="@+id/custacctyp"
+        android:textColor="#000"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_margin="10dp"
+        android:text="Narration"
+        android:id="@+id/customnarration"
+        android:textColor="#000"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_margin="10dp"
+        android:id="@+id/customcredit"
+        android:text="Credited"
+        android:textColor="#000"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="50dp"
+        android:layout_margin="10dp"
+        android:text="Debited"
+        android:id="@+id/customdeb"
+        android:textColor="#000"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/custombtn"
+        android:textColor="#000"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

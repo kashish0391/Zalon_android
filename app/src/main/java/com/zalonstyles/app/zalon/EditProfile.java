@@ -2,6 +2,7 @@ package com.zalonstyles.app.zalon;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -126,6 +127,9 @@ public class EditProfile extends AppCompatActivity {
         Saturdaychkbox = (CheckBox) findViewById(R.id.editchkbox8);
         Sundaychkbox = (CheckBox) findViewById(R.id.editchkbox9);
         edittiming = (Button) findViewById(R.id.buttontiming);
+       Phone.setRawInputType(Configuration.KEYBOARD_QWERTY);
+        Pin.setRawInputType(Configuration.KEYBOARD_12KEY);
+        Name.setRawInputType(Configuration.KEYBOARD_NOKEYS);
 
 
         spinner = (Spinner) findViewById(R.id.editspinner);

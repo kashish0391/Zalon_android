@@ -31,6 +31,8 @@ public class AccountingMain extends AppCompatActivity {
         accType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(AccountingMain.this,Acctype.class);
+                startActivity(intent);
 
             }
         });

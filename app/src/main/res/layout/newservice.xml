@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/servicename1"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="270dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:text="Service Name"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/editsname1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="5dp"
+                android:lines="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+
+                android:text="Service Category"
+                android:textColor="#000" />
+
+            <Spinner
+                android:id="@+id/editscategory11"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="157dp"
+                android:layout_marginTop="5dp">
+
+            </Spinner>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+
+                android:text="Service Category"
+                android:textColor="#000" />
+
+            <Spinner
+                android:id="@+id/editscategory1"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="157dp"
+                android:layout_marginTop="5dp">
+
+            </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+
+                android:text="Description"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/sdescription1"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="1dp"
+                android:text="Pricing Staff Based"
+                android:textColor="#000" />
+
+            <Switch
+                android:id="@+id/switch11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="1dp"
+                android:text="Gender Based"
+                android:textColor="#000" />
+
+            <Switch
+                android:id="@+id/switch21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="" />
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="1dp"
+                android:text="Duration Gap"
+                android:textColor="#000" />
+
+            <Switch
+                android:id="@+id/switch31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="50dp"
+                android:text="ALL STAFF"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="50dp"
+
+                android:text="Price"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/editprice0"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="50dp"
+                android:text="Duration"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/editDur"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:visibility="gone" />
+
+            <NumberPicker
+                android:id="@+id/np0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:orientation="horizontal">
+
+            </NumberPicker>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlay2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
+                android:text="ALL STAFF"
+
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
+
+                android:text="Male"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/editprice01"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+
+                android:layout_marginTop="50dp"
+                android:text="Female"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/editprice02"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
+                android:text="Duration"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/editduration1"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginLeft="50dp"
+                android:visibility="gone" />
+
+            <NumberPicker
+                android:id="@+id/np01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:orientation="horizontal">
+
+            </NumberPicker>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlay3"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/emptextview1"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="80dp"
+                    android:layout_width="120dp"
+                    android:text="Price"
+                    android:textColor="#000"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/emptextview1"
+                    android:layout_alignBottom="@+id/emptextview1"
+                    android:layout_toRightOf="@+id/emptextview1"
+                    />
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_width="120dp"
+                    android:text="Duration"
+                    android:textColor="#000"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/emptextview1"
+                    android:layout_alignBottom="@+id/emptextview1"
+                    android:layout_toRightOf="@+id/emptextview1"
+                    />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view0"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearlay4"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:id="@+id/emptextview11"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+                    android:id="@+id/emptextview12"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="120dp"
+                    android:textColor="#000"
+                    android:text="Male Price"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/emptextview1"
+                    android:layout_alignBottom="@+id/emptextview1"
+                    android:layout_toRightOf="@+id/emptextview1"
+                    />
+                <TextView
+                    android:id="@+id/emptextview13"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="120dp"
+                    android:text="Female Price"
+                    android:textColor="#000"
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/emptextview1"
+                    android:layout_alignBottom="@+id/emptextview1"
+                    android:layout_toRightOf="@+id/emptextview1"
+                    />
+                <TextView
+                    android:id="@+id/emptextview14"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="120dp"
+                    android:text="Duration"
+                    android:textColor="#000"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/emptextview1"
+                    android:layout_alignBottom="@+id/emptextview1"
+                    android:layout_toRightOf="@+id/emptextview1"
+                    />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view01"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Staff Name"
+                android:textColor="#000" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/horizontal_recycler_view0"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="#fff" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

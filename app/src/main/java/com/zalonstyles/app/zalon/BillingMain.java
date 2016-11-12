@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -230,6 +231,8 @@ public class BillingMain extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.billin_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         chk =(CheckBox)findViewById(R.id.chkbill);
         Billno =(TextView) findViewById(R.id.billno);
         Date = (TextView) findViewById(R.id.billdate);
@@ -302,7 +305,7 @@ public class BillingMain extends AppCompatActivity {
 
                     JSONObject jo = new JSONObject();
                     try {
-                        jo.put("description", massage.getDescription());
+                        jo.put("description",  massage.getDescription());
                         jo.put("stylist", massage.getStylist());
                         jo.put("quantity", massage.getQty());
                         jo.put("rate", massage.getRate());
@@ -493,12 +496,12 @@ public class BillingMain extends AppCompatActivity {
 
 
 //                                           service.setSno(String.valueOf(counter));
-                                            service.setDescription(obj.getString("description"));
-                                            service.setStylist(obj.getString("stylist"));
-                                            service.setQty(obj.getString("quantity"));
-                                            service.setRate(obj.getString("rate"));
-                                            service.setAmount(obj.getString("amount"));
-                                            service.setDiscounts(obj.getString("discounts"));
+                                            service.setDescription(String.valueOf(obj.getString("description")));
+                                            service.setStylist(String.valueOf(obj.getString("stylist")));
+                                            service.setQty(String.valueOf(obj.getString("quantity")));
+                                            service.setRate(String.valueOf(obj.getString("rate")));
+                                            service.setAmount(String.valueOf(obj.getString("amount")));
+                                            service.setDiscounts(String.valueOf(obj.getString("discounts")));
 
                                             billList.add(service);
                                             Log.v("respo111", String.valueOf(billList.get(0)));
@@ -872,9 +875,9 @@ public class BillingMain extends AppCompatActivity {
                 String mob = data.getStringExtra("mob");
                 String gender = data.getStringExtra("gender");
                 String points = data.getStringExtra("points");
-                txtloyal.setText(points);
-                customerName.setText(name);
-                customerMob.setText(mob);
+                txtloyal.setText(String.valueOf(points));
+                customerName.setText(String.valueOf(name));
+                customerMob.setText(String.valueOf(mob));
                 if(gender.equals("male")){
                     r1.setChecked(true);
                     r2.setChecked(false);
@@ -1026,11 +1029,11 @@ public class BillingMain extends AppCompatActivity {
 
             // Display Service data
             textView1.setText(String.valueOf(position+1));
-            textView2.setText(sinventory.getDescription());
-            textView3.setText(sinventory.getStylist());
-            textView4.setText(sinventory.getQty());
-            textView5.setText(sinventory.getRate());
-            textView6.setText(sinventory.getAmount());
+            textView2.setText(String.valueOf(sinventory.getDescription()));
+            textView3.setText(String.valueOf(sinventory.getStylist()));
+            textView4.setText(String.valueOf(sinventory.getQty()));
+            textView5.setText(String.valueOf(sinventory.getRate()));
+            textView6.setText(String.valueOf(sinventory.getAmount()));
             button.setTag(sinventory);
             button.setSelected(sinventory.isClicked());
             button.setOnClickListener(new View.OnClickListener() {

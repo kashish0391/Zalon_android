@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="3"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Sellableinventorytv"
+                    android:layout_width="wrap_content"
+                    android:textColor="#000000"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:text="Item Name" />
+
+                <EditText
+                    android:id="@+id/Sellableinventoryed"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="100dp"
+                    android:padding="1dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Sellableinventorytv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:padding="1dp"
+                    android:text="Purchase Price" />
+
+                <EditText
+                    android:id="@+id/Sellableinventoryed1"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="75dp"
+                    android:padding="1dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Sellableinventorytv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:textColor="#000000"
+                    android:text="Selling Price" />
+
+                <EditText
+                    android:id="@+id/Sellableinventoryed2"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="92dp"
+                    android:padding="1dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Sellableinventorytv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:padding="1dp"
+                    android:text="Stock" />
+
+                <EditText
+                    android:id="@+id/Sellableinventoryed3"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="134dp"
+                    android:padding="1dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Sellableinventorytv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:textColor="#000000"
+                    android:text="Refill Reminder" />
+
+                <EditText
+                    android:id="@+id/Sellableinventoryed4"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="73dp"
+                    android:padding="1dp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Sellableinventorytv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:textColor="#000000"
+                    android:text="Category" />
+
+                <EditText
+                    android:id="@+id/Sellableinventoryed5"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="115dp"
+                    android:padding="1dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="1dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Sellableinventorytv6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="1dp"
+                    android:textColor="#000000"
+                    android:text="Supplier" />
+
+                <EditText
+                    android:id="@+id/Sellableinventoryed6"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="120dp"
+                    android:padding="1dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="5dp">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"></Spinner>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:background="#2b73e1"
+                    android:id="@+id/spinneradd"
+                    android:textSize="20dp" />
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                   android:layout_marginLeft="20dp"
+                    android:background="@drawable/close"
+                    android:id="@+id/sellebal_delete"
+                    android:textSize="20dp" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp">
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"></Spinner>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:background="#2b73e1"
+                    android:id="@+id/spinneradd1"
+                    android:textSize="20dp" />
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/close"
+                    android:id="@+id/sellebal_delete1"
+                    android:textSize="20dp" />
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="ADD"
+                    android:background="#2b73e1"
+                    android:id="@+id/SinventorySubmit"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_margin="5dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/scategory1"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_width="120dp"
+                    android:textColor="#000000"
+                    android:layout_height="25dp"
+                    android:text="CATEGORY" />
+                <TextView
+                    android:id="@+id/sname1"
+                    android:layout_marginTop="23dp"
+                    android:layout_width="120dp"
+                    android:textColor="#000000"
+                    android:layout_height="25dp"
+                    android:text="NAME" />
+                <TextView
+                    android:id="@+id/sstock1"
+                    android:layout_marginTop="23dp"
+                    android:layout_width="100dp"
+                    android:textColor="#000000"
+                    android:layout_height="25dp"
+                    android:text="STOCK" />
+                <TextView
+                    android:id="@+id/sprice1"
+                    android:layout_marginTop="23dp"
+                    android:layout_width="100dp"
+                    android:textColor="#000000"
+                    android:layout_height="25dp"
+                    android:text="PRICE" />
+
+
+            </LinearLayout>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listviewsinventory">
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

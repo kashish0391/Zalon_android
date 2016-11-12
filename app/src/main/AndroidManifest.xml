@@ -126,11 +126,6 @@
             android:label= "">
         </activity>
         <activity
-            android:name=".PrintReceipts"
-            android:screenOrientation="landscape"
-            android:label="Print Receipts" >
-        </activity>
-        <activity
             android:name=".Customers"
             android:screenOrientation="landscape"
             android:label="Customers" >
@@ -205,6 +200,13 @@
             android:label="Active Campaigns"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
+        <activity android:name=".Acctype"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
+
+
 
 
 

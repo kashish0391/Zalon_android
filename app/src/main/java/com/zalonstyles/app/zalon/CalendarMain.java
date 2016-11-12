@@ -21,9 +21,9 @@ public class CalendarMain extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_main);
+        webView = (WebView) findViewById(R.id.webview);
         SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
-        webView = (WebView) findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
 //        webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());

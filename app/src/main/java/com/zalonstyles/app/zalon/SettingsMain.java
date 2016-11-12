@@ -25,10 +25,10 @@ public class SettingsMain extends AppCompatActivity {
 
     ArrayList prgmName;
     public static int [] prgmImages={R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon};
-    public static String [] prgmNameList={"Employee Management","Inventory","Sellable","Profile","Gift Voucher","Business Hours"};
+    public static String [] prgmNameList={"Employee Management","Inventory","Sellable","Profile","Loyalty Points","Business Hours"};
     ArrayList prgmName1;
-    public static int [] prgmImages1={R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,};
-    public static String [] prgmNameList1={"Print Receipt","Customer","Billings"};
+    public static int [] prgmImages1={R.drawable.zalon,R.drawable.zalon,};
+    public static String [] prgmNameList1={"Customer","Billings"};
     ArrayList prgmName2;
     public static int [] prgmImages2={R.drawable.zalon,R.drawable.zalon,R.drawable.zalon,R.drawable.zalon};
     public static String [] prgmNameList2={"Change Password","Policy","About","Logout"};
