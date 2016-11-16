@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='fullcalendar.css' rel='stylesheet' />
+<link href='bootstrap.min.css' rel='stylesheet' />
+<link href='bootstrap-responsive.min.css' rel='stylesheet' />
+<link href='fullcalendar.print.css' rel='stylesheet' media='print' />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="sweetalert.css">
+
+<script src='moment.min.js'></script>
+<script src='jquery.min.js'></script>
+<script src='fullcalendar.min.js'></script>
+<script src='scheduler.min.js'></script>
+<script src='bootstrap.min.js'></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type='text/javascript' src='jquery.ui.touch.js'></script>
+<script src="sweetalert.min.js"></script>
+
+<script>  
+	$(function() { 
+        var d = new Date();
+        var n = d.getHours();
+
+        var start_test;
+        var start_time;
+        var end_test;
+        var end_time;
+		var base_url = 'zalonstyle.in:8080';
+	    var access_token = location.search.split('access_token=')[1];
+		$('#calendar').fullCalendar({
+  			defaultView: 'agendaDay',			
+  			editable: true,
+  			selectable: true,
+  			eventLimit: true,
+  			allDaySlot:false,
+  			minTime: '08:00:00',
+  			slotDuration: '00:15:00',
+  			aspectRatio: 2,            
+  			header: {
+  				left: 'prev',
+  				center: 'title',
+  				right: 'next'
+  			},
+            scrollTime: ''+n+':00:00',
+
+  			resources: 'http://'+base_url+'/calendar/getStaffResources?access_token='+access_token,
+  			events: 'http://'+base_url+'/calendar/getStaffEvents?access_token='+access_token+'',
+  			eventRender: function(event, element) { 
+                $(element).addTouch();                 
+                    element.bind( 'click', function( event ) {
+                        var doubleClickOpportunity = 300, 
+                          $elem = $( event.target ),
+                          clicker = $elem.data( 'clicker' );
+                        if ( clicker ) {                          
+                          clearTimeout( clicker );
+                          $elem.data( 'clicker', '' );
+                          $elem.trigger( 'doubleclick' );
+                        } else {                         
+                          $elem.data( 'clicker', setTimeout(function() {
+                              $elem.data( 'clicker', '' );
+                              $elem.trigger( 'singleclick' );
+                          }, doubleClickOpportunity ));
+                        }
+                    });
+                    element.bind( 'singleclick', function() {
+                        swal({
+                            title: "Choose your option",
+                            text: "Choose edit if your want to end event otherwise your can go for billing",                            
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Edit",
+                            cancelButtonText: "Billing",
+                            closeOnConfirm: true,
+                            closeOnCancel: true,
+                            allowOutsideClick: true,                          
+                        },
+                          function(isConfirm){
+                              if (isConfirm) {
+                                  var date =  event.start.format("YYYY-MM-DD"); 
+                                  start_time = event.start.format("HH:mm a");   
+                                  end_time = event.end.format("HH:mm a");
+                                  start_test = event.start.format("YYYY-MM-DD HH:mm:ss");
+                                  end_test = event.end.format("YYYY-MM-DD HH:mm:ss");
+                                  $('#event_id').val(event.id);
+                                  $('#datepicker').val(date);
+                                  $('#start_time').val(start_time);
+                                  $('#service_search').val(event.title);
+                                  $('#end_time').val(end_time);
+                                  $.ajax({
+                                     url: 'http://'+base_url+'/calendar/getEventDetails',
+                                     data: 'access_token='+access_token+'&id='+ event.id,
+                                     type: "GET",
+                                     success: function(json){                                    
+                                          $('#stylist').text(json.staff_name);
+                                          $('#cust_mobile').val(json.mobile);
+                                          $('#cust_name').val(json.cust_name);
+                                     }
+                                  });
+                                  $('#myModal').modal('show');
+                                  $(document).on('click', '#addEventBtn', function(){
+                                      var event_id = $('#event_id').val();
+                                      var service     = $('#service_search').val();
+                                      var cust_mobile = $('#cust_mobile').val();
+                                      $.ajax({
+                                          url: 'http://'+base_url+'/calendar/addEvent',
+                                          data: 'access_token='+access_token+'&event_id='+event_id+'&service='+service+'&start='+ start_test +'&end='+ end_test +'&staff_id='+ event.resourceId+'&cust_mobile='+cust_mobile,
+                                          type: 'GET',                         
+                                          success: function(json) {
+                                              event.title = json.data[0].service;
+                                              $('#calendar').fullCalendar('updateEvent', event);
+
+                                              $('#event_form')[0].reset();                
+                                              $('#myModal').modal('hide');                        
+                                          }
+                                      });                           
+                                  });
+                              }else{                           
+                                  console.log(event.id);
+                              }
+                          });  
+                    });
+                    element.bind( 'doubleclick', function() {
+                            swal({
+                              title: "Are you sure?",
+                              text: "You will not be able to recover this imaginary file!",
+                              type: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#DD6B55",
+                              confirmButtonText: "Yes, delete it!",
+                              closeOnConfirm: false
+                            },
+                            function(){
+                                $.ajax({
+                                   url: 'http://'+base_url+'/calendar/removeEvent',
+                                   data: 'access_token='+access_token+'&id='+ event.id,
+                                   type: "GET",
+                                   success: function(json){
+                                        console.log(json);
+                                       $('#calendar').fullCalendar('removeEvents',event.id);
+                                   }
+                                });
+                              swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            });     
+                    });               
+            },
+   			select: function(start, end, allDay, event, resourceId){
+    			var date = 	start.format("YYYY-MM-DD");	
+                start_time = start.format("HH:mm a"); 	
+                end_time = end.format("HH:mm a");
+				start_test = start.format("YYYY-MM-DD HH:mm:ss");
+				end_test = end.format("YYYY-MM-DD HH:mm:ss");         
+            
+
+                $('#datepicker').val(date);
+                $('#start_time').val(start_time);
+                $('#end_time').val(end_time);
+                $('#stylist').text(resourceId.title);
+  			        $('#myModal').modal('show');
+
+                $(document).on('click', '#addEventBtn', function(){
+                    var event_id = 0;
+                    var service     = $('#service_search').val();
+                    var cust_mobile = $('#cust_mobile').val();
+                    $.ajax({
+                        url: 'http://'+base_url+'/calendar/addEvent',
+                        data: 'access_token='+access_token+'&event_id='+event_id+'&service='+service+'&start='+ start_test +'&end='+ end_test +'&staff_id='+ resourceId.id+'&cust_mobile='+cust_mobile,
+                        type: 'GET',                         
+                        success: function(json) {                                      
+                            eventData = {title: service,start: start_test,end: end_test,resourceId: resourceId.id};
+                            $('#calendar').fullCalendar('renderEvent', eventData, true);                      
+                            $('#calendar').fullCalendar('unselect');
+                            $('#event_form')[0].reset();                                  
+                            $('#myModal').modal('hide');                        
+                        }
+                    });                           
+                });      				
+      		},
+            eventDurationEditable:false,           
+            // eventResize: function(event, dayDelta, minuteDelta) {
+            //     var start = event.start.format("YYYY-MM-DD HH:mm:ss");
+            //     var end = event.end.format("YYYY-MM-DD HH:mm:ss");                       
+            //     $.ajax({
+            //        url: 'http://'+base_url+'/calendar/updateEvent',
+            //        data: 'access_token='+access_token+'&id='+ event.id+'&start='+ start +'&end='+ end +'&staff_id='+ event.resourceId ,
+            //        type: "GET",
+            //        success: function(json){
+            //            console.log(json);
+            //        }
+            //     });
+            // },
+            eventDrop: function( event, dayDelta, minuteDelta, allDay) {                        
+                var start = event.start.format("YYYY-MM-DD HH:mm:ss");
+                var end = event.end.format("YYYY-MM-DD HH:mm:ss");                          
+                $.ajax({
+                   url: 'http://'+base_url+'/calendar/updateEvent',
+                   data: 'access_token='+access_token+'&id='+ event.id+'&start='+ start +'&end='+ end +'&staff_id='+ event.resourceId ,
+                   type: "GET",
+                   success: function(json) {
+                       console.log(json);
+                   }
+                });
+            }        
+		});
+
+        $('#myModal').on('hidden.bs.modal', function () {
+            $('#event_form')[0].reset();  
+            $('#service_search').val('');
+            $('#segession_box').hide();            
+        });
+
+		$( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd',minDate:0 });       
+
+        $(document).on('keyup', '#service_search',function(){
+            var key = $(this).val();
+            if(key.length > 0){
+                $.ajax({
+                    type: "GET",
+                    url: 'http://'+base_url+'/calendar/searchService',
+                    data:'access_token='+access_token+'&keyword='+$(this).val(),       
+                    success: function(data){  
+                        $('#segession_box').show();
+                        $('#segession_box ul').empty();                                  
+                        $.each(data, function(key,val){                        
+                            $("#segession_box ul").append('<li><a class="service" data-id="'+val.category_id+'" data-name="'+val.category_name+'" data-duration="'+val.duration+'" href="javascript:void(0);">'+val.category_name+'</a></li>');
+                        });
+                    }
+                });
+            }
+        });
+
+        $(document).on('keyup', '#cust_mobile',function(){
+            var key = $(this).val();
+            if(key.length > 2){
+                $.ajax({
+                    type: "GET",
+                    url: 'http://'+base_url+'/calendar/searchCustomer',
+                    data:'access_token='+access_token+'&keyword='+$(this).val(),       
+                    success: function(data){  
+                        $('#segession_cust').show();
+                        $('#segession_cust ul').empty();                                  
+                        $.each(data, function(key,val){                        
+                            $("#segession_cust ul").append('<li><a class="customer" data-mobile="'+val.mobile+'" data-id="'+val.id+'" data-name="'+val.name+'" href="javascript:void(0);">'+val.mobile+'</a></li>');
+                        });
+                    }
+                });
+            }
+        });
+
+        $(document).on('click','.service', function(){
+            var category_name = $(this).data('name');
+            var category_id = $(this).data('id');            
+            var duration = $(this).data('duration'); 
+            if(duration != 0){
+                end_test = moment(start_test).add(duration,'minutes');
+                end_test = end_test.format("YYYY-MM-DD HH:mm:ss");
+
+                end_time = moment(end_test).format("HH:mm a");
+                $('#end_time').val(end_time);                
+            }else{
+                end_time = moment(start_test).add(15,'minutes');
+                end_time = moment(end_time).format("HH:mm a");
+                $('#end_time').val(end_time);
+            }
+            $('#service_search').val(category_name);
+            $('#segession_box').append('');
+            $('#segession_box').hide();           
+           
+        });
+
+        $(document).on('click','.customer', function(){
+            var name = $(this).data('name');
+            var id = $(this).data('id');
+            var mobile = $(this).data('mobile');
+            $('#cust_mobile').val(mobile);
+            $('#cust_name').val(name);
+            $('#segession_cust').hide();
+            
+        });      
+            
+        
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 0;
+		padding: 10px;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		/*max-width: 900px;
+		margin: 50px auto;*/
+	}
+  .fc-license-message{
+    display: none;
+  }
+	.modal-dialog {
+	z-index:50000;
+}
+
+.modal-backdrop.fade {
+opacity: 0.1;
+filter: alpha(opacity=0.1);
+}
+
+.modal-content {
+position: relative;
+background-color: #FFF;
+border: 1px solid #CECECE;
+border-radius: 0px;
+-webkit-box-shadow:none; 
+ box-shadow: none;
+background-clip: padding-box;
+outline: 0;
+}
+
+
+.modal-header {
+    padding: 11px 15px;
+	background-color: #F8F8F8;
+background: -webkit-linear-gradient(top, #F8F8F8, #F2F2F2);
+background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+background: linear-gradient(top, #f8f8f8, #f2f2f2);
+}
+.closeon{
+    color: yellow;position: absolute;right: 3px;
+}
+.fc-time-grid .fc-slats td {
+    height: 2.0em;
+}
+.fc-unthemed .fc-today {
+    background: white;
+}
+
+</style>
+</head>
+<body>
+
+	<div id='calendar'></div>
+	
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">New Booking</h4>
+      </div>
+      <div class="modal-body">       		
+       		   <form class="form-inline" id="event_form">
+                    <fieldset>
+                        <input type="hidden" name="event_id" id="event_id">
+                        <legend>Appointment Information</legend>
+                        <div class="form-group">
+                            <label for="focusedInput">Date</label>
+                            <input class="form-control" id="datepicker" type="text">
+                        </div>
+                        <div class="form-group pull-right">
+                            <label for="focusedInput">Service</label>
+                            <input class="form-control" id="service_search" type="text">
+                        </div>
+                        <div class="well" id="segession_box" style="margin-left: 65%;position: absolute; width: 30%;display: none;">
+                            <ul class="nav nav-pills nav-stacked" role="tablist" style="margin: -18px;">                                                     
+                            </ul>  
+                        </div>
+                        <br><br>
+                         <div class="form-group">
+                            <label for="focusedInput">Time</label>
+                            <input class="form-control" id="start_time" type="text" disabled>
+                        </div>
+                        <div class="form-group pull-right">
+                            <label for="inputPassword">Time</label>
+                            <input class="form-control" id="end_time" type="text" disabled>
+                        </div>
+
+                    </fieldset>
+
+                    <br>
+                      <div class="form-group" style="display: inline-flex;">
+                        <label for="focusedInput">Stylist</label>
+                        <!-- <input class="form-control" id="stylist" type="text"> -->
+                        <span id="stylist" style="margin-left: 5px;"></span>
+                    </div>
+                    <br>
+
+                    <fieldset>
+                        <legend>Customer Information</legend>
+                        <div class="form-group">
+                            <label for="focusedInput">Mobile</label>
+                            <input class="form-control" id="cust_mobile" type="text">
+                        </div>
+                         <div class="well" id="segession_cust" style="margin-left: 52px; position: absolute; width: 30%;display: none;">
+                            <ul class="nav nav-pills nav-stacked" role="tablist" style="margin: -18px;">                                                     
+                            </ul>  
+                        </div>
+                        <div class="form-group pull-right">
+                            <label for="inputPassword">Name</label>
+                            <input class="form-control" id="cust_name" type="text">
+                        </div> 
+                    </fieldset>
+                </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="addEventBtn" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

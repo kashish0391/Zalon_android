@@ -1,5 +1,7 @@
 package com.zalonstyles.app.zalon;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
@@ -17,6 +20,7 @@ import android.webkit.WebView;
  */
 public class CalendarMain extends AppCompatActivity {
     private WebView webView;
+    @SuppressLint("JavascriptInterface")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +29,40 @@ public class CalendarMain extends AppCompatActivity {
         SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
         webView.getSettings().setJavaScriptEnabled(true);
-//        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
-//        webView.getSettings().setLoadsImagesAutomatically(true);
-        webView.clearCache(true);
-        webView.loadUrl("http://zalonstyle.in/calendar-new/index.html"+"?access_token="+value);
-      Log.v("testweb","http://zalonstyle.in/calendar-new/index.html"+"?access_token="+value);
+        //Inject WebAppInterface methods into Web page by having Interface name 'Android'
+
+       webView.setWebChromeClient(new WebChromeClient());
+        webView.getSettings().setLoadsImagesAutomatically(true);
+//        webView.clearCache(true);
+        webView.loadUrl("file:///android_asset/calendar/index.html"+"?access_token="+value);
+        webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+
+        Log.v("testweb","http://zalonstyle.in/calendar-new/index.html"+"?access_token="+value);
+
 
     }
+
+    //Class to be injected in Web page
+    public class WebAppInterface {
+        Context mContext;
+
+        /**
+         * Instantiate the interface and set the context
+         */
+        WebAppInterface(Context c) {
+            mContext = c;
+        }
+
+        @JavascriptInterface
+        public void moveToNextScreen(int test) {
+        Log.v("test11", String.valueOf(test));
+            Intent chnIntent = new Intent(CalendarMain.this, BillingMain.class);
+            startActivity(chnIntent);
+
+        }
+    }
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState)
     {

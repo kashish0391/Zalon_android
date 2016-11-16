@@ -10,93 +10,73 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
-
-            <TextView
-                android:id="@+id/servicename1"
-                android:layout_width="400dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="270dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
-                android:text="Service Name"
-                android:textColor="#000" />
-
-            <EditText
-                android:id="@+id/editsname1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="5dp"
-                android:lines="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center">
 
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:text="Category"
+                android:layout_marginLeft="15dp"
+                android:textColor="#000" />
 
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="50dp"
                 android:text="Service Category"
                 android:textColor="#000" />
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="150dp"
+                android:text="Service Name"
+                android:textColor="#000" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center">
+
 
             <Spinner
                 android:id="@+id/editscategory11"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_marginLeft="157dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp">
 
             </Spinner>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-
-                android:text="Service Category"
-                android:textColor="#000" />
 
             <Spinner
                 android:id="@+id/editscategory1"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_marginLeft="157dp"
+                android:layout_marginLeft="67dp"
                 android:layout_marginTop="5dp">
 
             </Spinner>
+            <EditText
+                android:id="@+id/editsname1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:maxLength="42"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="5dp"
+                />
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +86,7 @@
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
 
                 android:text="Description"
                 android:textColor="#000" />
@@ -114,8 +94,9 @@
             <EditText
                 android:id="@+id/sdescription1"
                 android:layout_width="320dp"
+                android:textSize="16dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp">
+                android:layout_marginLeft="77dp">
 
             </EditText>
 
@@ -123,12 +104,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_height="35dp">
 
             <TextView
                 android:layout_width="160dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="1dp"
                 android:text="Pricing Staff Based"
                 android:textColor="#000" />
@@ -180,7 +162,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="50dp"
                 android:text="ALL STAFF"
                 android:textColor="#000" />
@@ -238,7 +220,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="50dp"
                 android:text="ALL STAFF"
 
@@ -411,7 +393,7 @@
                 android:id="@+id/recycler_view01"
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical" />
         </LinearLayout>
