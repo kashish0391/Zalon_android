@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -22,10 +21,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -47,60 +47,61 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.R.attr.value;
+import static com.zalonstyles.app.zalon.R.id.set;
+
 /**
- * Created by KASHISH on 27-07-2016.
+ * Created by KASHISH on 02-08-2016.
  */
-public class BillingMain extends AppCompatActivity {
-    private Spinner Category;
+public class BillingMain extends AppCompatActivity  {
+    private Button srch;
     private TextView Billno;
     private TextView Date;
     private EditText customerName;
     private EditText customerMob;
-    private Spinner service;
     private Spinner stylist;
-    private Spinner items;
     private Spinner promocode;
     private Spinner paymentmthd;
     private Spinner Discounts;
-    private Spinner quantity;
-    private RadioButton r1;
-    private RadioButton r2;
+    private TextView service;
     private EditText total;
     private Button btnsrch;
-    private String Spinnerservice;
-    private String Spinnerstylist;
-    private String Spinneritems;
-    private String Spinnerpromocode;
-    private String Spinnerpayment;
-
-    private String Spinnerdiscounts;
-    private String Spinnerquantity;
-    private String Spinnercategory;
-    private CheckBox chk;
-    private   ArrayAdapter<String> arrayadapter3;
-    private   ArrayAdapter<String> arrayadapter4;
-    private   ArrayAdapter<String> arrayadapter5;
-    private   ArrayAdapter<String> arrayadapter6;
-    List<String> stringlist01;
-
-
-    private Button addbill;
-    private Button genbill;
-    private TextView txtloyal;
-
     private ListView billlv;
-    String[] spinnerItems1 = new String[]{"1","2","3","4","5","6","7","8","9","10"};
-    String[] spinnerItems01 = new String[]{"No Discount","5%","10%","15%","20%","25%","30%","35%","40%","45%","50%"};
-    String[] spinnerItems = new String[]{"Select Category","Body","Hair","Nail","Face","Hair Removal","Massage","Product"};
+    private String gender = null;
+    private String quantity = "1";
+    private ImageButton one;
+    private ImageButton two;
+    private ImageButton three;
+    private ImageButton four;
+    private ImageButton five;
+    private Button printbill;
 
-    List<String> stringlist;
-    ArrayAdapter<String> arrayadapter;
-    List<String> stringlist1;
-    List<String> stringlist2;
-    ArrayAdapter<String> arrayadapter1;
     ArrayAdapter<String> arrayadapter11;
     ArrayAdapter<String> arrayadapter12;
+    private String Spinnerstylist;
+    private String Spinnerpromocode;
+    private String Spinnerpayment;
+    protected String type;
 
+    private String Spinnerdiscounts;
+    private CheckBox chk;
+    private Button addbill;
+    private Button genbill;
+    private ImageButton male;
+    private ImageButton female;
+
+    private   ArrayAdapter<String> arrayadapter3;
+    private ArrayAdapter<billlist> listAdapter;
+    List<String> stringlist1;
+
+
+    private TextView txtloyal;
+    String[] spinnerItems01 = new String[]{"No Discount","5%","10%","15%","20%","25%","30%","35%","40%","45%","50%"};
+    private   ArrayAdapter<String> arrayadapter;
+    private List<com.zalonstyles.app.zalon.Model.billlist> billList = new ArrayList<>();
+
+    List<String> stringlist01;
+    private static String url="http://zalonstyle.in:8080/billing/get_bill_info";
     private ArrayList<String> servicespin;
     private ArrayList<String> servicespin1;
     private ArrayList<String> servicespin2;
@@ -109,146 +110,43 @@ public class BillingMain extends AppCompatActivity {
 
 
 
-    private static String url="http://zalonstyle.in:8080/billing/get_bill_info";
-    private List<com.zalonstyles.app.zalon.Model.billlist> billList = new ArrayList<>();
-    private ArrayAdapter<billlist> listAdapter;
-
-
-
-
-
-
-
-
-
-    public  void servicenetworking1(int serviceid,String URL){
-
-        service.setAdapter(arrayadapter4=new ArrayAdapter<String>(BillingMain.this, android.R.layout.simple_spinner_item, servicespin1));
-        items.setAdapter(null);
-
-        servicespin1.clear();
-        service.setAdapter(null);
-        arrayadapter4.notifyDataSetChanged();
-
-
-        SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
-        final JSONObject params = new JSONObject();
-        try {
-            params.put("service_id",serviceid);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            params.put("access_token", value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>(){
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.v("updateUPVolleyRes1",response);
-                        JSONObject jobject = null;
-                        try {
-                            jobject = new JSONObject(response);
-
-                            JSONArray payload = jobject.getJSONArray("services");
-                            for (int i = 0; i < payload.length(); i++) {
-                                try{
-                                    JSONObject obj = payload.getJSONObject(i);
-                                    servicespin1.add(obj.getString("category_name"));
-//                                    Log.v("logdata",servicespin.get(i));
-
-                                }catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        service.setAdapter(arrayadapter4=new ArrayAdapter<String>(BillingMain.this, android.R.layout.simple_spinner_item, servicespin1));
-                        arrayadapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                        service.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                Spinnerservice = service.getSelectedItem().toString();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                                Spinnerservice ="";
-
-                            }
-                        });
-
-                    }
-
-                }
-                , new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.v("updateUPVolleyErr", error.toString());
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params1 = new HashMap<String, String>();
-
-                params1.put("payload", params.toString());
-
-                Log.v("updateUPVolleyParams6", params1.toString());
-
-                return params1;
-
-            }
-        };
-
-
-        requestQueue.add(stringRequest);
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.billin_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+        setContentView(R.layout.billingnew);
+        srch = (Button) findViewById(R.id.btnsrchserv);
+        btnsrch = ( Button) findViewById(R.id.btnsrch);
+        service = (TextView) findViewById(R.id.billserv);
+        male = (ImageButton) findViewById(R.id.billimagemale);
+        female = (ImageButton) findViewById(R.id.billimagefemale);
         chk =(CheckBox)findViewById(R.id.chkbill);
         Billno =(TextView) findViewById(R.id.billno);
         Date = (TextView) findViewById(R.id.billdate);
         customerName = (EditText)findViewById(R.id.billname);
         customerMob = (EditText)findViewById(R.id.billmob);
-        service = (Spinner)findViewById(R.id.billservice);
         stylist = (Spinner)findViewById(R.id.billstylist);
-        items = (Spinner)findViewById(R.id.billitem);
         promocode = (Spinner)findViewById(R.id.billpromo);
         paymentmthd =(Spinner)findViewById(R.id.billpayment) ;
         Discounts = (Spinner)findViewById(R.id.billdiscounts);
-        quantity = (Spinner) findViewById(R.id.billquantity);
         billlv = (ListView)findViewById(R.id.billlv);
-        Category = (Spinner) findViewById(R.id.billcategory);
-        stringlist = new ArrayList<>(Arrays.asList(spinnerItems1));
         stringlist01 = new ArrayList<>(Arrays.asList(spinnerItems01));
+        servicespin = new ArrayList<String>();
+        addbill = (Button)findViewById(R.id.billaddbill);
+        one = ( ImageButton) findViewById(R.id.billquan1);
+        two = ( ImageButton) findViewById(R.id.billquan2);
+        three = ( ImageButton) findViewById(R.id.billquan3);
+        four = ( ImageButton) findViewById(R.id.billquan4);
+        five = ( ImageButton) findViewById(R.id.billquan5);
+        genbill = (Button)findViewById(R.id.billgen);
+        printbill = (Button)findViewById(R.id.printbill);
+
+
+
+
+
+//        Category = (Spinner) findViewById(R.id.billcategory);
+//        stringlist = new ArrayList<>(Arrays.asList(spinnerItems1));
+//        stringlist01 = new ArrayList<>(Arrays.asList(spinnerItems01));
         final TextView subtotal=(TextView)findViewById(R.id.tax);
         final TextView disco=(TextView)findViewById(R.id.tax1);
         final TextView stax=(TextView)findViewById(R.id.tax2);
@@ -256,10 +154,16 @@ public class BillingMain extends AppCompatActivity {
         final TextView total=(TextView)findViewById(R.id.tax4);
         final TextView lpoints=(TextView)findViewById(R.id.tax5);
 
-
         btnsrch = (Button) findViewById(R.id.btnsrch);
         txtloyal=(TextView) findViewById(R.id.txtloyalty);
 
+        srch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BillingMain.this,searchservice.class);
+                startActivityForResult(intent, 3);
+            }
+        });
         btnsrch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,26 +171,318 @@ public class BillingMain extends AppCompatActivity {
                 startActivityForResult(intent, 2);
             }
         });
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gender ="male";
+                male.setBackgroundResource(R.drawable.male1);
+                female.setBackgroundResource(R.drawable.female);
+
+            }
+        });
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gender ="male";
+                male.setBackgroundResource(R.drawable.male);
+                female.setBackgroundResource(R.drawable.female1);
+
+            }
+        });
+        one.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity = "1";
+            }
+        });
+        two.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity = "2";
+            }
+        });
+        three.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity = "3";
+            }
+        });
+        four.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity = "4";
+            }
+        });
+        five.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantity = "5";
+            }
+        });
 
 
 
 
-        genbill = (Button)findViewById(R.id.billgenerate);
-    int counter = 1;
-
-        stringlist1 = new ArrayList<>(Arrays.asList(spinnerItems));
         servicespin = new ArrayList<String>();
         servicespin1 = new ArrayList<String>();
         servicespin2 = new ArrayList<String>();
         servicespin3 = new ArrayList<String>();
         servicespin4 = new ArrayList<String>();
+        arrayadapter11 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,servicespin3 );
 
+        arrayadapter11.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        promocode.setAdapter(arrayadapter11);
+        promocode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinnerpromocode = promocode.getSelectedItem().toString();
+                final JSONObject params = new JSONObject();
+                try {
+                    params.put("invoice",Billno.getText().toString());
+                    params.put("promo",Spinnerpromocode);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    params.put("access_token", value);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/applyPromoCode",
+                        new Response.Listener<String>(){
+
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    if (new JSONObject(response).getString("status").equals("success")) {
+                                        Log.v("updat011",response);
+                                        JSONObject jobject = null;
+                                        try {
+                                            jobject = new JSONObject(response);
+
+                                            JSONArray payload = jobject.getJSONArray("services");
+                                            for (int i = 0; i < payload.length(); i++) {
+                                                try{
+                                                    JSONObject obj = payload.getJSONObject(i);
+                                                    subtotal.setText(obj.getString("sub_total"));
+                                                    disco.setText(obj.getString("discount"));
+                                                    stax.setText(obj.getString("service_tax"));
+                                                    vat.setText(obj.getString("vat"));
+                                                    lpoints.setText(obj.getString("points"));
+
+
+                                                }catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }else {
+                                        Toast.makeText(getApplicationContext(), " Not applicable on your order", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        }
+                        , new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.v("updateUPVolleyErr", error.toString());
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params1 = new HashMap<String, String>();
+
+                        params1.put("payload", params.toString());
+
+                        Log.v("updateUPVolleyParams6", params1.toString());
+
+                        return params1;
+
+                    }
+                };
+
+
+                requestQueue.add(stringRequest);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Spinnerpromocode ="";
+
+            }
+        });
+        arrayadapter12 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,servicespin4 );
+
+        arrayadapter12.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        paymentmthd.setAdapter(arrayadapter12);
+        paymentmthd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinnerpayment = paymentmthd.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Spinnerpayment ="";
+
+            }
+        });
+        printbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final JSONObject params = new JSONObject();
+                try {
+                    params.put("invoice",Billno.getText().toString());
+                    params.put("payment_method",Spinnerpayment);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/applyPaymentMethod",
+                        new Response.Listener<String>(){
+
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    if (new JSONObject(response).getString("status").equals("success")) {
+                                        Intent intent = new Intent(BillingMain.this,BillingMain.class);
+                                        startActivity(intent);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                        }
+                        , new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.v("updateUPVolleyErr", error.toString());
+
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params1 = new HashMap<String, String>();
+
+                        params1.put("payload", params.toString());
+
+                        Log.v("updateUPVolleyParams6", params1.toString());
+
+                        return params1;
+
+                    }
+                };
+
+
+                requestQueue.add(stringRequest);
+
+            }
+        });
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+
+            String value1 = extras.getString("eventid");
+            Log.v("valtest",value1);
+            final JSONObject params = new JSONObject();
+            try {
+                params.put("event_id",value1);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                params.put("access_token", value);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/calendar/getBillingData",
+                    new Response.Listener<String>(){
+
+                        @Override
+                        public void onResponse(String response) {
+
+                            Log.v("test101",response);
+
+                            try {
+                                JSONObject jobject = new JSONObject(response);
+                                JSONArray payload = jobject.getJSONArray("data");
+                                Log.e("payloaddata", String.valueOf(payload));
+                                for (int i = 0; i < payload.length(); i++) {
+                                    try{
+                                        JSONObject obj = payload.getJSONObject(i);
+                                        customerName.setText(obj.getString("customer_name"));
+                                        customerMob.setText(obj.getString("mobile"));
+                                        service.setText((obj.getString("service")));
+                                        txtloyal.setText(obj.getString("points"));
+
+
+
+
+
+
+
+                                    }catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                    }
+                    , new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.v("updateUPVolleyErr", error.toString());
+
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params1 = new HashMap<String, String>();
+
+                    params1.put("payload", params.toString());
+
+                    Log.v("updateUPVolleyParams6", params1.toString());
+
+                    return params1;
+
+                }
+            };
+
+
+            requestQueue.add(stringRequest);
+
+
+
+        }
 
 
         genbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listAdapter = new billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
+                listAdapter = new BillingMain.billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
                 billlv.setAdapter(listAdapter);
                 String redem;
                 if (chk.isChecked()){
@@ -318,136 +514,152 @@ public class BillingMain extends AppCompatActivity {
                 }
 
 
-                    SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
+                SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
 
-                    final JSONObject params = new JSONObject();
+                final JSONObject params = new JSONObject();
 
-                    try {
-                        params.put("access_token", value);
-                        params.put("customer_name",name);
-                        params.put("invoice",invoice);
-                        params.put("info",ja);
-                        params.put("mobile", mob);
-                        params.put("redem",redem);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
+                try {
+                    params.put("access_token", value);
+                    params.put("customer_name",name);
+                    params.put("invoice",invoice);
+                    params.put("info",ja);
+                    params.put("mobile", mob);
+                    params.put("redem",redem);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
 
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/generate_bill",
-                            new Response.Listener<String>() {
-
-                                @Override
-                                public void onResponse(String response) {
-                                    Log.v("respodata", response);
 
 
-                                    JSONObject jobject = null;
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/generate_bill",
+                        new Response.Listener<String>() {
 
-                                    try {
-                                        jobject = new JSONObject(response);
-                                               total.setText(jobject.getString("total"));
-                                        JSONArray payload2 = jobject.getJSONArray("payment_methods");
-                                        for (int i = 0; i < payload2.length(); i++) {
-                                            try {
-                                                JSONObject obj = payload2.getJSONObject(i);
-                                                servicespin4.add(obj.getString("payment_method"));
+                            @Override
+                            public void onResponse(String response) {
+                                Log.v("respodata", response);
+
+
+                                JSONObject jobject = null;
+
+                                try {
+                                    jobject = new JSONObject(response);
+                                    total.setText(jobject.getString("total"));
+                                    JSONArray payload2 = jobject.getJSONArray("payment_methods");
+                                    for (int i = 0; i < payload2.length(); i++) {
+                                        try {
+                                            JSONObject obj = payload2.getJSONObject(i);
+                                            servicespin4.add(obj.getString("payment_method"));
 
 
 
 //                                                Log.v("spinnydata",servicespin3.get(i));
 
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }arrayadapter12.notifyDataSetChanged();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }arrayadapter12.notifyDataSetChanged();
 
-                                        }
-                                        JSONArray payload1 = jobject.getJSONArray("campaign");
-                                        for (int i = 0; i < payload1.length(); i++) {
-                                            try {
-                                                JSONObject obj = payload1.getJSONObject(i);
-                                                servicespin3.add(obj.getString("campaign_name"));
+                                    }
+                                    JSONArray payload1 = jobject.getJSONArray("campaign");
+                                    for (int i = 0; i < payload1.length(); i++) {
+                                        try {
+                                            JSONObject obj = payload1.getJSONObject(i);
+                                            servicespin3.add(obj.getString("campaign_name"));
 
 
 
-                                    Log.v("spinnydata",servicespin3.get(i));
+                                            Log.v("spinnydata",servicespin3.get(i));
 
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }arrayadapter11.notifyDataSetChanged();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }arrayadapter11.notifyDataSetChanged();
 
-                                        }
+                                    }
 
-                                        JSONArray payload = jobject.getJSONArray("services");
-                                        for (int i = 0; i < payload.length(); i++) {
-                                            try {
-                                                JSONObject obj = payload.getJSONObject(i);
-                                                subtotal.setText(obj.getString("sub_total"));
-                                                disco.setText(obj.getString("discount"));
-                                                stax.setText(obj.getString("service_tax"));
-                                                vat.setText(obj.getString("vat"));
-                                                lpoints.setText(obj.getString("points"));
+                                    JSONArray payload = jobject.getJSONArray("services");
+                                    for (int i = 0; i < payload.length(); i++) {
+                                        try {
+                                            JSONObject obj = payload.getJSONObject(i);
+                                            subtotal.setText(obj.getString("sub_total"));
+                                            disco.setText(obj.getString("discount"));
+                                            stax.setText(obj.getString("service_tax"));
+                                            vat.setText(obj.getString("vat"));
+                                            lpoints.setText(obj.getString("points"));
 
 
 //                                    Log.v("logdata",servicespin.get(i));
 
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
                                     }
 
-
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
 
 
                             }
-                            , new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.v("updateUPVolleyErr", error.toString());
+
 
                         }
-                    }) {
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> params1 = new HashMap<String, String>();
+                        , new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.v("updateUPVolleyErr", error.toString());
 
-                            params1.put("payload", params.toString());
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params1 = new HashMap<String, String>();
 
-                            Log.v("sellableParams", params1.toString());
+                        params1.put("payload", params.toString());
 
-                            return params1;
+                        Log.v("sellableParams", params1.toString());
 
-                        }
-                    };
+                        return params1;
 
-                    RequestQueue requestQueue = Volley.newRequestQueue(BillingMain.this);
-                    requestQueue.add(stringRequest);
+                    }
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(BillingMain.this);
+                requestQueue.add(stringRequest);
 
 
 
 
-                }
+            }
 
 
         });
-        r1 = (RadioButton) findViewById(R.id.billradiobtn0);
-        r2 = (RadioButton) findViewById(R.id.billradiobtn01);
-        addbill = (Button) findViewById(R.id.billaddbtn);
+
+
+        arrayadapter = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,stringlist01 );
+
+        arrayadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Discounts.setAdapter(arrayadapter);
+        Discounts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinnerdiscounts = Discounts.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Spinnerdiscounts ="5%";
+
+            }
+        });
+
         addbill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MarketingMain.Helper.setListViewHeightBasedOnItems(billlv);
 
 
 
@@ -459,20 +671,13 @@ public class BillingMain extends AppCompatActivity {
 
                 try {
                     params.put("access_token", value);
-                    params.put("category",Spinnercategory);
-                    params.put("Service",Spinnerservice);
-                    params.put("item",Spinneritems);
                     params.put("stylist",Spinnerstylist);
                     params.put("discounts",Spinnerdiscounts);
-                    params.put("promocode",Spinnerpromocode);
-                    params.put("quantity",Spinnerquantity);
-                    String gender = null;
-                    if(r1.isChecked()){
-                        gender = "male";
-                    }else if (r2.isChecked()){
-                        gender="female";
-                    }
                     params.put("gender",gender);
+                    params.put("category",type);
+                    params.put("quantity",quantity);
+                    params.put("Service",service.getText().toString());
+                    Log.v("checkquan",quantity);
 
 
 
@@ -492,19 +697,19 @@ public class BillingMain extends AppCompatActivity {
                                     JSONObject obj = jobject.getJSONObject("list");
 
 
-                                            com.zalonstyles.app.zalon.Model.billlist service = new com.zalonstyles.app.zalon.Model.billlist();
+                                    com.zalonstyles.app.zalon.Model.billlist service = new com.zalonstyles.app.zalon.Model.billlist();
 
 
 //                                           service.setSno(String.valueOf(counter));
-                                            service.setDescription(String.valueOf(obj.getString("description")));
-                                            service.setStylist(String.valueOf(obj.getString("stylist")));
-                                            service.setQty(String.valueOf(obj.getString("quantity")));
-                                            service.setRate(String.valueOf(obj.getString("rate")));
-                                            service.setAmount(String.valueOf(obj.getString("amount")));
-                                            service.setDiscounts(String.valueOf(obj.getString("discounts")));
+                                    service.setDescription(String.valueOf(obj.getString("description")));
+                                    service.setStylist(String.valueOf(obj.getString("stylist")));
+                                    service.setQty(String.valueOf(obj.getString("quantity")));
+                                    service.setRate(String.valueOf(obj.getString("rate")));
+                                    service.setAmount(String.valueOf(obj.getString("amount")));
+                                    service.setDiscounts(String.valueOf(obj.getString("discounts")));
 
-                                            billList.add(service);
-                                            Log.v("respo111", String.valueOf(billList.get(0)));
+                                    billList.add(service);
+                                    Log.v("respo111", String.valueOf(billList.get(0)));
 
 
 
@@ -543,29 +748,13 @@ public class BillingMain extends AppCompatActivity {
                     }
                 };
                 requestQueue.add(stringRequest);
-                listAdapter = new billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
+                listAdapter = new BillingMain.billArrayAdapter(BillingMain.this,R.layout.custombilling, billList);
                 billlv.setAdapter(listAdapter);
-                MarketingMain.Helper.setListViewHeightBasedOnItems(billlv);
+                listAdapter.notifyDataSetChanged();
 
 
             }
         });
-        r1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                r2.setChecked(false);
-                r1.setChecked(true);
-            }
-        });
-        r2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                r1.setChecked(false);
-                r2.setChecked(true);
-            }
-        });
-
-
 
         SharedPreferences mSharedPreference = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value = (mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
@@ -584,7 +773,7 @@ public class BillingMain extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.v("updateUPVolleyRes1",response);
+                        Log.v("update211",response);
                         JSONObject jobject = null;
                         try {
                             jobject = new JSONObject(response);
@@ -646,221 +835,7 @@ public class BillingMain extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
 
-        arrayadapter1 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,stringlist1 );
 
-        arrayadapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        Category.setAdapter(arrayadapter1);
-        Category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Spinnercategory = Category.getSelectedItem().toString();
-                if(Spinnercategory.equals("Body")){
-
-
-
-                    servicenetworking1(1,"http://zalonstyle.in:8080/billing/get_services");
-                }if(Spinnercategory.equals("Hair")){
-
-                    servicenetworking1(2,"http://zalonstyle.in:8080/billing/get_services");
-
-                }if(Spinnercategory.equals("Nail")){
-
-
-                    servicenetworking1(3,"http://zalonstyle.in:8080/billing/get_services");
-
-                }if(Spinnercategory.equals("Face")){
-
-                    servicenetworking1(4,"http://zalonstyle.in:8080/billing/get_services");
-
-                }if(Spinnercategory.equals("Hair Removal")){
-
-
-                    servicenetworking1(5,"http://zalonstyle.in:8080/billing/get_services");
-
-                }if(Spinnercategory.equals("Massage")){
-
-
-                    servicenetworking1(6,"http://zalonstyle.in:8080/billing/get_services");
-
-                }if(Spinnercategory.equals("Product")){
-
-
-
-                    SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
-                    items.setAdapter(arrayadapter5=new ArrayAdapter<String>(BillingMain.this, android.R.layout.simple_spinner_item, servicespin2));
-                    service.setAdapter(null);
-                    servicespin2.clear();
-                    items.setAdapter(null);
-                    arrayadapter5.notifyDataSetChanged();
-                    String serviceid = "7";
-                    final JSONObject params = new JSONObject();
-                    try {
-                        params.put("service_id",serviceid);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        params.put("access_token", value);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/get_services",
-                            new Response.Listener<String>(){
-
-                                @Override
-                                public void onResponse(String response) {
-
-                                    Log.v("updat011",response);
-                                    JSONObject jobject = null;
-                                    try {
-                                        jobject = new JSONObject(response);
-
-                                        JSONArray payload = jobject.getJSONArray("items");
-                                        for (int i = 0; i < payload.length(); i++) {
-                                            try{
-                                                JSONObject obj = payload.getJSONObject(i);
-                                                servicespin2.add(obj.getString("item_name"));
-                                                 Log.v("logdata11",servicespin2.get(i));
-
-                                            }catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    items.setAdapter(arrayadapter5=new ArrayAdapter<String>(BillingMain.this, android.R.layout.simple_spinner_item, servicespin2));
-                                    arrayadapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                                    items.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                            Spinneritems = items.getSelectedItem().toString();
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> parent) {
-                                            Spinneritems ="";
-
-                                        }
-                                    });
-
-                                }
-
-                            }
-                            , new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.v("updateUPVolleyErr", error.toString());
-
-                        }
-                    }){
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> params1 = new HashMap<String, String>();
-
-                            params1.put("payload", params.toString());
-
-                            Log.v("updateUPVolleyParams6", params1.toString());
-
-                            return params1;
-
-                        }
-                    };
-
-
-                    requestQueue.add(stringRequest);
-
-
-                }
-
-
-
-
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Spinnercategory ="1";
-
-            }
-        });
-        arrayadapter1 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,stringlist );
-
-        arrayadapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        quantity.setAdapter(arrayadapter1);
-        quantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Spinnerquantity = quantity.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Spinnerquantity ="1";
-
-            }
-        });
-        arrayadapter6 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,stringlist01 );
-
-        arrayadapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        Discounts.setAdapter(arrayadapter6);
-        Discounts.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Spinnerdiscounts = Discounts.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Spinnerdiscounts ="5%";
-
-            }
-        });
-        arrayadapter11 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,servicespin3 );
-
-        arrayadapter11.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        promocode.setAdapter(arrayadapter11);
-        promocode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Spinnerpromocode = promocode.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Spinnerpromocode ="";
-
-            }
-        });
-        arrayadapter12 = new ArrayAdapter<String>(BillingMain.this,android.R.layout.simple_spinner_item,servicespin4 );
-
-        arrayadapter12.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        paymentmthd.setAdapter(arrayadapter12);
-        paymentmthd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Spinnerpayment = paymentmthd.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Spinnerpayment ="";
-
-            }
-        });
-//
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -879,11 +854,12 @@ public class BillingMain extends AppCompatActivity {
                 customerName.setText(String.valueOf(name));
                 customerMob.setText(String.valueOf(mob));
                 if(gender.equals("male")){
-                    r1.setChecked(true);
-                    r2.setChecked(false);
+                    male.setBackgroundResource(R.drawable.male1);
+                    female.setBackgroundResource(R.drawable.female);
+
                 }else {
-                    r1.setChecked(false);
-                    r2.setChecked(true);
+                    male.setBackgroundResource(R.drawable.male);
+                    female.setBackgroundResource(R.drawable.female1);
                 }
             }
 
@@ -891,9 +867,32 @@ public class BillingMain extends AppCompatActivity {
 
 
 
-        }
-    }
+        }else if (requestCode==3){
+            if (data != null)
+            {
+                String name=data.getStringExtra("name");
+                String id = data.getStringExtra("id");
+                type = data.getStringExtra("type");
+                service.setText(String.valueOf(name));
 
+                Log.v("checkval",type);
+
+            }
+
+       }
+// else if (requestCode==5){
+//            if (data != null)
+//            {
+//                String eventId=data.getStringExtra("eventid");
+//                service.setText(String.valueOf(eventId));
+//
+//
+//                Log.v("checkval1",eventId);
+//
+//            }
+//
+//        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -916,7 +915,7 @@ public class BillingMain extends AppCompatActivity {
                 Intent intent2 = new Intent(BillingMain.this,MarketingMain.class);
                 startActivity(intent2);
                 return true;
-            case R.id.set:
+            case set:
                 Intent intent3 = new Intent(BillingMain.this,SettingsMain.class);
                 startActivity(intent3);
                 return true;
@@ -941,6 +940,8 @@ public class BillingMain extends AppCompatActivity {
 
         }
     }
+
+
     private static class billArrayAdapter extends ArrayAdapter<com.zalonstyles.app.zalon.Model.billlist>
     {
 
@@ -1079,6 +1080,4 @@ public class BillingMain extends AppCompatActivity {
         }
 
     }
-
 }
-

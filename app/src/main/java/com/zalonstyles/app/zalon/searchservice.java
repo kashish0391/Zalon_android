@@ -1,11 +1,12 @@
 package com.zalonstyles.app.zalon;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -26,7 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.zalonstyles.app.zalon.Model.Customersrch;
+import com.zalonstyles.app.zalon.Model.servicesrch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,34 +38,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
-
 /**
- * Created by KASHISH on 27-09-2016.
+ * Created by KASHISH on 17-11-2016.
  */
-public class Search extends Activity {
+
+public class searchservice extends AppCompatActivity {
     private ListView list;
-  private  ListViewAdapter adapter;
-
-
-    ArrayList<Customersrch> arraylist = new ArrayList<Customersrch>();
+    private ListViewAdapter adapter;
+   private ArrayList<servicesrch> arraylist = new ArrayList<servicesrch>();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search);
-
+        setContentView(R.layout.searchservice);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int)(width*.75),(int)(height*.86));
+        getWindow().setLayout((int)(width*.75),(int)(height*.76));
 
         // Locate the ListView in listview_main.xml
-        list = (ListView) findViewById(R.id.listviewsrch);
-        final SearchView inKey = (SearchView) findViewById(R.id.inkey);
+        list = (ListView) findViewById(R.id.listviewsrchserv);
+       final SearchView inKey = (SearchView) findViewById(R.id.srchserv);
         inKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +77,7 @@ public class Search extends Activity {
             e.printStackTrace();
         }
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/customer/getSalonCustomers",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://zalonstyle.in:8080/billing/getAllServiceProducts",
                 new Response.Listener<String>(){
 
                     @Override
@@ -91,18 +87,17 @@ public class Search extends Activity {
 
                         try {
                             JSONObject jobject = new JSONObject(response);
-                            JSONArray payload = jobject.getJSONArray("customers");
+                            JSONArray payload = jobject.getJSONArray("item");
                             Log.e("payloaddata", String.valueOf(payload));
                             for (int i = 0; i < payload.length(); i++) {
                                 try{
                                     JSONObject obj = payload.getJSONObject(i);
-                                    Customersrch service = new Customersrch();
-                                    service.setMob(obj.getString("mobile"));
-                                    service.setName(obj.getString("name"));
-                                    service.setGender(obj.getString("gender"));
-                                    service.setLoyalty(obj.getString("points"));
+                                    servicesrch service = new servicesrch();
+                                    service.setName(obj.getString("item"));
+                                    service.setId(obj.getString("id"));
+                                    service.setType(obj.getString("type"));
                                     arraylist.add(service);
-                                    Log.e("check2", String.valueOf(arraylist.get(i)));
+//                                    Log.e("check201", String.valueOf(arraylist.get(i)));
 
 
 
@@ -167,7 +162,7 @@ public class Search extends Activity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ListViewAdapter ca = (ListViewAdapter) list.getAdapter();
+               ListViewAdapter ca = (ListViewAdapter) list.getAdapter();
 
                 if (TextUtils.isEmpty(newText)) {
                     System.out.println("isEmpty");
@@ -191,7 +186,7 @@ public class Search extends Activity {
     }
 
 
-        // Locate the EditText in listview_main.xml
+    // Locate the EditText in listview_main.xml
 //        editsearch = (EditText) findViewById(R.id.search);
 //
 //        // Capture Text in EditText
@@ -222,19 +217,19 @@ public class Search extends Activity {
 
 
 
-    private class ListViewAdapter extends BaseAdapter implements Filterable {
+    public class ListViewAdapter extends BaseAdapter implements Filterable {
 
         // Declare Variables
         Context mContext;
         LayoutInflater inflater;
-        private List<Customersrch> customerlist,copyData = null;
-        private ArrayList<Customersrch> arraylist;
+        private List<servicesrch> customerlist,copyData = null;
+        private ArrayList<servicesrch> arraylist;
 
-        public ListViewAdapter(Context context, List<Customersrch> customerlist) {
+        public ListViewAdapter(Context context, List<servicesrch> customerlist) {
             mContext = context;
             this.customerlist = customerlist;
             inflater = LayoutInflater.from(mContext);
-            this.arraylist = new ArrayList<Customersrch>();
+            this.arraylist = new ArrayList<servicesrch>();
             this.arraylist.addAll(customerlist);
             copyData = customerlist;
         }
@@ -242,8 +237,8 @@ public class Search extends Activity {
 
 
         public class ViewHolder {
-            TextView rank;
-            TextView country;
+            TextView name;
+
         }
 
         @Override
@@ -252,7 +247,7 @@ public class Search extends Activity {
         }
 
         @Override
-        public Customersrch getItem(int position) {
+        public servicesrch getItem(int position) {
             return customerlist.get(position);
         }
 
@@ -262,43 +257,40 @@ public class Search extends Activity {
         }
 
         public View getView(final int position, View view, ViewGroup parent) {
-            final ViewHolder holder;
+            final ListViewAdapter.ViewHolder holder;
             if (view == null) {
-                holder = new ViewHolder();
-                view = inflater.inflate(R.layout.customsrch, null);
+                holder = new ListViewAdapter.ViewHolder();
+                view = inflater.inflate(R.layout.customservsrch, null);
                 // Locate the TextViews in listview_item.xml
-                holder.rank = (TextView) view.findViewById(R.id.tvsrchname);
-                holder.country = (TextView) view.findViewById(R.id.tvsrchmob);
+                holder.name = (TextView) view.findViewById(R.id.rowTextView);
                 view.setTag(holder);
             } else {
-                holder = (ViewHolder) view.getTag();
+                holder = (ListViewAdapter.ViewHolder) view.getTag();
             }
             // Set the results into TextViews
-            holder.rank.setText(customerlist.get(position).getName());
-            holder.country.setText(customerlist.get(position).getMob());
+            holder.name.setText(customerlist.get(position).getName());
 
             // Listen for ListView Item Click
             view.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
-                    // Send single item click data to SingleItemView Class
-                    Intent intent = new Intent(mContext, BillingMain.class);
-                    // Pass all data rank
+                    Intent intent = new Intent(mContext, Billing.class);
+                    // Pass all data name
                     intent.putExtra("name",(customerlist.get(position).getName()));
-                    // Pass all data country
-                    intent.putExtra("mob",(customerlist.get(position).getMob()));
-                    // Pass all data population
-                    intent.putExtra("gender",(customerlist.get(position).getGender()));
-                   intent.putExtra("points",(customerlist.get(position).getLoyalty()));
+
+                    intent.putExtra("id",(customerlist.get(position).getId()));
+
+                    intent.putExtra("type",(customerlist.get(position).getType()));
 
 
-                    // Pass all data flag
+
                     // Start SingleItemView Class
-                    setResult(2,intent);
+                    setResult(3,intent);
                     finish();
                 }
             });
+
 
             return view;
         }
@@ -306,7 +298,7 @@ public class Search extends Activity {
         @Override
         public Filter getFilter() {
             if(null == myFilter) {
-                myFilter = new MyFilter() ;
+                myFilter = new ListViewAdapter.MyFilter() ;
             }
             return myFilter ;
         }
@@ -314,14 +306,13 @@ public class Search extends Activity {
         class MyFilter extends Filter{
 
             protected FilterResults performFiltering(CharSequence constraint) {
-                List<Customersrch> filterData = new ArrayList<Customersrch>() ;
+                List<servicesrch> filterData = new ArrayList<servicesrch>() ;
 
                 if(constraint != null && constraint.toString().trim().length() > 0) {
                     String key = constraint.toString().trim().toLowerCase() ;
-                    for (Customersrch item : copyData) {
-                        if(item.getMob()
-                        .toString().toLowerCase().indexOf(key) != -1 || item.getName()
-                                .toString().toLowerCase().indexOf(key) != -1) {
+                    for (servicesrch item : copyData) {
+                        if(item.getName()
+                                .toString().toLowerCase().indexOf(key) != -1 ) {
                             filterData.add(item) ;
                         }
                     }
@@ -339,7 +330,7 @@ public class Search extends Activity {
             protected void publishResults(CharSequence constraint,
                                           FilterResults results) {
 
-                customerlist = (List<Customersrch>) results.values ;
+                customerlist = (List<servicesrch>) results.values ;
                 if(results.count > 0) {
                     notifyDataSetChanged() ;
                 }
@@ -375,5 +366,6 @@ public class Search extends Activity {
 
 
 }
+
 
 

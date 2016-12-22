@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="450dp"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Bill No"
+                    android:textColor="#000"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/billno"
+                    android:layout_width="75dp"
+                    android:textColor="#000"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp" />
+
+                <TextView
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:text="Date"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/billdate"
+                    android:layout_width="80dp"
+                    android:textColor="#000"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/billname"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:hint="Customer Name" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/billmob"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:hint="Customer Mobile" />
+            <Button
+                android:layout_width="30dp"
+                android:id="@+id/btnsrch"
+                android:layout_marginLeft="10dp"
+                android:layout_height="35dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/billserv"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:hint="Service" />
+            <Button
+                android:layout_width="30dp"
+                android:id="@+id/btnsrchserv"
+                android:layout_marginLeft="10dp"
+                android:layout_height="35dp" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billdiscounts"
+                android:layout_marginLeft="10dp"
+              />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:layout_width="200dp"
+                android:id="@+id/billstylist"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_marginLeft="40dp"
+                android:id="@+id/billimagemale"
+                android:background="@drawable/male"
+                android:checked="true"
+                android:layout_height="50dp" />
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/female"
+                android:id="@+id/billimagefemale"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/billquan1"
+                android:background="@drawable/one"
+                android:checked="true"
+                android:layout_height="40dp" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/two"
+                android:id="@+id/billquan2"
+                android:layout_height="40dp" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/billquan3"
+                android:background="@drawable/three"
+                android:checked="true"
+                android:layout_height="40dp" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/four"
+                android:id="@+id/billquan4"
+                android:layout_height="40dp" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/billquan5"
+                android:background="@drawable/five"
+                android:checked="true"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_marginLeft="10dp"
+                android:text="Loyalty Points"
+                android:textColor="#000000"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_marginLeft="120dp"
+                android:text=""
+                android:id="@+id/txtloyalty"
+                android:textColor="#000000"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/chkbill"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:gravity="bottom"
+            android:layout_height="fill_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:text="Add"
+                android:id="@+id/billaddbill"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="2dp"
+        android:background="#dad8d8"
+        android:layout_height="match_parent"></View>
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:layout_width="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="S.No"
+            android:id="@+id/custombilltv"
+            android:textColor="#000"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_margin="10dp"
+            android:text="Description"
+            android:id="@+id/custombilltv1"
+            android:textColor="#000"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="80dp"
+            android:layout_margin="10dp"
+            android:id="@+id/custombilltv2"
+            android:text="Stylist"
+            android:textColor="#000"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="40dp"
+            android:layout_margin="10dp"
+            android:text="Qty"
+            android:id="@+id/custombilltv3"
+            android:textColor="#000"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_margin="10dp"
+            android:text="Rate"
+            android:id="@+id/custombilltv4"
+            android:textColor="#000"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_margin="10dp"
+            android:id="@+id/custombilltv5"
+            android:text="Amount"
+            android:textColor="#000"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:layout_width="match_parent"
+                android:id="@+id/billlv"
+                android:layout_height="220dp">
+
+            </ListView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:text="generate bill"
+                android:id="@+id/billgen"
+                android:background="@drawable/button_bg_rounded_corners"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billpromo"
+                />
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/billpayment"
+                android:layout_marginLeft="55dp" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:text="Narration"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="60dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:text="S Total"
+                android:layout_height="35dp" />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:text="Discount"
+                android:layout_height="35dp" />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:text="Service Tax"
+                android:layout_height="35dp" />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="Vat"
+                android:textColor="#000"
+                android:layout_height="35dp" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="L Disc"
+                android:textColor="#000"
+                android:layout_height="35dp" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="Total"
+                android:textColor="#000"
+                android:layout_height="35dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="60dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:id="@+id/tax"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:id="@+id/tax1"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:id="@+id/tax2"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:id="@+id/tax3"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:id="@+id/tax5"
+                android:textColor="#000"
+                android:layout_height="25dp" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:textColor="#000"
+                android:id="@+id/tax4"
+                android:layout_height="25dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:text="print Bill"
+                android:id="@+id/printbill"
+                android:background="@drawable/button_bg_rounded_corners"
+
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
+

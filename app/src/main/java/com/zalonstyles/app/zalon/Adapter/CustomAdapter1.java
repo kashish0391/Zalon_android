@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zalonstyles.app.zalon.BillingMain;
+import com.zalonstyles.app.zalon.Billing;
 import com.zalonstyles.app.zalon.Customers;
 import com.zalonstyles.app.zalon.R;
 
@@ -75,7 +75,7 @@ public class CustomAdapter1 extends BaseAdapter {
                 }
 
                 if (position == 1) {
-                    v.getContext().startActivity(new Intent(context, BillingMain.class));
+                    v.getContext().startActivity(new Intent(context, Billing.class));
 
                 }
             }

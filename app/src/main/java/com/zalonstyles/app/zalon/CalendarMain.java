@@ -4,15 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 /**
@@ -20,12 +22,19 @@ import android.webkit.WebView;
  */
 public class CalendarMain extends AppCompatActivity {
     private WebView webView;
+    private Bundle webViewBundle;
     @SuppressLint("JavascriptInterface")
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_main);
         webView = (WebView) findViewById(R.id.webview);
+        ConnectivityManager cm =
+                (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
         SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
         webView.getSettings().setJavaScriptEnabled(true);
@@ -34,7 +43,21 @@ public class CalendarMain extends AppCompatActivity {
        webView.setWebChromeClient(new WebChromeClient());
         webView.getSettings().setLoadsImagesAutomatically(true);
 //        webView.clearCache(true);
-        webView.loadUrl("file:///android_asset/calendar/index.html"+"?access_token="+value);
+
+        if(isConnected){
+            if (webViewBundle == null) {
+                webView.loadUrl("file:///android_asset/calendar/index.html"+"?access_token="+value);
+                webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+
+            } else {
+
+            }
+        }else {
+            webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+
+            webView.restoreState(webViewBundle);
+        }
+//        webView.loadUrl("file:///android_asset/calendar/index.html"+"?access_token="+value);
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
 
         Log.v("testweb","http://zalonstyle.in/calendar-new/index.html"+"?access_token="+value);
@@ -54,14 +77,20 @@ public class CalendarMain extends AppCompatActivity {
         }
 
         @JavascriptInterface
-        public void moveToNextScreen(int test) {
+        public void moveToNextScreen(String test) {
         Log.v("test11", String.valueOf(test));
             Intent chnIntent = new Intent(CalendarMain.this, BillingMain.class);
+            chnIntent.putExtra("eventid",test);
             startActivity(chnIntent);
 
         }
     }
+    @Override public void onPause() {
+        super.onPause();
 
+        webViewBundle = new Bundle();
+        webView.saveState(webViewBundle);
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState)

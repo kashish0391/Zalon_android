@@ -69,7 +69,7 @@ public class ReportMain extends AppCompatActivity implements View.OnClickListene
         barChart =(BarChart) findViewById(R.id.barchart);
         spinny = (Spinner)findViewById(R.id.spinnyreports);
         stringlist = new ArrayList<>();
-        stringlist.add("Select");
+//        stringlist.add("Daily");
         sale = (Button) findViewById(R.id.reportsale);
         client = (Button) findViewById(R.id.reportclient);
         product = (Button) findViewById(R.id.reportproduct);
@@ -98,7 +98,7 @@ public class ReportMain extends AppCompatActivity implements View.OnClickListene
         final String value=(mSharedPreference.getString("AppConstant.AUTH_TOKEN", "DEFAULT"));
         try {
             params.put("access_token", value);
-            params.put("sales",spinnerValue);
+            params.put("sales","Monthly");
             params.put("type",ide);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -113,6 +113,8 @@ public class ReportMain extends AppCompatActivity implements View.OnClickListene
                         Log.v("updateUPVolleyRes1",response);
                         theDates.clear();
                         barEntries.clear();
+                        stringlist.clear();
+                        arrayadapter.notifyDataSetChanged();
 
                         try {
                             JSONObject jobject = new JSONObject(response);
@@ -216,7 +218,6 @@ public class ReportMain extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinnerValue = spinny.getSelectedItem().toString();
-
                 theDates.clear();
                 barEntries.clear();
                 final JSONObject params = new JSONObject();
@@ -494,15 +495,22 @@ public class ReportMain extends AppCompatActivity implements View.OnClickListene
         switch (v.getId()) {
 
             case R.id.reportsale:
-//                stringlist.clear();
+                stringlist.clear();
+                arrayadapter.notifyDataSetChanged();
+//                spinny.setAdapter(null);
+
 
                 reportnetworking1("Monthly","http://zalonstyle.in:8080/stats/sales",1);
                 ide = 1;
 //                stringlist.add("Select");
-//                arrayadapter.notifyDataSetChanged();
 
                 break;
             case R.id.reportclient:
+                stringlist.clear();
+//                spinny.setAdapter(null);
+
+                arrayadapter.notifyDataSetChanged();
+
 
                 reportnetworking1("Monthly Visits","http://zalonstyle.in:8080/stats/sales",2);
                 ide =2;
@@ -510,16 +518,26 @@ public class ReportMain extends AppCompatActivity implements View.OnClickListene
 
                 break;
             case R.id.reportproduct:
+                stringlist.clear();
+//                spinny.setAdapter(null);
+                arrayadapter.notifyDataSetChanged();
                 reportnetworking1("Top Suppliers","http://zalonstyle.in:8080/stats/sales",3);
                 ide =3;
 
 
                 break;
             case R.id.reportservice:
+                stringlist.clear();
+//                spinny.setAdapter(null);
+
+                arrayadapter.notifyDataSetChanged();
                 reportnetworking1("Body","http://zalonstyle.in:8080/stats/sales",4);
                 ide =4;
                 break;
             case R.id.reportemployee:
+                stringlist.clear();
+                arrayadapter.notifyDataSetChanged();
+//                spinny.setAdapter(null);
                 reportnetworking1("Performance","http://zalonstyle.in:8080/stats/sales",5);
                 ide =5;
                 break;

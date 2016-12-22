@@ -336,6 +336,7 @@ public class Edit_Employee extends AppCompatActivity {
                 JSONObject jo = new JSONObject();
                 try {
                     jo.put("category_name", massage.getName());
+                    Log.v("staff",massage.getName());
                     jo.put("category_id",massage.getCategoryid());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -403,7 +404,7 @@ public class Edit_Employee extends AppCompatActivity {
 
                 params1.put("payload", params.toString());
 
-                Log.v("sellableParams", params1.toString());
+                Log.v("statusemp", params1.toString());
 
                 return params1;
 
@@ -487,6 +488,8 @@ public class Edit_Employee extends AppCompatActivity {
 
             // Display Service data
             if(nail.getStatus().equals("true")){
+                editemp nail1 = (editemp) checkBox.getTag();
+                nail1.setChecked(checkBox.isChecked());
                 checkBox.setChecked(true);
                 textView.setText(nail.getName());
             }else {

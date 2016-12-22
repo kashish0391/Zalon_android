@@ -3,31 +3,30 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-    android:layout_width="50dp"
-        android:layout_marginLeft="170dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="40dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="S.No"
         android:id="@+id/custombilltv"
-    android:textColor="#000"
-    android:layout_height="wrap_content" />
+        android:textColor="#000"
+        android:layout_height="wrap_content" />
     <TextView
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_margin="10dp"
         android:text="Description"
         android:id="@+id/custombilltv1"
         android:textColor="#000"
         android:layout_height="wrap_content" />
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_margin="10dp"
         android:id="@+id/custombilltv2"
         android:text="Stylist"
         android:textColor="#000"
         android:layout_height="wrap_content" />
     <TextView
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_margin="10dp"
         android:text="Qty"
         android:id="@+id/custombilltv3"
@@ -49,9 +48,10 @@
         android:layout_height="wrap_content" />
     <Button
         android:layout_width="20dp"
-        android:layout_marginLeft="90dp"
+        android:layout_marginLeft="14dp"
         android:id="@+id/custombillbtn"
         android:layout_marginTop="10dp"
+        android:background="@drawable/close"
         android:layout_height="30dp" />
 
 </LinearLayout>

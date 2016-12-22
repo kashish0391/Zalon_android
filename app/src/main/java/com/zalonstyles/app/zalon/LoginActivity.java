@@ -29,10 +29,8 @@ import java.util.Map;
 import static com.android.volley.Request.Method;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView create;
     public static final String LOGIN_URL = "http://zalonstyle.in:8080/salon/login";
-
-
+    TextView create;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private SharedPreferences preferences;
@@ -41,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private String username;
     private String password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,88 +49,88 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPassword = (EditText) findViewById(R.id.editTextpassword);
 
 
-
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
 
-        buttonLogin.setOnClickListener(this);}
-        private void userLogin() throws JSONException {
-            username = editTextUsername.getText().toString().trim();
-            password = editTextPassword.getText().toString().trim();
-            final JSONObject params = new JSONObject();
-            params.put("username",username);
-            params.put("password",password);
-            StringRequest stringRequest = new StringRequest(Method.POST, LOGIN_URL,
-                    new Response.Listener<String>(){
+        buttonLogin.setOnClickListener(this);
+    }
 
-                        @Override
-                        public void onResponse(String response) {
+    private void userLogin() throws JSONException {
+        username = editTextUsername.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
+        final JSONObject params = new JSONObject();
+        params.put("username", username);
+        params.put("password", password);
+        StringRequest stringRequest = new StringRequest(Method.POST, LOGIN_URL,
+                new Response.Listener<String>() {
 
-                            try {
-                                JSONObject jobject = new JSONObject(response);
-                                Log.e("Response1111111..", jobject.toString());
-                                    Log.v("updateUPVolleyRes",response);
-                                String strSuccess = jobject.getString("status");
-                                Log.v("statusresponse",strSuccess);
-                              JSONObject payload = jobject.getJSONObject("payload");
-                                 String accesstoken = payload.getString("access_token");
-                                Log.v("atoken",accesstoken);
-                                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putString("AppConstant.AUTH_TOKEN", accesstoken);
-                                editor.commit();
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jobject = new JSONObject(response);
+                            Log.e("Response1111111..", jobject.toString());
+                            Log.v("updateUPVolleyRes", response);
+                            String strSuccess = jobject.getString("status");
+                            Log.v("statusresponse", strSuccess);
+                            JSONObject payload = jobject.getJSONObject("payload");
+                            String accesstoken = payload.getString("access_token");
+                            Log.v("atoken", accesstoken);
+                            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("AppConstant.AUTH_TOKEN", accesstoken);
+                            editor.commit();
 
 
-                                if (new JSONObject(response).getString("status").equals("success")) {
-                                        Intent intent = new Intent(LoginActivity.this,Services_activity.class);
-                                        startActivity(intent);
+                            if (new JSONObject(response).getString("status").equals("success")) {
+                                Intent intent = new Intent(LoginActivity.this, Services_activity.class);
+                                startActivity(intent);
 
-                                Toast.makeText(getApplicationContext(), " Successful", Toast.LENGTH_LONG).show();
-                                        Log.v("statusresponse",strSuccess);
+                                Toast.makeText(getApplicationContext(), " Successful", Toast.LENGTH_SHORT).show();
+                                Log.v("statusresponse", strSuccess);
 
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), " WrongPassword", Toast.LENGTH_SHORT).show();
 
                             }
-                                    else{
-                                        Toast.makeText(getApplicationContext(), " WrongPassword", Toast.LENGTH_LONG).show();
-
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
-                        }
-                    , new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.v("updateUPVolleyErr", error.toString());
+                    }
 
                 }
-            }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params1 = new HashMap<String, String>();
+                , new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("updateUPVolleyErr", error.toString());
 
-                    params1.put("payload", params.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params1 = new HashMap<String, String>();
 
-                    Log.v("updateUPVolleyParams", params1.toString());
+                params1.put("payload", params.toString());
 
-                    return params1;
+                Log.v("updateUPVolleyParams", params1.toString());
 
-                }
-            };
+                return params1;
 
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
+            }
+        };
 
-        }
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
 
-
-
-    public void forgotpassword(View view){
-        Intent intent = new Intent(LoginActivity.this,forgotPassword.class);
-         startActivity(intent);
     }
+
+
+    public void forgotpassword(View view) {
+        Intent intent = new Intent(LoginActivity.this, forgotPassword.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         try {
@@ -141,5 +140,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    }
+}
 

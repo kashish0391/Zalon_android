@@ -68,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="330dp"
                 android:hint="Customer Mobile" />
-
             <Button
                 android:layout_width="30dp"
                 android:id="@+id/btnsrch"

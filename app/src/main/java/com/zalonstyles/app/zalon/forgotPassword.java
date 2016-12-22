@@ -110,7 +110,7 @@ private EditText username;
             e.printStackTrace();
         }
     }
-};
+}
 
 
 
